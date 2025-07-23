@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+
+  --color-primary-beige: "#f1e7dd"
+  --color-primary-nude: "E3BC9A"
+    --color-primary-gold: "#FFD700"
+
+
+}
