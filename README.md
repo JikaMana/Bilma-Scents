@@ -1,12 +1,38 @@
-# React + Vite
+# 🌸 Bilma Scent — Elegant Perfume E-Commerce Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bilma Scent is a modern and visually refined online perfume store built using **React.js** and **Tailwind CSS**. It focuses on smooth animations, responsive design, and clean presentation to enhance the fragrance shopping experience.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🖼️ Animated hero and product sections
+- 🛒 Featured perfume deals with elegant product cards
+- 📄 Interactive FAQ and contact pages
+- 🔗 Smooth navigation with `react-router`
+- 🎨 Designer-style UI using Tailwind CSS utility classes
+- 💬 Custom "Let’s Chat" page with animated background
+- 🧼 Clean code structure with reusable components
 
-## Expanding the ESLint configuration
+## 🚀 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend:** React.js, Tailwind CSS
+- **Routing:** React Router
+- **Animation:** Framer Motion (for fade-in / scroll animations)
+- **Icons & Assets:** Custom perfume images and font integration
+
+## 🧱 Project Structure
+
+src/
+│
+├── assets/ # Images and static files
+├── components/ # Reusable UI components (Hero, Footer, CustomItem, etc.)
+├── constants/ # Static data (like perfumes array, FAQs, etc.)
+├── pages/ # Route-level pages (Home, Contact, FAQ, Store, etc.)
+├── App.jsx # Main application file
+└── index.js # Entry point
+
+## 📌 Future Enhancements
+🧾 Full shopping cart system with checkout
+🗃️ Backend integration (Node.js / Firebase / Appwrite)
+🌐 SEO optimization and deployment (Vercel / Netlify)
+🔐 Auth system for login and user profiles
+🧪 Unit and integration testing
