@@ -1,28 +1,33 @@
 import React from "react";
 import testPerfume from "../assets/images/perfumes/parfum.webp";
 import { Link } from "react-router";
+import CustomItem from "./CustomItem";
 
 const FeatureFragrance = () => {
   const perfume = [
     {
+      id: 1,
       image: testPerfume,
       name: "Meadow",
       flavour: "BREEXY & JOYFUL",
       price: "N35,000",
     },
     {
+      id: 2,
       image: testPerfume,
       name: "Meadow",
       flavour: "BREEXY & JOYFUL",
       price: "N35,000",
     },
     {
+      id: 3,
       image: testPerfume,
       name: "Meadow",
       flavour: "BREEXY & JOYFUL",
       price: "N35,000",
     },
     {
+      id: 4,
       image: testPerfume,
       name: "Meadow",
       flavour: "BREEXY & JOYFUL",
@@ -38,34 +43,8 @@ const FeatureFragrance = () => {
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-          {perfume.map((item, index) => (
-            <Link
-              to="#"
-              key={index}
-              className="bg-white rounded-xl shadow-md overflow-hidden"
-            >
-              <div className="h-64 w-full">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-full object-contain bg-[#E3BC9A]"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-semibold font-manrope">
-                  {item.name}
-                </h3>
-                <p className="text-sm text-gray-600 font-merriweather">
-                  {item.flavour}
-                </p>
-                <div className="mt-4 flex items-center justify-between">
-                  <p className="text-black font-bold">{item.price}</p>
-                  <button className="bg-[#E3BC9A] text-white text-sm px-4 py-2 rounded hover:bg-[#f1e7dd] cursor-pointer transition duration-300">
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </Link>
+          {perfume.map((item) => (
+            <CustomItem item={item} />
           ))}
         </div>
       </div>
