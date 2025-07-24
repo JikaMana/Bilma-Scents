@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Heart, Menu, ShoppingBag, X } from "lucide-react";
+import { Heart, Menu, ShoppingBag, User, X } from "lucide-react";
 import bilmaLogo from "../assets/images/bilma-scents-logo.png";
 import { motion } from "framer-motion";
 import CartIcon from "./CartIcon";
@@ -71,10 +71,11 @@ const Navbar = () => {
           <Link to="/wishlist" className="text-xl">
             <Heart size={32} />
           </Link>
-          {/* <Link to="/cart" className="text-xl">
-            <ShoppingBag />
-          </Link> */}
+
           <CartIcon />
+          <Link to="/login" className="text-xl">
+            <User size={32} />
+          </Link>
         </div>
       </div>
 

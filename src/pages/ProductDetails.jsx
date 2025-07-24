@@ -3,7 +3,8 @@ import { useParams } from "react-router";
 import storeBanner from "../assets/images/background/storeBanner.webp";
 import { perfumes } from "../constants";
 import ProductNotFound from "../components/ProductNotFound";
-import { ShoppingBag } from "lucide-react";
+import { Heart, ShoppingBag } from "lucide-react";
+import Button from "../components/Button";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -35,9 +36,20 @@ const ProductDetails = () => {
           </div>
 
           <div className="flex flex-col justify-center space-y-4">
-            <h2 className="text-3xl font-semibold font-display italic">
-              {item.name}
-            </h2>
+            <div className="flex  items-center justify-between ">
+              <h2 className="text-3xl font-semibold font-display italic">
+                {item.name}
+              </h2>
+              <p
+                className={`text-base font-semibold w-max whitespace-nowrap py-1 px-2 rounded-full border-2  ${
+                  item.inStock
+                    ? "text-green-700 border-green-700"
+                    : "text-red-600  border-red-600"
+                }`}
+              >
+                {item.inStock ? "• In Stock" : "• Out of Stock"}
+              </p>
+            </div>
             <div className="flex  items-center justify-between ">
               <p className="text-xl font-bold font-manrope italic">
                 ₦{item.price}
@@ -53,20 +65,9 @@ const ProductDetails = () => {
               <p className="text-base font-semibold">Flavour: {item.flavour}</p>
             </div>
             <div className="flex gap-2 items-center mt-4 mb-8">
-              <p
-                className={`text-base font-semibold w-max whitespace-nowrap py-1 px-2 rounded-full border-2  ${
-                  item.inStock
-                    ? "text-green-700 border-green-700"
-                    : "text-red-600  border-red-600"
-                }`}
-              >
-                {item.inStock ? "• In Stock" : "• Out of Stock"}
-              </p>
-              <button
+              <Button
                 disabled={!item.inStock}
-                className={`px-6 py-2 rounded-full bg-[#9c6a24] text-white hover:bg-[#E3BC9A] font-semibold w-full cursor-pointer transition  ${
-                  !item.inStock && "cursor-not-allowed"
-                }`}
+                style={` ${!item.inStock && "cursor-not-allowed"}`}
               >
                 {item.inStock ? (
                   <div className="flex justify-center gap-2">
@@ -76,7 +77,12 @@ const ProductDetails = () => {
                 ) : (
                   "Unavailable"
                 )}
-              </button>
+              </Button>
+              <Button>
+                <div className="flex justify-center gap-2">
+                  <Heart /> Add to Wishlist
+                </div>
+              </Button>
             </div>
             <p>{item.description || "No description provided."}</p>
           </div>

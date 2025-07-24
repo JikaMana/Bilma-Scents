@@ -5,7 +5,7 @@ import Store from "./pages/Store";
 import ProductDetails from "./pages/ProductDetails";
 import NotFound from "./pages/NotFound";
 import Contact from "./pages/Contact";
-// import Cart from "./pages/Cart";
+import CartPage from "./pages/Cart";
 
 const router = createBrowserRouter([
   {
@@ -16,9 +16,9 @@ const router = createBrowserRouter([
       { path: "store", element: <Store /> },
       { path: "store/:id", element: <ProductDetails /> },
       { path: "contact", element: <Contact /> },
-      // { path: "cart", element: <Cart /> },
+      { path: "cart", element: <CartPage /> },
+      // { path: "checkout", element: <Checkout /> },
       // { path: "wishlist", element: <Wishlist /> },
-
       // { path: "admin", element: <Admin /> },
     ],
   },

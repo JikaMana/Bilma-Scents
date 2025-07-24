@@ -20,7 +20,7 @@ const Hero = () => {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.3, duration: 1, type: "spring" }}
-        className="text-4xl md:text-6xl xl:text-7xl font-bold font-display italic mb-6 max-w-xl"
+        className="text-4xl md:text-6xl xl:text-7xl font-bold font-display italic mb-12 max-w-xl"
       >
         Elevate everyday moments to extraordinary.
       </motion.h1>
