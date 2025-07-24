@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { brands, categories, priceRanges, ratings } from "../constants/filter";
-import { PanelLeftClose } from "lucide-react";
+import {
+  brands,
+  categories,
+  priceRanges,
+  availability,
+} from "../constants/filter";
 
 const ProductFilters = ({ perfumes }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -8,12 +12,11 @@ const ProductFilters = ({ perfumes }) => {
   const [availability, setAvailability] = useState("");
   const [boxed, setBoxed] = useState("");
   const [price, setPrice] = useState("");
-  const [rating, setRating] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
-      <PanelLeftClose className="float-right mr-8" />
+    <div className="hidden md:block">
+      {/* hidden to hide the full sidebar  */}
+      {/* <PanelLeftClose className=" float-right mr-8" /> */}
 
       <aside className="w-64 hidden md:block space-y-6">
         {/* Category Filter */}
@@ -115,24 +118,6 @@ const ProductFilters = ({ perfumes }) => {
             </div>
           ))}
         </div> */}
-
-        {/* Rating Filter */}
-        <div>
-          <h3 className="font-bold mb-2">Rating</h3>
-          {ratings.map((r) => (
-            <label key={r} className="block">
-              <input
-                type="radio"
-                name="rating"
-                value={r}
-                checked={rating == r}
-                onChange={() => setRating(r)}
-                className="mr-2"
-              />
-              {r}★ & up
-            </label>
-          ))}
-        </div>
       </aside>
     </div>
   );

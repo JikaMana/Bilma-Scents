@@ -27,14 +27,14 @@ const Navbar = () => {
         </button>
         {/* Left Links */}
         <div className="hidden sm:flex gap-6 items-center text-sm font-semibold uppercase">
+          <Link to="/" className="hover:text-[#E3BC9A] transition">
+            Home
+          </Link>
           <Link
             to="/shop"
             className="hover:text-[#E3BC9A] transition text-primary"
           >
             Shop
-          </Link>
-          <Link to="/about" className="hover:text-[#E3BC9A] transition">
-            About
           </Link>
         </div>
 
@@ -45,6 +45,9 @@ const Navbar = () => {
 
         {/* Right Links */}
         <div className="flex gap-6 items-center text-sm font-semibold uppercase">
+          <Link to="/about" className="hover:text-[#E3BC9A] transition">
+            About
+          </Link>
           <Link
             to="/contact"
             className="hidden sm:block hover:text-[#E3BC9A] transition"

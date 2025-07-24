@@ -1,12 +1,13 @@
 import React, { Fragment } from "react";
 import Hero from "../components/Hero";
-import FeatureFragrance from "../components/FeatureFragrance";
+import CustomPerfumeDeal from "../components/CustomPerfumeDeal";
 
 const Home = () => {
   return (
     <Fragment>
       <Hero />
-      <FeatureFragrance />
+      <CustomPerfumeDeal title="Featured Fragrance" />
+      <CustomPerfumeDeal title="Discount Offers" />
     </Fragment>
   );
 };

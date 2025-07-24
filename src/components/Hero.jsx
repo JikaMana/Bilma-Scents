@@ -18,7 +18,7 @@ const Hero = () => {
       <Link
         // to="/shop"
         to="#"
-        className="bg-white text-black px-6 py-3 rounded-full font-semibold font-manrope hover:bg-opacity-90 transition"
+        className="bg-white text-[#9c6a24] px-6 py-3 rounded-full font-semibold font-manrope hover:bg-opacity-90 transition"
       >
         SHOP OUR FRAGRANCES
       </Link>

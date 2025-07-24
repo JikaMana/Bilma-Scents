@@ -25,7 +25,6 @@ export const brands = [
 ];
 
 // 📦 Packaging Types
-export const boxTypes = ["Boxed", "Unboxed", "Travel Size", "Tester"];
 
 // 📊 Availability Status
 export const availability = ["In Stock", "Out of Stock"];
@@ -37,6 +36,3 @@ export const priceRanges = [
   { label: "₦10,000 - ₦20,000", value: [10000, 20000] },
   { label: "Above ₦20,000", value: [20000, Infinity] },
 ];
-
-// ⭐ Product Ratings
-export const ratings = [5, 4, 3, 2, 1];
