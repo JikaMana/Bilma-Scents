@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const CustomItem = ({ item }) => {
   return (
     <Link
-      to={`/shop/${item.id}`}
+      to={`/store/${item.id}`}
       key={item.id}
       className="bg-white rounded-xl shadow-md overflow-hidden w-full min-w-[13rem]"
     >

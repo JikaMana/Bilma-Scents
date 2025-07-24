@@ -4,11 +4,11 @@ import { perfumes } from "../constants";
 import CustomItem from "../components/CustomItem";
 import { useLocation } from "react-router";
 import ProductFilters from "../components/ProductFilters";
-import ReactPaginate from "react-paginate";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const PER_PAGE = 8;
 
-const Shop = () => {
+const store = () => {
   const location = useLocation();
 
   return (
@@ -38,15 +38,19 @@ const Shop = () => {
 
             <div className="grid grid-cols-[repeat(auto-fit,_minmax(210px,_1fr))] gap-8 w-full">
               {perfumes.slice(0, PER_PAGE).map((item) => (
-                <CustomItem item={item} />
+                <CustomItem item={item} key={item.id} />
               ))}
             </div>
           </main>
           <div className="flex gap-2 mt-8 justify-center">
-            <button className="px-4 py-2 bg-[#9c6a24]">Previous</button>
+            <button className="px-4 py-2 bg-[#9c6a24]">
+              <ArrowLeft />
+            </button>
             <button className="px-4 py-2 bg-[#9c6a24]">1</button>
             <button className="px-4 py-2 bg-[#9c6a24]">2</button>
-            <button className="px-4 py-2 bg-[#9c6a24]">Next</button>
+            <button className="px-4 py-2 bg-[#9c6a24]">
+              <ArrowRight />
+            </button>
           </div>
         </div>
       </section>
@@ -54,4 +58,4 @@ const Shop = () => {
   );
 };
 
-export default Shop;
+export default store;

@@ -16,8 +16,7 @@ const Hero = () => {
         Elevate everyday moments to extraordinary.
       </h1>
       <Link
-        // to="/shop"
-        to="#"
+        to="/store"
         className="bg-white text-[#9c6a24] px-6 py-3 rounded-full font-semibold font-manrope hover:bg-opacity-90 transition"
       >
         SHOP OUR FRAGRANCES

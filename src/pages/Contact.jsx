@@ -24,28 +24,28 @@ const Contact = () => {
           {/* Contact Form */}
           <form className="w-full flex flex-col items-center">
             <div className="space-y-4 mb-4 w-full">
-              <div className="flex gap-4">
+              <div className="flex flex-col md:flex-row gap-4">
                 <input
                   type="text"
                   placeholder="Name"
-                  className="flex-1/2 w-full border rounded-lg px-4 py-2 mt-1  focus:outline-none focus:ring focus:border-black"
+                  className="flex-1/2 w-full border rounded-lg px-4 py-4 mt-1  focus:outline-none focus:ring focus:border-black"
                 />
                 <input
                   type="email"
                   placeholder="Email"
-                  className="flex-1/2 w-full border rounded-lg px-4 py-2 mt-1  focus:outline-none focus:ring focus:border-black"
+                  className="flex-1/2 w-full border rounded-lg px-4 py-4 mt-1  focus:outline-none focus:ring focus:border-black"
                 />
               </div>
 
               <textarea
                 rows="5"
                 placeholder="How can we help you?"
-                className="w-full border rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring focus:border-black"
+                className="w-full border rounded-lg px-4 py-4 mt-1 focus:outline-none focus:ring focus:border-black"
               ></textarea>
             </div>
             <button
               type="submit"
-              className="bg-[#9c6a24] text-white px-8 py-2 rounded-full hover:bg-[#E3BC9A] transition duration-200"
+              className="bg-[#9c6a24] text-white px-8 py-4 rounded-full hover:bg-[#E3BC9A] transition duration-200"
             >
               Send Message
             </button>
@@ -59,7 +59,7 @@ const Contact = () => {
                 <div>
                   <h4 className="text-lg font-semibold">Our Office</h4>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    Police Housing Esate, Oyigbo
+                    Housing Esate, Oyigbo
                     <br />
                     Rivers, Nigeria
                   </p>

@@ -11,10 +11,10 @@ const ProductNotFound = () => {
         available.
       </p>
       <Link
-        to="/shop"
+        to="/store"
         className="bg-[#9c6a24] text-white px-6 py-2 rounded-lg hover:bg-[#E3BC9A] transition"
       >
-        Back to Shop
+        Back to store
       </Link>
     </div>
   );

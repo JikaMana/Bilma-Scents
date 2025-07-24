@@ -14,7 +14,7 @@ const CustomPerfumeDeal = ({ title }) => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {featuredPerfumes.map((item) => (
-            <CustomItem item={item} />
+            <CustomItem item={item} key={item.id} />
           ))}
         </div>
       </div>

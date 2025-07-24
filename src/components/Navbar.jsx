@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, ShoppingBag, X } from "lucide-react";
+import { Heart, Menu, ShoppingBag, X } from "lucide-react";
+import bilmaLogo from "../assets/images/bilma-scents-logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,21 +32,25 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            to="/shop"
+            to="/store"
             className="hover:text-[#E3BC9A] transition text-primary"
           >
-            Shop
+            store
           </Link>
         </div>
 
         {/* Logo */}
-        <div className="text-xl font-bold tracking-wide">
+        <div className="flex items-center gap-2 text-xl font-bold tracking-wide">
+          <img src={bilmaLogo} alt="Bilma Logo" className="h-10 w-10 " />
           <Link to="/">Bilma</Link>
         </div>
 
         {/* Right Links */}
         <div className="flex gap-6 items-center text-sm font-semibold uppercase">
-          <Link to="/about" className="hover:text-[#E3BC9A] transition">
+          <Link
+            to="/about"
+            className="hidden sm:block hover:text-[#E3BC9A] transition"
+          >
             About
           </Link>
           <Link
@@ -53,6 +58,9 @@ const Navbar = () => {
             className="hidden sm:block hover:text-[#E3BC9A] transition"
           >
             Contact
+          </Link>
+          <Link to="/wishlist" className="text-xl">
+            <Heart />
           </Link>
           <Link to="/cart" className="text-xl">
             <ShoppingBag />
@@ -64,7 +72,7 @@ const Navbar = () => {
       <div
         className={`${
           isOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"
-        } transition-all duration-300 ease-in-out transform origin-top flex flex-col items-center sm:hidden px-4 pb-4 space-y-3 bg-white bgs-[#f1e7dd] max-w-[90%] w-full mx-auto`}
+        } transition-all duration-300 ease-in-out transform origin-top flex flex-col items-center sm:hidden px-4 py-4 space-y-3 bg-white max-w-[90%] w-full mx-auto border-t-2 border-[#9c6a24] rounded-b-4xl`}
       >
         {navLinks.map((link) => (
           <NavLink

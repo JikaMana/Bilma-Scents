@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import bilmaLogo from "../assets/images/bilma-scents-logo.png"; // Adjust the path to your logo
+import bilmaLogo from "../assets/images/bilma-scents-logo.png";
 
 const Footer = () => {
   return (
@@ -24,8 +24,8 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to="/shop" className="hover:underline">
-                Shop
+              <Link to="/store" className="hover:underline">
+                store
               </Link>
             </li>
             <li>

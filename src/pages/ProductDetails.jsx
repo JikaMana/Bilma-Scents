@@ -22,11 +22,11 @@ const ProductDetails = () => {
           backgroundPosition: "center",
         }}
       >
-        {location.pathname === `/shop/${id}` && "/shop/details"}
+        {location.pathname === `/store/${id}` && "/store/details"}
       </div>
       <section>
         <div className="max-w-5xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10 text-[#9c6a24]">
-          <div className="w-full h-[400px] overflow-hidden rounded-xl shadow">
+          <div className="w-full h-[400px]  p-4 overflow-hidden rounded-xl ">
             <img
               src={item.image}
               alt={item.name}
