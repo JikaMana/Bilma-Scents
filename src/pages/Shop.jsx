@@ -3,6 +3,7 @@ import storeBanner from "../assets/images/background/storeBanner.webp";
 import { perfumes } from "../constants";
 import CustomItem from "../components/CustomItem";
 import { useLocation } from "react-router";
+import ProductFilters from "../components/ProductFilters";
 
 const Shop = () => {
   const location = useLocation();
@@ -26,11 +27,15 @@ const Shop = () => {
             All perfumes
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            {perfumes.map((item) => (
-              <CustomItem item={item} />
-            ))}
-          </div>
+          <main className="flex ">
+            <ProductFilters perfumes={perfumes} className="flex-[0.3] w-full" />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+              {perfumes.map((item) => (
+                <CustomItem item={item} />
+              ))}
+            </div>
+          </main>
         </div>
       </section>
     </Fragment>
