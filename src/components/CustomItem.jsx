@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const CustomItem = ({ item }) => {
   return (
     <Link
-      to="#"
+      to={`/shop/${item.id}`}
       key={item.id}
       className="bg-white rounded-xl shadow-md overflow-hidden"
     >
@@ -21,7 +21,7 @@ const CustomItem = ({ item }) => {
           {item.flavour}
         </p>
         <div className="mt-4 flex items-center justify-between gap-2">
-          <p className="text-black font-bold">{item.price}</p>
+          <p className="text-black font-bold">₦{item.price}</p>
           <button className="bg-[#E3BC9A] text-white text-sm px-4 py-2 rounded hover:bg-[#f1e7dd] cursor-pointer transition duration-300">
             Add to Cart
           </button>

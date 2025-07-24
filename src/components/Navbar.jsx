@@ -13,7 +13,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="sm:flex justify-center shadow-2xl fixed top-0 z-50 w-full">
+    <nav className="sm:flex justify-center fixed top-0 z-50 w-full">
       <div
         className={`max-w-[90%] w-full mx-auto flex justify-between items-center px-6 py-4 mt-4 shadow-md bg-white text-[#9c6a24] ${
           isOpen ? "rounded-t-4xl" : "rounded-full"
@@ -29,11 +29,11 @@ const Navbar = () => {
         <div className="hidden sm:flex gap-6 items-center text-sm font-semibold uppercase">
           <Link
             to="/shop"
-            className="hover:text-gray-500 transition text-primary"
+            className="hover:text-[#E3BC9A] transition text-primary"
           >
             Shop
           </Link>
-          <Link to="/about" className="hover:text-gray-500 transition">
+          <Link to="/about" className="hover:text-[#E3BC9A] transition">
             About
           </Link>
         </div>
@@ -47,7 +47,7 @@ const Navbar = () => {
         <div className="flex gap-6 items-center text-sm font-semibold uppercase">
           <Link
             to="/contact"
-            className="hidden sm:block hover:text-gray-500 transition"
+            className="hidden sm:block hover:text-[#E3BC9A] transition"
           >
             Contact
           </Link>
@@ -61,7 +61,7 @@ const Navbar = () => {
       <div
         className={`${
           isOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"
-        } transition-all duration-300 ease-in-out transform origin-top flex flex-col items-center md:hidden px-4 pb-4 space-y-3 bg-white bgs-[#f1e7dd] max-w-[90%] w-full mx-auto`}
+        } transition-all duration-300 ease-in-out transform origin-top flex flex-col items-center sm:hidden px-4 pb-4 space-y-3 bg-white bgs-[#f1e7dd] max-w-[90%] w-full mx-auto`}
       >
         {navLinks.map((link) => (
           <NavLink

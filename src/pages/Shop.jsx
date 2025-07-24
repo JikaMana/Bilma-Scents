@@ -6,11 +6,11 @@ import { useLocation } from "react-router";
 
 const Shop = () => {
   const location = useLocation();
-  console.log(location.pathname);
+
   return (
     <Fragment>
       <div
-        className="min-h-[30vh] flex flex-col justify-center items-center text-5xl font-display italic text-center text-[#f1e7dd]"
+        className="min-h-[35vh] flex flex-col justify-center items-center text-5xl font-display italic text-center text-[#f1e7dd]"
         style={{
           backgroundImage: `url(${storeBanner})`,
           backgroundSize: "cover",

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import bilmaLogo from "/logo.svg"; // Adjust the path to your logo
+import bilmaLogo from "../assets/images/bilma-scents-logo.png"; // Adjust the path to your logo
 
 const Footer = () => {
   return (
@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 pt-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
         {/* Logo and Quote */}
         <div>
-          <img src={bilmaLogo} alt="Bilma Logo" className="h-24 mb-4" />
+          <img src={bilmaLogo} alt="Bilma Logo" className="h-32 mb-4" />
           <p className="text-sm italic text-gray-600 max-w-56">
             “A scent is a memory in motion – let Bilma tell your story.”
           </p>
