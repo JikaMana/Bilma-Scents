@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router";
 
 const CustomItem = ({ item }) => {
+  const handleButtonClick = (e) => {
+    e.preventDefault(); // Stop <Link> navigation
+    e.stopPropagation(); // Stop event bubbling (optional but safer)
+
+    // Do your "Add to Cart" logic here
+  };
+
   return (
     <Link
       to={`/store/${item.id}`}
@@ -22,7 +29,10 @@ const CustomItem = ({ item }) => {
         </p>
         <div className="mt-4 flex items-center justify-between gap-2">
           <p className="text-black font-bold">₦{item.price}</p>
-          <button className="bg-[#E3BC9A] text-white text-sm px-4 py-2 rounded hover:bg-[#f1e7dd] cursor-pointer transition duration-300">
+          <button
+            onClick={handleButtonClick}
+            className="bg-[#E3BC9A] text-white text-sm px-4 py-2 rounded hover:bg-[#f1e7dd] cursor-pointer transition duration-300"
+          >
             Add to Cart
           </button>
         </div>

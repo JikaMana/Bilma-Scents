@@ -1,6 +1,4 @@
 import React from "react";
-import testPerfume from "../assets/images/perfumes/parfum.webp";
-import { Link } from "react-router";
 import CustomItem from "./CustomItem";
 import { featuredPerfumes } from "../constants";
 
