@@ -1,13 +1,32 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { ShoppingBag } from "lucide-react";
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { Menu, ShoppingBag, X } from "lucide-react";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Store", path: "/store" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" },
+  ];
+
   return (
-    <nav className="flex justify-center shadow-2xl">
-      <div className="max-w-[90%] w-full flex justify-between items-center px-6 py-4 my-4 shadow-md bg-white rounded-full fixed top-0 z-50 text-[#9c6a24]">
+    <nav className="sm:flex justify-center shadow-2xl fixed top-0 z-50 w-full">
+      <div
+        className={`max-w-[90%] w-full mx-auto flex justify-between items-center px-6 py-4 mt-4 shadow-md bg-white text-[#9c6a24] ${
+          isOpen ? "rounded-t-4xl" : "rounded-full"
+        }`}
+      >
+        <button
+          className="sm:hidden focus:outline-none cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
         {/* Left Links */}
-        <div className="flex gap-6 items-center text-sm font-semibold uppercase">
+        <div className="hidden sm:flex gap-6 items-center text-sm font-semibold uppercase">
           <Link
             to="/shop"
             className="hover:text-gray-500 transition text-primary"
@@ -26,13 +45,40 @@ const Navbar = () => {
 
         {/* Right Links */}
         <div className="flex gap-6 items-center text-sm font-semibold uppercase">
-          <Link to="/contact" className="hover:text-gray-500 transition">
+          <Link
+            to="/contact"
+            className="hidden sm:block hover:text-gray-500 transition"
+          >
             Contact
           </Link>
           <Link to="/cart" className="text-xl">
             <ShoppingBag />
           </Link>
         </div>
+      </div>
+
+      {/* mobile nav  */}
+      <div
+        className={`${
+          isOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"
+        } transition-all duration-300 ease-in-out transform origin-top flex flex-col items-center md:hidden px-4 pb-4 space-y-3 bg-white bgs-[#f1e7dd] max-w-[90%] w-full mx-auto`}
+      >
+        {navLinks.map((link) => (
+          <NavLink
+            key={link.name}
+            to={link.path}
+            onClick={() => setIsOpen(false)}
+            className={({ isActive }) =>
+              `block text-lg font-medium ${
+                isActive
+                  ? "text-[#E3BC9A]"
+                  : "text-[#9c6a24] hover:text-[#e3bc9a]"
+              }`
+            }
+          >
+            {link.name}
+          </NavLink>
+        ))}
       </div>
     </nav>
   );
