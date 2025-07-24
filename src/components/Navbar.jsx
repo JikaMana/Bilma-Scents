@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Heart, Menu, ShoppingBag, X } from "lucide-react";
 import bilmaLogo from "../assets/images/bilma-scents-logo.png";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,9 +15,17 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="sm:flex justify-center fixed top-0 z-50 w-full">
+    <motion.nav
+      initial={{ y: -150, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{
+        duration: 1,
+        ease: "easeOut",
+      }}
+      className="fixed top-0 left-0 w-full z-50 sm:flex justify-center "
+    >
       <div
-        className={`max-w-[90%] w-full mx-auto flex justify-between items-center px-6 py-4 mt-4 shadow-md bg-white text-[#9c6a24] ${
+        className={`backdrop-blur bg-white/70  text-[#9c6a24] max-w-[90%] w-full mx-auto flex justify-between items-center px-6 py-4 mt-4 shadow-md ${
           isOpen ? "rounded-t-4xl" : "rounded-full"
         }`}
       >
@@ -27,26 +36,32 @@ const Navbar = () => {
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
         {/* Left Links */}
-        <div className="hidden sm:flex gap-6 items-center text-sm font-semibold uppercase">
+        <div className="hidden sm:flex gap-6 items-center text-sm font-bold uppercase">
           <Link to="/" className="hover:text-[#E3BC9A] transition">
             Home
           </Link>
-          <Link
-            to="/store"
-            className="hover:text-[#E3BC9A] transition text-primary"
-          >
+          <Link to="/store" className="hover:text-[#E3BC9A] transition">
             store
           </Link>
         </div>
 
         {/* Logo */}
-        <div className="flex items-center gap-2 text-xl font-bold tracking-wide">
-          <img src={bilmaLogo} alt="Bilma Logo" className="h-10 w-10 " />
-          <Link to="/">Bilma</Link>
+        <div>
+          <Link
+            to="/"
+            className="flex items-center gap-1 sm:gap-2 text-lg sm:text-xl font-bold tracking-wide"
+          >
+            <img
+              src={bilmaLogo}
+              alt="Bilma Logo"
+              className="h-8 w-8 md:h-10 md:w-10 "
+            />
+            <p>Bilma</p>
+          </Link>
         </div>
 
         {/* Right Links */}
-        <div className="flex gap-6 items-center text-sm font-semibold uppercase">
+        <div className="flex gap-6 items-center text-sm font-bold uppercase">
           <Link
             to="/about"
             className="hidden sm:block hover:text-[#E3BC9A] transition"
@@ -72,7 +87,7 @@ const Navbar = () => {
       <div
         className={`${
           isOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"
-        } transition-all duration-300 ease-in-out transform origin-top flex flex-col items-center sm:hidden px-4 py-4 space-y-3 bg-white max-w-[90%] w-full mx-auto border-t-2 border-[#9c6a24] rounded-b-4xl`}
+        } transition-all duration-300 ease-in-out transform origin-top flex flex-col items-center sm:hidden px-4 py-4 space-y-3 bg-white/70  max-w-[90%] w-full mx-auto border-t-2 border-[#9c6a24] rounded-b-4xl`}
       >
         {navLinks.map((link) => (
           <NavLink
@@ -91,7 +106,7 @@ const Navbar = () => {
           </NavLink>
         ))}
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

@@ -25,32 +25,40 @@ const faqs = [
 ];
 
 const FAQ = () => {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggleFAQ = (index) => {
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-16">
       <h2 className="text-3xl font-manrope italic font-bold text-center mb-12 text-gray-800">
         Frequently Asked Questions
       </h2>
+
       <div className="space-y-6">
         {faqs.map((faq, index) => {
-          const [isOpen, setIsOpen] = useState(false);
+          const isOpen = openIndex === index;
 
           return (
             <div
               key={index}
-              className="border-b pb-6 text-[#9c6a24] font-manrope"
-              onClick={() => setIsOpen(!isOpen)}
+              className="border-b pb-6 text-[#9c6a24] font-manrope cursor-pointer"
+              onClick={() => toggleFAQ(index)}
             >
-              <h3 className="text-lg font-semibold flex justify-between items-center cursor-pointer">
+              <h3 className="text-lg font-semibold flex justify-between items-center">
                 {faq.question}
                 <span>{isOpen ? <Minus /> : <Plus />}</span>
               </h3>
-              <p
-                className={`text-[#9c6a2490] mt-2 transition-all duration-300 ease-in-out transform origin-top ${
-                  isOpen ? "scale-y-100 opacity-100" : " scale-y-0 opacity-0"
-                }  ${isOpen ? "block" : "hidden"}`}
+
+              <div
+                className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                  isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+                }`}
               >
-                {faq.answer}
-              </p>
+                <p className="text-[#9c6a2490] mt-2">{faq.answer}</p>
+              </div>
             </div>
           );
         })}
