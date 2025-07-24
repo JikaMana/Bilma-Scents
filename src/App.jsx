@@ -4,7 +4,6 @@ import RootLayout from "./layouts/RootLayout";
 import Store from "./pages/Store";
 import ProductDetails from "./pages/ProductDetails";
 import NotFound from "./pages/NotFound";
-// import About from "./pages/About";
 import Contact from "./pages/Contact";
 // import Cart from "./pages/Cart";
 
@@ -17,9 +16,10 @@ const router = createBrowserRouter([
       { path: "store", element: <Store /> },
       { path: "store/:id", element: <ProductDetails /> },
       { path: "contact", element: <Contact /> },
-      // { path: "about", element: <About /> },
-
       // { path: "cart", element: <Cart /> },
+      // { path: "wishlist", element: <Wishlist /> },
+
+      // { path: "admin", element: <Admin /> },
     ],
   },
   { path: "*", element: <NotFound /> },

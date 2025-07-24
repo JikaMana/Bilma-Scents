@@ -3,10 +3,10 @@ import { Link } from "react-router";
 
 const CustomItem = ({ item }) => {
   const handleButtonClick = (e) => {
-    e.preventDefault(); // Stop <Link> navigation
-    e.stopPropagation(); // Stop event bubbling (optional but safer)
+    e.preventDefault();
+    e.stopPropagation();
 
-    // Do your "Add to Cart" logic here
+    alert("Product added to cart succesfully");
   };
 
   return (

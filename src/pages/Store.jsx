@@ -43,12 +43,12 @@ const store = () => {
             </div>
           </main>
           <div className="flex gap-2 mt-8 justify-center">
-            <button className="px-4 py-2 bg-[#9c6a24]">
+            <button className="px-4 py-2 bg-[#e3bc9a] text-[#9c6a24]">
               <ArrowLeft />
             </button>
-            <button className="px-4 py-2 bg-[#9c6a24]">1</button>
-            <button className="px-4 py-2 bg-[#9c6a24]">2</button>
-            <button className="px-4 py-2 bg-[#9c6a24]">
+            <button className="px-4 py-2 bg-[#e3bc9a] text-[#9c6a24]">1</button>
+            <button className="px-4 py-2 bg-[#e3bc9a] text-[#9c6a24]">2</button>
+            <button className="px-4 py-2 bg-[#e3bc9a] text-[#9c6a24]">
               <ArrowRight />
             </button>
           </div>

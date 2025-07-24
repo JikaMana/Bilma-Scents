@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Heart, Menu, ShoppingBag, X } from "lucide-react";
 import bilmaLogo from "../assets/images/bilma-scents-logo.png";
 import { motion } from "framer-motion";
+import CartIcon from "./CartIcon";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,6 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Store", path: "/store" },
-    { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -63,23 +63,18 @@ const Navbar = () => {
         {/* Right Links */}
         <div className="flex gap-6 items-center text-sm font-bold uppercase">
           <Link
-            to="/about"
-            className="hidden sm:block hover:text-[#E3BC9A] transition"
-          >
-            About
-          </Link>
-          <Link
             to="/contact"
             className="hidden sm:block hover:text-[#E3BC9A] transition"
           >
             Contact
           </Link>
           <Link to="/wishlist" className="text-xl">
-            <Heart />
+            <Heart size={32} />
           </Link>
-          <Link to="/cart" className="text-xl">
+          {/* <Link to="/cart" className="text-xl">
             <ShoppingBag />
-          </Link>
+          </Link> */}
+          <CartIcon />
         </div>
       </div>
 

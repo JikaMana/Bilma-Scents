@@ -12,7 +12,7 @@ const Contact = () => {
     <section className="h-screen flex items-center justify-center px-4 py-16">
       <div className="w-full h-full animate-gradient bg-gradient-to-r from-[#9c6a24] via-[#f1e7dd] to-[#E3BC9A] fixed top-0 left-0 -z-10"></div>
 
-      <div className="w-full max-w-3xl rounded-2xl p-8 md:p-12">
+      <div className="w-full max-w-3xl rounded-2xl p-8 md:p-12 md:pt-24">
         <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-gray-800 font-display italic mb-4 text-center">
           Let’s Chat
         </h2>
