@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { initialCartItems } from "../constants/cartItems";
+import { toast } from "sonner";
 
 const CartContext = createContext();
 
@@ -15,6 +16,8 @@ export const CartProvider = ({ children }) => {
   const subtotal = total + shippingFee;
 
   const addToCart = (product) => {
+    toast.success("Perfume added to cart");
+
     setCartItems((prevItems) => {
       const existing = prevItems.find((items) => items.id === product.id);
 
@@ -31,6 +34,8 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (id) => {
+    toast.error("Perfume removed to cart");
+
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 

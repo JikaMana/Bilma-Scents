@@ -1,12 +1,15 @@
 import React from "react";
 import { Link } from "react-router";
+import { useCart } from "../contexts/CartContext";
 
 const CustomItem = ({ item }) => {
+  const { addToCart } = useCart();
+
   const handleButtonClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    alert("Product added to cart succesfully");
+    addToCart(item);
   };
 
   return (

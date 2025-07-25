@@ -9,6 +9,7 @@ import CartPage from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import { CartProvider } from "./contexts/CartContext";
 import OrderSuccessful from "./pages/OrderSuccessful";
+import { Toaster } from "sonner";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <CartProvider>
+      <Toaster position="top-right" offset={100} />
       <RouterProvider router={router} />
     </CartProvider>
   );
