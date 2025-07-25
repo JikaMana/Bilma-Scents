@@ -6,6 +6,8 @@ import ProductDetails from "./pages/ProductDetails";
 import NotFound from "./pages/NotFound";
 import Contact from "./pages/Contact";
 import CartPage from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import { CartProvider } from "./contexts/CartContext";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +19,7 @@ const router = createBrowserRouter([
       { path: "store/:id", element: <ProductDetails /> },
       { path: "contact", element: <Contact /> },
       { path: "cart", element: <CartPage /> },
-      // { path: "checkout", element: <Checkout /> },
+      { path: "checkout", element: <Checkout /> },
       // { path: "wishlist", element: <Wishlist /> },
       // { path: "admin", element: <Admin /> },
     ],
@@ -26,7 +28,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
+  );
 }
 
 export default App;

@@ -1,29 +1,22 @@
 import React from "react";
 import Button from "../components/Button";
-import { Heart, Trash } from "lucide-react";
+import { Minus, Plus, Trash } from "lucide-react";
+import { Link } from "react-router";
+import { useCart } from "../contexts/CartContext";
 
-const cartItems = [
-  {
-    id: 1,
-    name: "Bilma Rose Oud",
-    price: 12000,
-    image: "/images/rose-oud.png",
-    quantity: 2,
-  },
-  {
-    id: 2,
-    name: "Bilma Musk Vanilla",
-    price: 10000,
-    image: "/images/musk-vanilla.png",
-    quantity: 1,
-  },
-];
+const shippingFee = 1000;
 
 const CartPage = () => {
-  const total = cartItems.reduce(
+  const { cartItems, removeFromCart, addQuantity, decreaseQuantity } =
+    useCart();
+
+  const total = ([cartItems][0] ?? []).reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+  // console.log([cartItems][0]);
+
+  if (!cartItems) return <p>Loading cart...</p>;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-16 text-[#9c6a24]">
@@ -45,19 +38,30 @@ const CartPage = () => {
                 />
                 <div>
                   <h4 className="font-semibold text-lg">{item.name}</h4>
-                  <p className="text-sm text-[#9c6a24]">
-                    ₦{item.price.toLocaleString()}
-                  </p>
+                  <p className="text-sm text-[#9c6a24]">₦{item.price}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-4 mt-4 sm:mt-0">
                 <div className="flex items-center border rounded">
-                  <button className="px-3 py-1 text-xl">-</button>
-                  <span className="px-4">{item.quantity}</span>
-                  <button className="px-3 py-1 text-xl">+</button>
+                  <button
+                    className="p-2 rounded hover:bg-gray-100"
+                    onClick={() => decreaseQuantity(item.id)}
+                  >
+                    <Minus className="w-4 h-4 text-[#9c6a24]" />
+                  </button>
+                  <span className="px-2">{item.quantity}</span>
+                  <button
+                    className="p-2 rounded hover:bg-gray-100"
+                    onClick={() => addQuantity(item.id)}
+                  >
+                    <Plus className="w-4 h-4 text-[#9c6a24]" />
+                  </button>
                 </div>
-                <button className="text-red-500 hover:underline text-sm cursor-pointer">
+                <button
+                  className="text-red-500 hover:underline text-sm cursor-pointer"
+                  onClick={() => removeFromCart(item.id)}
+                >
                   <Trash />
                 </button>
               </div>
@@ -66,7 +70,7 @@ const CartPage = () => {
         </div>
 
         {/* Summary */}
-        <div className="w-full lg:w-1/3 border rounded-lg p-6 shadow-md bg-gray-50 space-y-4">
+        <div className="w-full h-max lg:w-1/3 border rounded-lg p-6 shadow-md bg-gray-50 space-y-4">
           <h3 className="text-xl font-bold mb-4">Summary</h3>
           <div className="flex justify-between text-[#9c6a24]">
             <span>Subtotal</span>
@@ -74,19 +78,21 @@ const CartPage = () => {
           </div>
           <div className="flex justify-between text-[#9c6a24]">
             <span>Shipping</span>
-            <span>₦0</span>
+            <span>₦{shippingFee}</span>
           </div>
           <hr />
           <div className="flex justify-between text-lg font-bold mb-8">
             <span>Total</span>
-            <span>₦{total.toLocaleString()}</span>
+            <span>₦{(total + shippingFee).toLocaleString()}</span>
           </div>
-          <Button style="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition">
-            Proceed to Checkout
-          </Button>
+          <Link to="/checkout">
+            <Button style="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition">
+              Proceed to Checkout
+            </Button>
+          </Link>
           <a
             href="/store"
-            className="block text-center text-sm text-[#9c6a24] hover:underline"
+            className="block text-center text-sm text-[#9c6a24] hover:underline mt-2"
           >
             Continue Shopping
           </a>

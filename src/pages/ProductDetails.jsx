@@ -5,14 +5,18 @@ import { perfumes } from "../constants";
 import ProductNotFound from "../components/ProductNotFound";
 import { Heart, ShoppingBag } from "lucide-react";
 import Button from "../components/Button";
+import { useCart } from "../contexts/CartContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const item = perfumes.find((perfume) => perfume.id === id);
+  const { addToCart } = useCart();
 
   if (!item) {
     return <ProductNotFound />;
   }
+
+  console.log(item);
   return (
     <Fragment>
       <div
@@ -68,6 +72,7 @@ const ProductDetails = () => {
               <Button
                 disabled={!item.inStock}
                 style={` ${!item.inStock && "cursor-not-allowed"}`}
+                onClick={() => addToCart(item)}
               >
                 {item.inStock ? (
                   <div className="flex justify-center gap-2">
