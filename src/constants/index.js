@@ -1,4 +1,5 @@
 import testPerfume from "../assets/images/perfumes/parfum.webp";
+import testPerfume2 from "../assets/images/perfumes/parfum.jpg";
 
 export const perfumes = [
   {
@@ -20,7 +21,7 @@ export const perfumes = [
   },
   {
     id: "1002847263",
-    image: testPerfume,
+    image: testPerfume2,
     name: "Amber Whisper",
     flavour: "Woody & Warm",
     price: "42500",
@@ -53,7 +54,7 @@ export const perfumes = [
   },
   {
     id: "1004039583",
-    image: testPerfume,
+    image: testPerfume2,
     name: "Velvet Oud",
     flavour: "Bold & Spicy",
     price: "55000",
@@ -86,7 +87,7 @@ export const perfumes = [
   },
   {
     id: "1006239573",
-    image: testPerfume,
+    image: testPerfume2,
     name: "Royal Musk",
     flavour: "Earthy & Strong",
     price: "45000",
@@ -119,7 +120,7 @@ export const perfumes = [
   },
   {
     id: "1008429350",
-    image: testPerfume,
+    image: testPerfume2,
     name: "Ocean Drift",
     flavour: "Aqua & Crisp",
     price: "30500",
@@ -151,7 +152,7 @@ export const perfumes = [
   },
   {
     id: "1010648392",
-    image: testPerfume,
+    image: testPerfume2,
     name: "Midnight Rose",
     flavour: "Sensual & Elegant",
     price: "50000",
@@ -183,7 +184,7 @@ export const perfumes = [
   },
   {
     id: "1012850392",
-    image: testPerfume,
+    image: testPerfume2,
     name: "Cedar Breeze",
     flavour: "Fresh & Woody",
     price: "41000",
@@ -215,7 +216,7 @@ export const perfumes = [
   },
   {
     id: "1015052392",
-    image: testPerfume,
+    image: testPerfume2,
     name: "Desert Amber",
     flavour: "Resinous & Rich",
     price: "53000",
@@ -247,7 +248,7 @@ export const perfumes = [
   },
   {
     id: "2024000010",
-    image: testPerfume,
+    image: testPerfume2,
     name: "Golden Dusk",
     flavour: "Oriental & Rich",
     price: "60000",
@@ -279,7 +280,7 @@ export const perfumes = [
   },
   {
     id: "2024000030",
-    image: testPerfume,
+    image: testPerfume2,
     name: "Silken Spice",
     flavour: "Warm & Inviting",
     price: "45000",
@@ -314,7 +315,7 @@ export const perfumes = [
 export const featuredPerfumes = [
   {
     id: "2024000010",
-    image: testPerfume,
+    image: testPerfume2,
     name: "Golden Dusk",
     flavour: "Oriental & Rich",
     price: "60000",
@@ -346,7 +347,7 @@ export const featuredPerfumes = [
   },
   {
     id: "2024000030",
-    image: testPerfume,
+    image: testPerfume2,
     name: "Silken Spice",
     flavour: "Warm & Inviting",
     price: "45000",
@@ -380,4 +381,5 @@ export const featuredPerfumes = [
 
 export const images = {
   testPerfume,
+  testPerfume2,
 };

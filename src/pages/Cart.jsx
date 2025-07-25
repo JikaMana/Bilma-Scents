@@ -23,7 +23,10 @@ const CartPage = () => {
   if (!cartItems) return <p>Loading cart...</p>;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-16 text-[#9c6a24]">
+    <div
+      className="max-w-6xl mx-auto px-4 py-16 text-[#9c6a24]"
+      data-aos="fade-up"
+    >
       <h2 className="text-3xl font-bold mb-6 my-8 md:my-12 text-center">
         Shopping Cart
       </h2>
@@ -51,16 +54,16 @@ const CartPage = () => {
                 </div>
 
                 <div className="flex items-center gap-4 mt-4 sm:mt-0">
-                  <div className="flex items-center border rounded">
+                  <div className="flex items-center border rounded-full p-1">
                     <button
-                      className="p-2 rounded hover:bg-gray-100"
+                      className="p-2 rounded-full bg-[#f1e7dd]"
                       onClick={() => decreaseQuantity(item.id)}
                     >
                       <Minus className="w-4 h-4 text-[#9c6a24]" />
                     </button>
                     <span className="px-2">{item.quantity}</span>
                     <button
-                      className="p-2 rounded hover:bg-gray-100"
+                      className="p-2 rounded-full bg-[#f1e7dd]"
                       onClick={() => addQuantity(item.id)}
                     >
                       <Plus className="w-4 h-4 text-[#9c6a24]" />

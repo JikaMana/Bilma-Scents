@@ -16,9 +16,15 @@
   background-size: 200% 200%;
   animation: gradient 10s ease infinite;
 }
-body {
-  font-family: var(--font-manrope);
+
+:root {
+  font-family: var(--font-manrope), var(--font-merriweather), sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
 /* Define your theme colors using Tailwind's config instead */
 @theme {
   --font-display: "Playfair Display", serif;

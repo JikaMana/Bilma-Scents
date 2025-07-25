@@ -9,7 +9,7 @@ const Footer = () => {
         {/* Logo and Quote */}
         <div>
           <img src={bilmaLogo} alt="Bilma Logo" className="h-32 mb-4" />
-          <p className="text-sm italic text-gray-600 max-w-56">
+          <p className="text-sm italic text-gray-600 max-w-52">
             “A scent is a memory in motion – let Bilma tell your story.”
           </p>
         </div>

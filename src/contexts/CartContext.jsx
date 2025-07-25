@@ -16,7 +16,7 @@ export const CartProvider = ({ children }) => {
   const subtotal = total + shippingFee;
 
   const addToCart = (product) => {
-    toast.success("Perfume added to cart");
+    toast.success("✅Perfume added to cart");
 
     setCartItems((prevItems) => {
       const existing = prevItems.find((items) => items.id === product.id);
@@ -34,7 +34,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (id) => {
-    toast.error("Perfume removed to cart");
+    toast.error("🗑️Perfume removed to cart");
 
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };

@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import RootLayout from "./layouts/RootLayout";
 import Store from "./pages/Store";
@@ -11,31 +11,27 @@ import { CartProvider } from "./contexts/CartContext";
 import OrderSuccessful from "./pages/OrderSuccessful";
 import { Toaster } from "sonner";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootLayout />,
-    children: [
-      { index: true, element: <Home /> },
-      { path: "store", element: <Store /> },
-      { path: "store/:id", element: <ProductDetails /> },
-      { path: "contact", element: <Contact /> },
-      { path: "cart", element: <CartPage /> },
-      { path: "checkout", element: <Checkout /> },
-      { path: "order-successful", element: <OrderSuccessful /> },
-
-      // { path: "wishlist", element: <Wishlist /> },
-      // { path: "admin", element: <Admin /> },
-    ],
-  },
-  { path: "*", element: <NotFound /> },
-]);
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <CartProvider>
       <Toaster position="top-right" offset={100} />
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<RootLayout />}>
+            <Route index element={<Home />} />
+            <Route path="store" element={<Store />} />
+            <Route path="store/:id" element={<ProductDetails />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="cart" element={<CartPage />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="order-successful" element={<OrderSuccessful />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </CartProvider>
   );
 }
