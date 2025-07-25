@@ -14,6 +14,9 @@ import { Toaster } from "sonner";
 import ScrollToTop from "./components/ScrollToTop";
 import Wishlist from "./pages/Wishlist";
 import { WishProvider } from "./contexts/WishContext";
+import AuthLayout from "./layouts/AuthLayout";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -32,6 +35,12 @@ function App() {
               <Route path="checkout" element={<Checkout />} />
               <Route path="wishlist" element={<Wishlist />} />
               <Route path="order-successful" element={<OrderSuccessful />} />
+            </Route>
+            <Route path="/login" element={<AuthLayout />}>
+              <Route index element={<Login />} />
+            </Route>
+            <Route path="/register" element={<AuthLayout />}>
+              <Route index element={<Register />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
