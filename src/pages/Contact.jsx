@@ -9,7 +9,7 @@ import {
 
 const Contact = () => {
   return (
-    <section className="h-screen flex items-center justify-center px-4 py-16">
+    <section className="h-full flex items-center justify-center px-4 py-16">
       <div className="w-full h-full animate-gradient bg-gradient-to-r from-[#9c6a24] via-[#f1e7dd] to-[#E3BC9A] fixed top-0 left-0 -z-10"></div>
 
       <div className="w-full max-w-3xl rounded-2xl p-8 md:p-12 md:pt-24">
@@ -52,7 +52,7 @@ const Contact = () => {
           </form>
 
           {/* Contact Info / Socials */}
-          <div className=" text-gray-800 flex justify-around">
+          <div className=" text-gray-800 flex flex-col sm:flex-row justify-around gap-y-8">
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <MapPin className="text-primary mt-1" />
@@ -86,8 +86,8 @@ const Contact = () => {
             </div>
 
             {/* Socials */}
-            <div>
-              <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
+            <div className="mx-auto">
+              <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
               <div className="flex flex-col space-y-4">
                 <a
                   href="#"

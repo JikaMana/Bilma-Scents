@@ -51,17 +51,19 @@ const Navbar = () => {
             to="/"
             className="flex items-center gap-1 sm:gap-2 text-lg sm:text-xl font-bold tracking-wide"
           >
+            <p>Bilma </p>
+
             <img
               src={bilmaLogo}
               alt="Bilma Logo"
               className="h-8 w-8 md:h-10 md:w-10 "
             />
-            <p>Bilma</p>
+            <p>Scents</p>
           </Link>
         </div>
 
         {/* Right Links */}
-        <div className="flex gap-6 items-center text-sm font-bold uppercase">
+        <div className="flex gap-3 sm:gap-6 items-center text-sm font-bold uppercase">
           <Link
             to="/contact"
             className="hidden sm:block hover:text-[#E3BC9A] transition"

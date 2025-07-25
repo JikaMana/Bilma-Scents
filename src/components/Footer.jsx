@@ -69,8 +69,8 @@ const Footer = () => {
         </div>
       </div>
       <div>
-        <h1 className="font-display italic text-[90px] sm:text-[120px] md:text-[160px] lg:text-[224px] leading-tight underline text-[#E3BC9A] text-center">
-          Bilma
+        <h1 className="font-display italic text-5xl  sm:text-[100px] md:text-[136x] lg:text-[180px] xl:text-[224px] leading-tight underline text-[#E3BC9A] text-center">
+          Bilma Scents
         </h1>
       </div>
       <div className="text-center py-4 text-xs text-gray-500 border-t">
