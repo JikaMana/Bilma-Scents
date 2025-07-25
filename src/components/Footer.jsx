@@ -4,7 +4,7 @@ import bilmaLogo from "../assets/images/bilma-scents-logo.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#f1e7dd] text-gray-700 mt-16">
+    <footer className="bg-[#f1e7dd] text-gray-700">
       <div className="max-w-7xl mx-auto px-6 pt-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
         {/* Logo and Quote */}
         <div>

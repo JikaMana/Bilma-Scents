@@ -28,19 +28,19 @@ const Contact = () => {
                 <input
                   type="text"
                   placeholder="Name"
-                  className="flex-1/2 w-full border rounded-lg px-4 py-4 mt-1  focus:outline-none focus:ring focus:border-black"
+                  className="backdrop-blur bg-white/50 flex-1/2 w-full border border-[#9c6a24] rounded-lg px-4 py-4 mt-1  focus:outline-none focus:border-2 focus:border-[#9c6a24]"
                 />
                 <input
                   type="email"
                   placeholder="Email"
-                  className="flex-1/2 w-full border rounded-lg px-4 py-4 mt-1  focus:outline-none focus:ring focus:border-black"
+                  className="backdrop-blur bg-white/50 flex-1/2 w-full border border-[#9c6a24] rounded-lg px-4 py-4 mt-1  focus:outline-none focus:border-2 focus:border-[#9c6a24]"
                 />
               </div>
 
               <textarea
                 rows="5"
                 placeholder="How can we help you?"
-                className="w-full border rounded-lg px-4 py-4 mt-1 focus:outline-none focus:ring focus:border-black"
+                className="backdrop-blur bg-white/50 w-full border border-[#9c6a24] rounded-lg px-4 py-4 mt-1 focus:outline-none  focus:border-2 focus:border-[#9c6a24]"
               ></textarea>
             </div>
             <button

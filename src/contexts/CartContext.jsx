@@ -16,12 +16,14 @@ export const CartProvider = ({ children }) => {
   const subtotal = total + shippingFee;
 
   const addToCart = (product) => {
-    toast.success("✅Perfume added to cart");
+    toast.success("Perfume added to cart");
 
     setCartItems((prevItems) => {
-      const existing = prevItems.find((items) => items.id === product.id);
+      const alreadyInCartItems = prevItems.find(
+        (items) => items.id === product.id
+      );
 
-      if (existing) {
+      if (alreadyInCartItems) {
         return prevItems.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
@@ -34,7 +36,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (id) => {
-    toast.error("🗑️Perfume removed to cart");
+    toast.error("Perfume removed from cart");
 
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };

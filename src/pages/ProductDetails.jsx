@@ -6,12 +6,14 @@ import ProductNotFound from "../components/ProductNotFound";
 import { Heart, ShoppingBag } from "lucide-react";
 import Button from "../components/Button";
 import { useCart } from "../contexts/CartContext";
+import { useWish } from "../contexts/WishContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
 
   const item = perfumes.find((perfume) => perfume.id === id);
   const { addToCart } = useCart();
+  const { addToWishlist } = useWish();
 
   if (!item) {
     return <ProductNotFound />;
@@ -83,9 +85,10 @@ const ProductDetails = () => {
                   "Unavailable"
                 )}
               </Button>
-              <Button>
+              <Button onClick={() => addToWishlist(item)}>
                 <div className="flex justify-center gap-2">
-                  <Heart /> Add to Wishlist
+                  <Heart />
+                  <p> Add to Wishlist</p>
                 </div>
               </Button>
             </div>

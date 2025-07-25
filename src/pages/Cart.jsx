@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../components/Button";
-import { Minus, Plus, Trash } from "lucide-react";
+import { Minus, Plus, Trash2 } from "lucide-react";
 import { Link } from "react-router";
 import { useCart } from "../contexts/CartContext";
 
@@ -73,7 +73,7 @@ const CartPage = () => {
                     className="text-red-500 hover:underline text-sm cursor-pointer"
                     onClick={() => removeFromCart(item.id)}
                   >
-                    <Trash />
+                    <Trash2 />
                   </button>
                 </div>
               </div>
