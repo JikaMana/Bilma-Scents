@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import CartPage from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import { CartProvider } from "./contexts/CartContext";
+import OrderSuccessful from "./pages/OrderSuccessful";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,8 @@ const router = createBrowserRouter([
       { path: "contact", element: <Contact /> },
       { path: "cart", element: <CartPage /> },
       { path: "checkout", element: <Checkout /> },
+      { path: "order-successful", element: <OrderSuccessful /> },
+
       // { path: "wishlist", element: <Wishlist /> },
       // { path: "admin", element: <Admin /> },
     ],

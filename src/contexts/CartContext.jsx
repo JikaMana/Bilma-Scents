@@ -5,6 +5,14 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(initialCartItems || []);
+  const totalItems = cartItems.length;
+  const shippingFee = cartItems.length === 0 ? 0 : 1000;
+
+  const total = ([cartItems][0] ?? []).reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+  const subtotal = total + shippingFee;
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
@@ -37,7 +45,7 @@ export const CartProvider = ({ children }) => {
   const decreaseQuantity = (productId) => {
     setCartItems((prevItems) => {
       return prevItems.flatMap((item) => {
-        // I'm using flatMap over map so i can remove item when quanitty is Zero
+        // I'm using flatMap over map so i can remove item when quantity is Zero
         if (item.id === productId) {
           if (item.quantity === 1) {
             return [];
@@ -59,6 +67,10 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         addQuantity,
         decreaseQuantity,
+        totalItems,
+        shippingFee,
+        total,
+        subtotal,
       }}
     >
       {children}

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import storeBanner from "../assets/images/background/storeBanner.webp";
 import { perfumes } from "../constants";
 import ProductNotFound from "../components/ProductNotFound";
@@ -9,6 +9,7 @@ import { useCart } from "../contexts/CartContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
+
   const item = perfumes.find((perfume) => perfume.id === id);
   const { addToCart } = useCart();
 
@@ -16,7 +17,6 @@ const ProductDetails = () => {
     return <ProductNotFound />;
   }
 
-  console.log(item);
   return (
     <Fragment>
       <div

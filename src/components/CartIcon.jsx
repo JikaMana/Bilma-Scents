@@ -1,9 +1,10 @@
 import { ShoppingBag } from "lucide-react";
 import React, { Fragment } from "react";
 import { Link } from "react-router";
+import { useCart } from "../contexts/CartContext";
 
 const CartIcon = () => {
-  const totalItems = 10;
+  const { totalItems } = useCart();
 
   return (
     <div className="relative">
