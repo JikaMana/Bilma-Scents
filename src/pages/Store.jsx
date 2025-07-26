@@ -26,7 +26,7 @@ const store = () => {
 
       <section className="py-12 px-6 md:px-12 ">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-medium font-display italic mb-8">
+          <h2 className="text-3xl font-medium font-display italic mb-4 sm:mb-8">
             All perfumes
           </h2>
 
@@ -36,7 +36,7 @@ const store = () => {
               className="hidden sm:flex-[0.3] w-full"
             />
 
-            <div className="flex-1 sm:flex-[0.3] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-between gap-x-2 gap-y-4 sm:gap-4 md:gap-8">
+            <div className="flex-1  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-between gap-x-2 gap-y-4 sm:gap-4 md:gap-8">
               {perfumes.slice(0, PER_PAGE).map((item) => (
                 <CustomItem item={item} key={item.id} />
               ))}

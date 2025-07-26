@@ -48,13 +48,13 @@ const CustomItem = ({ item }) => {
             <Heart size={32} color="#9c6a24" className="" />
           </button> */}
         </div>
-        <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div className="mt-2 sm:mt-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-black font-bold text-[14px] min-w-[360px]:text-base">
             ₦{item.price}
           </p>
           <button
             onClick={handleButtonClick}
-            className="bg-[#e39f5f] text-white text-sm px-4 py-2 rounded hover:bg-[#eab685] cursor-pointer transition duration-300"
+            className="bg-[#e39f5f] text-white text-xs min-w-[360px]:text-sm font-semibold px-4 py-2 rounded hover:bg-[#eab685] cursor-pointer transition duration-300"
           >
             Add to Cart
           </button>
