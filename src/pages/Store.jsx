@@ -4,9 +4,8 @@ import { perfumes } from "../constants";
 import CustomItem from "../components/CustomItem";
 import { useLocation } from "react-router";
 import ProductFilters from "../components/ProductFilters";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 
-const PER_PAGE = 8;
+const PER_PAGE = 20;
 
 const store = () => {
   const location = useLocation();
@@ -24,34 +23,35 @@ const store = () => {
         {location.pathname}
       </div>
 
-      <section className="py-12 px-6 md:px-12 ">
+      <section className="py-12 px-6 md:px-12 mb-2">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-medium font-display italic mb-4 sm:mb-8">
-            All perfumes
-          </h2>
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <h2 className="text-3xl font-medium font-display italic mb-4 sm:mb-8">
+              All perfumes
+            </h2>
 
-          <main className="flex ">
-            <ProductFilters
-              perfumes={perfumes}
-              className="hidden sm:flex-[0.3] w-full"
-            />
+            <div>
+              <input
+                type="search"
+                name="search"
+                id="search"
+                placeholder="Search Perfume"
+                className="h-12 w-full md:w-[300px] focus:outline-[#e39f5f] px-4 border-2 border-[#e39f5f] rounded-lg"
+              />
+            </div>
+          </div>
 
-            <div className="flex-1  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-between gap-x-2 gap-y-4 sm:gap-4 md:gap-8">
-              {perfumes.slice(0, PER_PAGE).map((item) => (
-                <CustomItem item={item} key={item.id} />
-              ))}
+          <main className="flex">
+            <ProductFilters perfumes={perfumes} className="" />
+
+            <div className="flex-1 max-h-[80vh] overflow-y-auto">
+              <div className="grid grid-cols-2 lg:grid-cols-3 justify-between gap-x-2 gap-y-4 sm:gap-4 md:gap-8">
+                {perfumes.slice(0, PER_PAGE).map((item) => (
+                  <CustomItem item={item} key={item.id} />
+                ))}
+              </div>
             </div>
           </main>
-          <div className="flex gap-2 mt-8 justify-center">
-            <button className="px-4 py-2 bg-[#e3bc9a] text-[#9c6a24]">
-              <ArrowLeft />
-            </button>
-            <button className="px-4 py-2 bg-[#e3bc9a] text-[#9c6a24]">1</button>
-            <button className="px-4 py-2 bg-[#e3bc9a] text-[#9c6a24]">2</button>
-            <button className="px-4 py-2 bg-[#e3bc9a] text-[#9c6a24]">
-              <ArrowRight />
-            </button>
-          </div>
         </div>
       </section>
     </Fragment>

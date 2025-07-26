@@ -14,7 +14,7 @@ const ProductFilters = ({ perfumes }) => {
 
   return (
     <div className="hidden md:block">
-      <aside className="w-64 hidden md:block space-y-6">
+      <aside className="w-64 hidden md:block space-y-6 px-4">
         {/* Category Filter */}
         <div>
           <h3 className="font-bold mb-2">Category</h3>
