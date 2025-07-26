@@ -32,8 +32,8 @@ const FAQ = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-16">
-      <h2 className="text-3xl font-manrope italic font-bold text-center mb-12 text-gray-800">
+    <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12 md:py-16">
+      <h2 className="text-3xl font-manrope italic font-bold text-center mb-4 sm:mb-8 md:mb-12 text-gray-800">
         Frequently Asked Questions
       </h2>
 
@@ -44,7 +44,7 @@ const FAQ = () => {
           return (
             <div
               key={index}
-              className="border-b pb-6 text-[#9c6a24] font-manrope cursor-pointer"
+              className="border-b pb-2 sm:pb-6 text-[#9c6a24] font-manrope cursor-pointer"
               onClick={() => toggleFAQ(index)}
             >
               <h3 className="text-lg font-semibold flex justify-between items-center">
