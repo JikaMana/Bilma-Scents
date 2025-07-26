@@ -19,8 +19,6 @@ const Checkout = () => {
     }));
   };
 
-  console.log(formData);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -61,7 +59,7 @@ const Checkout = () => {
           />
           <Button
             type="submit"
-            style="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
+            style="w-full text-white py-3 rounded hover:bg-gray-800 transition"
           >
             Place Order
           </Button>

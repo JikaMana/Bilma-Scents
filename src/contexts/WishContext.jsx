@@ -8,15 +8,14 @@ export const WishProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState(initialWishlist || []);
 
   const addToWishlist = (wish) => {
-    console.log("wish passed: ", wish);
+    toast("Perfume added to Wishlist");
+
     setWishlist((prev) => {
       let alreadyInWishlist = prev.find((item) => item.id === wish.id);
 
       if (alreadyInWishlist) {
-        return toast("Perfume already in Wishlist");
+        return;
       } else {
-        toast("Perfume added in Wishlist");
-        console.log(wish);
         return [...prev, wish];
       }
     });

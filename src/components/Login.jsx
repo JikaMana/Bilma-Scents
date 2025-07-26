@@ -1,11 +1,15 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Button from "./Button";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const handleLogin = (e) => {
     e.preventDefault();
     // handle email/password login here
+
+    navigate("/");
   };
 
   const handleGoogleLogin = () => {
@@ -13,12 +17,12 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 text-[#9c6a24]">
+    <div className="flex items-center justify-center min-h-screen px-2 sm:px-4 md:px-8 text-[#9c6a24] max-w-96 mx-auto">
       <div className="w-full max-w-md space-y-4">
-        <h2 className="text-3xl font-semibold text-gray-800 text-center">
-          Welcome Back!
+        <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 text-center font-display italic">
+          Welcome Back
         </h2>
-        <form onSubmit={handleLogin} className="space-y-5 p-6">
+        <form onSubmit={handleLogin} className="space-y-5 py-6">
           <div>
             <label className="block mb-1 text-sm font-medium">Email</label>
             <input
@@ -52,7 +56,7 @@ const Login = () => {
         </button>
         <p className="text-center">
           Don't have an account?
-          <Link to="/register" className="ml-2">
+          <Link to="/register" className="ml-2 text-[#eab685]">
             Register
           </Link>
         </p>

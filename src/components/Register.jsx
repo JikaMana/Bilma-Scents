@@ -4,8 +4,12 @@ import Button from "./Button";
 
 const Register = () => {
   const handleLogin = (e) => {
+    const navigate = useNavigate();
+
     e.preventDefault();
     // handle email/password register here
+
+    navigate("/");
   };
 
   const handleGoogleLogin = () => {
@@ -13,10 +17,10 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 text-[#9c6a24]">
+    <div className="flex items-center justify-center min-h-screen px-4 text-[#9c6a24] max-w-96 mx-auto">
       <div className="w-full max-w-md space-y-4 p-6">
-        <h2 className="text-3xl font-semibold text-gray-800 text-center">
-          Create an Account!
+        <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 text-center font-display italic">
+          Create an Account
         </h2>
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
@@ -61,7 +65,7 @@ const Register = () => {
         </button>
         <p className="text-center">
           Don't have an account?
-          <Link to="/login" className="ml-2">
+          <Link to="/login" className="ml-2 text-[#eab685]">
             Login
           </Link>
         </p>

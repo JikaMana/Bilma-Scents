@@ -33,7 +33,7 @@ const store = () => {
           <main className="flex ">
             <ProductFilters
               perfumes={perfumes}
-              className="sm:flex-[0.3] w-full"
+              className="hidden sm:flex-[0.3] w-full"
             />
 
             <div className="grid grid-cols-[repeat(auto-fit,_minmax(210px,_1fr))] gap-8 w-full">

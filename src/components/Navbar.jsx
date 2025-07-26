@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Heart, Menu, ShoppingBag, User, X } from "lucide-react";
+import { Heart, Menu, User, X } from "lucide-react";
 import bilmaLogo from "../assets/images/bilma-scents-logo.png";
 import { motion } from "framer-motion";
 import CartIcon from "./CartIcon";
@@ -40,7 +40,7 @@ const Navbar = () => {
           <Link to="/" className="hover:text-[#E3BC9A] transition">
             Home
           </Link>
-          <Link to="/store" className="hover:text-[#E3BC9A] transition">
+          <Link to="/store" className="">
             store
           </Link>
         </div>
@@ -56,9 +56,9 @@ const Navbar = () => {
             <img
               src={bilmaLogo}
               alt="Bilma Logo"
-              className="h-8 w-8 md:h-10 md:w-10 "
+              className="h-8 w-8 md:h-10 md:w-10 hidden sm:block"
             />
-            <p>Scents</p>
+            <p className="hidden sm:block">Scents</p>
           </Link>
         </div>
 
@@ -70,14 +70,32 @@ const Navbar = () => {
           >
             Contact
           </Link>
-          <Link to="/wishlist" className="text-xl">
-            <Heart size={32} />
-          </Link>
 
-          <CartIcon />
-          <Link to="/login" className="text-xl">
-            <User size={32} />
-          </Link>
+          <div className="relative group">
+            <Link to="/wishlist" className="text-xl">
+              <Heart size={32} />
+            </Link>
+            <span className="absolute -top-8 left-1/2 -translate-x-1/2 p-2 text-xs text-[#9c6a24] bg-[#E3BC9A] rounded opacity-0 group-hover:opacity-100 transition pointer-events-none">
+              Wishlist
+            </span>
+          </div>
+
+          <div className="relative group">
+            <CartIcon />
+
+            <span className="absolute top-8 left-1/2 -translate-x-1/2 p-2 text-xs text-[#9c6a24] whitespace-nowrap bg-[#E3BC9A] rounded opacity-0 group-hover:opacity-100 transition pointer-events-none">
+              Shopping Cart
+            </span>
+          </div>
+
+          <div className="relative group">
+            <Link to="/login" className="text-xl">
+              <User size={32} />
+            </Link>
+            <span className="absolute -top-8 left-1/2 -translate-x-1/2 p-2 text-xs text-[#9c6a24] bg-[#E3BC9A] rounded opacity-0 group-hover:opacity-100 transition pointer-events-none">
+              Account
+            </span>
+          </div>
         </div>
       </div>
 

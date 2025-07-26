@@ -11,13 +11,9 @@ const ProductFilters = ({ perfumes }) => {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [availability, setAvailability] = useState("");
   const [boxed, setBoxed] = useState("");
-  const [price, setPrice] = useState("");
 
   return (
     <div className="hidden md:block">
-      {/* hidden to hide the full sidebar  */}
-      {/* <PanelLeftClose className=" float-right mr-8" /> */}
-
       <aside className="w-64 hidden md:block space-y-6">
         {/* Category Filter */}
         <div>
@@ -98,26 +94,6 @@ const ProductFilters = ({ perfumes }) => {
             Boxed
           </label>
         </div>
-
-        {/* Price Range */}
-        {/* <div>
-          <h3 className="font-bold mb-2">Price</h3>
-          {priceRanges.map((range) => (
-            <div key={range}>
-              <label className="inline-flex items-center">
-                <input
-                  type="radio"
-                  name="price"
-                  value={range}
-                  checked={price === range}
-                  onChange={() => setPrice(range)}
-                  className="mr-2"
-                />
-                {range}
-              </label>
-            </div>
-          ))}
-        </div> */}
       </aside>
     </div>
   );

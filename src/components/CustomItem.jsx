@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router";
 import { useCart } from "../contexts/CartContext";
+import { Heart } from "lucide-react";
+import { useWish } from "../contexts/WishContext";
 
 const CustomItem = ({ item }) => {
   const { addToCart } = useCart();
+  const { addToWishlist } = useWish();
 
   const handleButtonClick = (e) => {
     e.preventDefault();
@@ -18,23 +21,30 @@ const CustomItem = ({ item }) => {
       key={item.id}
       className="bg-white rounded-xl shadow-md overflow-hidden w-full min-w-[13rem]"
     >
-      <div className="h-64 w-full">
+      <div className="h-64 w-full p-2">
         <img
           src={item.image}
           alt={item.name}
-          className="w-full h-full object-contain bg-[#E3BC9A]"
+          className="w-full h-full object-contain bg-white"
         />
       </div>
-      <div className="p-4">
-        <h3 className="text-lg font-semibold font-manrope">{item.name}</h3>
-        <p className="text-sm text-gray-600 font-merriweather">
-          {item.flavour}
-        </p>
+      <div className="p-4 border-t-2 border-[#9c6a24] bg-[#f5e4d3]">
+        <div className="flex justify-between items-center">
+          <div>
+            <h3 className="text-lg font-semibold font-manrope">{item.name}</h3>
+            <p className="text-sm text-gray-600 font-merriweather">
+              {item.flavour}
+            </p>
+          </div>
+          <button onClick={() => addToWishlist(item)}>
+            <Heart size={32} color="#9c6a24" className="" />
+          </button>
+        </div>
         <div className="mt-4 flex items-center justify-between gap-2">
           <p className="text-black font-bold">₦{item.price}</p>
           <button
             onClick={handleButtonClick}
-            className="bg-[#E3BC9A] text-white text-sm px-4 py-2 rounded hover:bg-[#f1e7dd] cursor-pointer transition duration-300"
+            className="bg-[#e39f5f] text-white text-sm px-4 py-2 rounded hover:bg-[#eab685] cursor-pointer transition duration-300"
           >
             Add to Cart
           </button>
