@@ -74,7 +74,7 @@ const Footer = () => {
         </h1>
       </div>
       <div className="text-center py-4 text-xs text-gray-500 border-t">
-        © {new Date().getFullYear()} Bilma. All rights reserved.
+        © {new Date().getFullYear()} Bilma Scents. All rights reserved.
       </div>
     </footer>
   );

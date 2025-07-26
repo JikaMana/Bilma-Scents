@@ -25,6 +25,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Define your theme colors using Tailwind's config instead */
 @theme {
   --font-display: "Playfair Display", serif;

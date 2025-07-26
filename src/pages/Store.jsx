@@ -1,14 +1,30 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import storeBanner from "../assets/images/background/storeBanner.webp";
 import { perfumes } from "../constants";
 import CustomItem from "../components/CustomItem";
 import { useLocation } from "react-router";
 import ProductFilters from "../components/ProductFilters";
 
-const PER_PAGE = 20;
+const PER_PAGE = 10000;
 
-const store = () => {
+const Store = () => {
   const location = useLocation();
+  const [searchInput, setSearchInput] = useState("");
+
+  const [searchPerfume, setSearchPerfume] = useState(perfumes);
+
+  useEffect(() => {
+    setSearchPerfume(
+      perfumes.filter((perfume) => {
+        let perfumeName = perfume.name.toLowerCase();
+        let perfumeFlavour = perfume.flavour.toLowerCase();
+        return (
+          perfumeName.includes(searchInput.toLowerCase()) ||
+          perfumeFlavour.includes(searchInput.toLowerCase())
+        );
+      })
+    );
+  }, [searchInput]);
 
   return (
     <Fragment>
@@ -35,18 +51,20 @@ const store = () => {
                 type="search"
                 name="search"
                 id="search"
-                placeholder="Search Perfume"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder="Search Perfume or Flavour"
                 className="h-12 w-full md:w-[300px] focus:outline-[#e39f5f] px-4 border-2 border-[#e39f5f] rounded-lg"
               />
             </div>
           </div>
 
           <main className="flex">
-            <ProductFilters perfumes={perfumes} className="" />
+            <ProductFilters perfumes={searchPerfume} />
 
-            <div className="flex-1 max-h-[80vh] overflow-y-auto">
+            <div className="flex-1 max-h-[80vh] overflow-y-auto scrollbar-hide">
               <div className="grid grid-cols-2 lg:grid-cols-3 justify-between gap-x-2 gap-y-4 sm:gap-4 md:gap-8">
-                {perfumes.slice(0, PER_PAGE).map((item) => (
+                {searchPerfume.slice(0, PER_PAGE).map((item) => (
                   <CustomItem item={item} key={item.id} />
                 ))}
               </div>
@@ -58,4 +76,4 @@ const store = () => {
   );
 };
 
-export default store;
+export default Store;
