@@ -39,10 +39,10 @@ const Store = () => {
         {location.pathname}
       </div>
 
-      <section className="py-12 px-6 md:px-12 mb-2">
+      <section className="py-6 sm:py-12 px-6 md:px-12 mb-2">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <h2 className="text-3xl font-medium font-display italic mb-4 sm:mb-8">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-4 sm:mb-8">
+            <h2 className="text-3xl font-medium font-display italic mb-4">
               All perfumes
             </h2>
 
