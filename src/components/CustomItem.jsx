@@ -36,7 +36,13 @@ const CustomItem = ({ item }) => {
               {item.flavour}
             </p>
           </div>
-          <button onClick={() => addToWishlist(item)}>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              addToWishlist(item);
+            }}
+          >
             <Heart size={32} color="#9c6a24" className="" />
           </button>
         </div>
