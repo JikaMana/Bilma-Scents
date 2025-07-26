@@ -14,7 +14,7 @@ const store = () => {
   return (
     <Fragment>
       <div
-        className="min-h-[35vh] flex flex-col justify-center items-center text-5xl font-display italic text-center text-[#f1e7dd]"
+        className="min-h-[30vh] md:min-h-[35vh] flex flex-col justify-center items-center text-5xl font-display italic text-center text-[#f1e7dd]"
         style={{
           backgroundImage: `url(${storeBanner})`,
           backgroundSize: "cover",
@@ -36,7 +36,7 @@ const store = () => {
               className="hidden sm:flex-[0.3] w-full"
             />
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-4 sm:gap-4 md:gap-8">
+            <div className="flex-1 sm:flex-[0.3] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-between gap-x-2 gap-y-4 sm:gap-4 md:gap-8">
               {perfumes.slice(0, PER_PAGE).map((item) => (
                 <CustomItem item={item} key={item.id} />
               ))}
