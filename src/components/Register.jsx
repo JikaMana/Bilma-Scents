@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import Button from "./Button";
 import { useAuth } from "../contexts/AuthContext";
+import { toast } from "sonner";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { signUp } = useAuth();
+  const { signUp, logIn } = useAuth();
 
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
@@ -24,6 +25,7 @@ const Register = () => {
     }
     try {
       await signUp(formData.email, formData.password, formData.name);
+      await logIn(formData.email, formData.password);
       navigate("/");
     } catch (err) {
       if (err.code === "auth/user-not-found") setError("User not found");
@@ -39,6 +41,7 @@ const Register = () => {
     try {
       await loginWithGoogle();
       navigate("/");
+      toast.success("Access granted");
     } catch (err) {
       console.log(err);
       setError(err.message);

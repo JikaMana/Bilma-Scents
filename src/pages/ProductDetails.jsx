@@ -11,9 +11,9 @@ import { useWish } from "../contexts/WishContext";
 const ProductDetails = () => {
   const { id } = useParams();
 
-  const item = perfumes.find((perfume) => perfume.id === id);
   const { addToCart } = useCart();
   const { addToWishlist } = useWish();
+  const item = perfumes.find((perfume) => perfume.id === id);
 
   if (!item) {
     return <ProductNotFound />;

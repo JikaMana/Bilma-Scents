@@ -4,10 +4,12 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
   updateProfile,
 } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../lib/firebase";
+import { toast } from "sonner";
 
 const AuthContext = createContext();
 
@@ -23,7 +25,7 @@ export const AuthProvider = ({ children }) => {
         password
       );
       await updateProfile(userCred.user, { displayName });
-      // console.log(userCred, userCred.user);
+      toast.success("Account Created successfully");
       setUser(userCred.user);
       return userCred;
     } catch (error) {
@@ -35,9 +37,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const userCred = await signInWithEmailAndPassword(auth, email, password);
       setUser(userCred.user);
+      toast.success("Access granted");
       return userCred;
     } catch (error) {
-      throw err;
+      throw error;
     }
   };
 
@@ -46,7 +49,10 @@ export const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
-  const logOut = () => {};
+  const logOut = () => {
+    signOut(auth);
+    toast.success("User logged ou");
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {

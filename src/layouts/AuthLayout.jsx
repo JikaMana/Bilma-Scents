@@ -1,12 +1,33 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import goldenBackground from "../assets/images/background/goldenBakground.jpeg";
 import bilmaLogo from "../assets/images/bilma-scents-logo.png";
+import Button from "../components/Button";
+import { useAuth } from "../contexts/AuthContext";
+import { X } from "lucide-react";
 
 const AuthLayout = () => {
+  const { user, logOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logOut;
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="flex min-h-screen">
       {/* Left Side - Branding */}
+      <div
+        className="absolute top-4 right-4 hover:cursor-pointer"
+        onClick={() => navigate(-1)}
+      >
+        <X color="#9c6a24" size={32} />
+      </div>
       <div
         className="hidden md:flex md:w-1/2 lg:w-3/5 px-6 py-10 text-white"
         style={{
@@ -32,7 +53,14 @@ const AuthLayout = () => {
             Timeless luxury meets captivating scent. Discover handcrafted
             fragrances that create unforgettable impressions.
           </p>
-
+          <Button
+            type="submit"
+            style="mt-4 max-w-32"
+            disabled={user ? true : false}
+            onClick={handleLogout}
+          >
+            Log Out
+          </Button>
           <footer className="text-xs text-white/60 pt-6 border-t border-white/20 w-full">
             © {new Date().getFullYear()} Bilma. All rights reserved.
           </footer>

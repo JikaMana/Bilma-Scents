@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import Button from "./Button";
 import { useAuth } from "../contexts/AuthContext";
+import { toast } from "sonner";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,6 +30,8 @@ const Login = () => {
       if (err.code === "auth/user-not-found") setError("User not found");
       else if (err.code === "auth/wrong-password") setError("Wrong password");
       else if (err.code === "auth/invalid-email") setError("Invalid email");
+      else if (err.code === "auth/invalid-credential")
+        setError("Invalid credential");
       else setError("Something went wrong");
       console.log(err);
     }
@@ -38,6 +41,7 @@ const Login = () => {
     try {
       await loginWithGoogle();
       navigate("/");
+      toast.success("Access granted");
     } catch (err) {
       setError(err.code);
     }

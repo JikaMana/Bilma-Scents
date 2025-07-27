@@ -17,6 +17,7 @@ import { WishProvider } from "./contexts/WishContext";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import ProtectedRoute from "./components/ProtectedRoutes";
 
 function App() {
   return (
@@ -32,9 +33,30 @@ function App() {
               <Route path="store/:id" element={<ProductDetails />} />
               <Route path="contact" element={<Contact />} />
               <Route path="cart" element={<CartPage />} />
-              <Route path="checkout" element={<Checkout />} />
-              <Route path="wishlist" element={<Wishlist />} />
-              <Route path="order-successful" element={<OrderSuccessful />} />
+              <Route
+                path="checkout"
+                element={
+                  <ProtectedRoute>
+                    <Checkout />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="wishlist"
+                element={
+                  <ProtectedRoute>
+                    <Wishlist />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="order-successful"
+                element={
+                  <ProtectedRoute>
+                    <OrderSuccessful />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
             <Route path="/login" element={<AuthLayout />}>
               <Route index element={<Login />} />
