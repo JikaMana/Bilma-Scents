@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Outlet } from "react-router-dom";
-import SocialButton from "../components/SocialButton";
 
 const RootLayout = () => {
   return (
@@ -12,7 +11,6 @@ const RootLayout = () => {
       <main className="flex-grow">
         <Outlet />
       </main>
-      <SocialButton />
       <Footer />
     </div>
   );
