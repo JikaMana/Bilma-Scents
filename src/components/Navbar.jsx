@@ -73,7 +73,7 @@ const Navbar = () => {
 
           <div className="relative group">
             <Link to="/wishlist" className="text-xl">
-              <Heart size={32} />
+              <Heart className="w-6 h-6 sm:w-8 sm:h-8" />
             </Link>
             <span className="absolute -top-8 left-1/2 -translate-x-1/2 p-2 text-xs text-[#9c6a24] bg-[#E3BC9A] rounded opacity-0 group-hover:opacity-100 transition pointer-events-none">
               Wishlist
@@ -90,7 +90,7 @@ const Navbar = () => {
 
           <div className="relative group">
             <Link to="/login" className="text-xl">
-              <User size={32} />
+              <User className="w-6 h-6 sm:w-8 sm:h-8" />
             </Link>
             <span className="absolute -top-8 left-1/2 -translate-x-1/2 p-2 text-xs text-[#9c6a24] bg-[#E3BC9A] rounded opacity-0 group-hover:opacity-100 transition pointer-events-none">
               Account

@@ -9,7 +9,7 @@ const CartIcon = () => {
   return (
     <div className="relative">
       <Link to="/cart" className="text-xl">
-        <ShoppingBag size={32} />
+        <ShoppingBag className="w-6 h-6 sm:w-8 sm:h-8" />
       </Link>
 
       {totalItems > 0 && (

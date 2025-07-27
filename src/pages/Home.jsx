@@ -3,6 +3,7 @@ import Hero from "../components/Hero";
 import CustomPerfumeDeal from "../components/CustomPerfumeDeal";
 import FAQ from "../components/FAQ";
 import bilmaLogo from "../assets/images/bilma-scents-logo.png";
+import HomeCarousel from "../components/HomeCarousel";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
         }}
       >
         <Hero />
+        {/* <HomeCarousel /> */}
         <CustomPerfumeDeal title="Featured Fragrance" />
         <CustomPerfumeDeal title="Discount Offers" />
         <FAQ />

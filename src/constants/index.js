@@ -379,6 +379,56 @@ export const featuredPerfumes = [
   },
 ];
 
+export const newArrivals = [
+  {
+    id: "2024000010",
+    image: testPerfume2,
+    name: "Golden Dusk",
+    flavour: "Oriental & Rich",
+    price: "60000",
+    description: "A golden hour fragrance full of warm resin and spice.",
+    inStock: true,
+    category: "Amber-Oriental",
+    size: "100ml",
+    notes: {
+      top: "Saffron, Orange",
+      heart: "Amber, Cinnamon",
+      base: "Vanilla, Oud",
+    },
+  },
+  {
+    id: "2024000020",
+    image: testPerfume,
+    name: "Lavender Fields",
+    flavour: "Calm & Refreshing",
+    price: "32500",
+    description: "Tranquil French lavender surrounded by soft citrus accents.",
+    inStock: true,
+    category: "Aromatic",
+    size: "100ml",
+    notes: {
+      top: "Lavender, Lemon",
+      heart: "Sage, Geranium",
+      base: "Tonka, Musk",
+    },
+  },
+  {
+    id: "2024000030",
+    image: testPerfume2,
+    name: "Silken Spice",
+    flavour: "Warm & Inviting",
+    price: "45000",
+    description: "A silky fusion of warm spices and delicate woods.",
+    inStock: true,
+    category: "Spicy-Woody",
+    size: "100ml",
+    notes: {
+      top: "Nutmeg, Cardamom",
+      heart: "Rose, Cinnamon",
+      base: "Sandalwood, Amber",
+    },
+  },
+];
 export const images = {
   testPerfume,
   testPerfume2,

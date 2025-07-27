@@ -1,19 +1,23 @@
 import React, { Fragment, useEffect, useState } from "react";
 import storeBanner from "../assets/images/background/storeBanner.webp";
-import { perfumes } from "../constants";
+// import { perfumes } from "../constants";
 import CustomItem from "../components/CustomItem";
 import { useLocation } from "react-router";
 import ProductFilters from "../components/ProductFilters";
 
+import { usePerfumes } from "../contexts/PerfumeContext";
+import { TailSpin } from "react-loader-spinner";
+
 const PER_PAGE = 10000;
 
 const Store = () => {
+  const { perfumes, loading } = usePerfumes();
   const location = useLocation();
   const [searchInput, setSearchInput] = useState("");
-
   const [searchPerfume, setSearchPerfume] = useState(perfumes);
 
   useEffect(() => {
+    if (!perfumes.length) return;
     setSearchPerfume(
       perfumes.filter((perfume) => {
         let perfumeName = perfume.name.toLowerCase();
@@ -24,7 +28,7 @@ const Store = () => {
         );
       })
     );
-  }, [searchInput]);
+  }, [searchInput, perfumes, loading]);
 
   return (
     <Fragment>
@@ -63,11 +67,28 @@ const Store = () => {
             <ProductFilters perfumes={searchPerfume} />
 
             <div className="flex-1 max-h-[80vh] overflow-y-auto scrollbar-hide">
-              <div className="grid grid-cols-2 lg:grid-cols-3 justify-between gap-x-2 gap-y-4 sm:gap-4 md:gap-8">
-                {searchPerfume.slice(0, PER_PAGE).map((item) => (
-                  <CustomItem item={item} key={item.id} />
-                ))}
-              </div>
+              {loading ? (
+                <div className="flex items-center justify-center h-full">
+                  <TailSpin
+                    height="75"
+                    width="75"
+                    color="#9c6a24"
+                    ariaLabel="loading"
+                  />
+                </div>
+              ) : searchPerfume.length === 1 ? (
+                <div className="flex items-center justify-center h-full">
+                  <p className="text-2xl md:text-3xl font-bold text-[#9c6a24]">
+                    No perfumes found.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 lg:grid-cols-3 justify-between gap-x-2 gap-y-4 sm:gap-4 md:gap-8 relative">
+                  {searchPerfume.slice(0, PER_PAGE).map((item) => (
+                    <CustomItem item={item} key={item.id} />
+                  ))}
+                </div>
+              )}
             </div>
           </main>
         </div>

@@ -18,57 +18,62 @@ import AuthLayout from "./layouts/AuthLayout";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoutes";
+import AdminDashboard from "./pages/AdminDashboard";
+import { PerfumeProvider } from "./contexts/PerfumeContext";
 
 function App() {
   return (
-    <CartProvider>
-      <WishProvider>
-        <Toaster position="top-right" offset={100} />
-        <BrowserRouter>
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<RootLayout />}>
-              <Route index element={<Home />} />
-              <Route path="store" element={<Store />} />
-              <Route path="store/:id" element={<ProductDetails />} />
-              <Route path="contact" element={<Contact />} />
-              <Route path="cart" element={<CartPage />} />
-              <Route
-                path="checkout"
-                element={
-                  <ProtectedRoute>
-                    <Checkout />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="wishlist"
-                element={
-                  <ProtectedRoute>
-                    <Wishlist />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="order-successful"
-                element={
-                  <ProtectedRoute>
-                    <OrderSuccessful />
-                  </ProtectedRoute>
-                }
-              />
-            </Route>
-            <Route path="/login" element={<AuthLayout />}>
-              <Route index element={<Login />} />
-            </Route>
-            <Route path="/register" element={<AuthLayout />}>
-              <Route index element={<Register />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </WishProvider>
-    </CartProvider>
+    <PerfumeProvider>
+      <CartProvider>
+        <WishProvider>
+          <Toaster position="top-right" offset={100} />
+          <BrowserRouter>
+            <ScrollToTop />
+            <Routes>
+              <Route path="/" element={<RootLayout />}>
+                <Route index element={<Home />} />
+                <Route path="store" element={<Store />} />
+                <Route path="store/:id" element={<ProductDetails />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="cart" element={<CartPage />} />
+                <Route
+                  path="checkout"
+                  element={
+                    <ProtectedRoute>
+                      <Checkout />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="wishlist"
+                  element={
+                    <ProtectedRoute>
+                      <Wishlist />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="order-successful"
+                  element={
+                    <ProtectedRoute>
+                      <OrderSuccessful />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="admin" element={<AdminDashboard />} />
+              </Route>
+              <Route path="/login" element={<AuthLayout />}>
+                <Route index element={<Login />} />
+              </Route>
+              <Route path="/register" element={<AuthLayout />}>
+                <Route index element={<Register />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </WishProvider>
+      </CartProvider>
+    </PerfumeProvider>
   );
 }
 
