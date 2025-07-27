@@ -50,8 +50,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
-    signOut(auth);
-    toast.success("User logged ou");
+    if (user) {
+      toast.success("User logged out");
+      return signOut(auth);
+    }
+    toast.error("No user Logged in");
+    return;
   };
 
   useEffect(() => {

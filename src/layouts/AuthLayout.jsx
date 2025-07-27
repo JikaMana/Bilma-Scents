@@ -10,9 +10,10 @@ const AuthLayout = () => {
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
 
+  console.log(user);
   const handleLogout = async () => {
     try {
-      await logOut;
+      await logOut();
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -56,7 +57,7 @@ const AuthLayout = () => {
           <Button
             type="submit"
             style="mt-4 max-w-32"
-            disabled={user ? true : false}
+            disabled={!user}
             onClick={handleLogout}
           >
             Log Out
