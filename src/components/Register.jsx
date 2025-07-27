@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import Button from "./Button";
 import { useAuth } from "../contexts/AuthContext";
@@ -40,13 +40,17 @@ const Register = () => {
   const handleGoogleLogin = async () => {
     try {
       await loginWithGoogle();
-      navigate("/");
+      navigate(-1);
       toast.success("Access granted");
     } catch (err) {
       console.log(err);
       setError(err.message);
     }
   };
+
+  useEffect(() => {
+    if (error !== "") toast.error(error);
+  }, [error]);
 
   return (
     <div className="flex items-center justify-center min-h-screen px-4 text-[#9c6a24] max-w-96 mx-auto">

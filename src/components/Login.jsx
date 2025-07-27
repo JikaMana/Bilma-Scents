@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import Button from "./Button";
 import { useAuth } from "../contexts/AuthContext";
@@ -25,15 +25,15 @@ const Login = () => {
 
     try {
       await logIn(formData.email, formData.password);
-      navigate("/");
+      navigate(-1);
     } catch (err) {
+      console.log(err);
       if (err.code === "auth/user-not-found") setError("User not found");
       else if (err.code === "auth/wrong-password") setError("Wrong password");
       else if (err.code === "auth/invalid-email") setError("Invalid email");
       else if (err.code === "auth/invalid-credential")
         setError("Invalid credential");
       else setError("Something went wrong");
-      console.log(err);
     }
   };
 
@@ -46,6 +46,10 @@ const Login = () => {
       setError(err.code);
     }
   };
+
+  useEffect(() => {
+    if (error !== "") toast.error(error);
+  }, [error]);
 
   return (
     <div className="flex items-center justify-center min-h-screen px-2 sm:px-4 md:px-8 text-[#9c6a24] max-w-96 mx-auto">
