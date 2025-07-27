@@ -1,19 +1,48 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router";
 import Button from "./Button";
+import { useAuth } from "../contexts/AuthContext";
 
 const Register = () => {
-  const handleLogin = (e) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { signUp } = useAuth();
 
+  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // handle email/password register here
+    setError("");
 
-    navigate("/");
+    if (!formData.email || !formData.password) {
+      setError("Please fill in all credential");
+      return;
+    }
+    try {
+      await signUp(formData.email, formData.password, formData.name);
+      navigate("/");
+    } catch (err) {
+      if (err.code === "auth/user-not-found") setError("User not found");
+      else if (err.code === "auth/email-already-in-use")
+        setError("User already exist");
+      else if (err.code === "auth/wrong-password") setError("Wrong password");
+      else if (err.code === "auth/invalid-email") setError("Invalid email");
+      else setError("Something went wrong");
+    }
   };
 
-  const handleGoogleLogin = () => {
-    // handle Google sign-up logic here
+  const handleGoogleLogin = async () => {
+    try {
+      await loginWithGoogle();
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      setError(err.message);
+    }
   };
 
   return (
@@ -22,13 +51,17 @@ const Register = () => {
         <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 text-center font-display italic">
           Create an Account
         </h2>
-        <form onSubmit={handleLogin} className="space-y-5">
+        <form onSubmit={handleRegister} className="space-y-5">
           <div>
             <label className="block mb-1 text-sm font-medium">Name</label>
             <input
               type="name"
               required
               placeholder="Full Name"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, name: e.target.value }))
+              }
               className="w-full px-4 py-2 rounded-md text-gray-600 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
           </div>
@@ -38,6 +71,10 @@ const Register = () => {
               type="email"
               required
               placeholder="you@example.com"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, email: e.target.value }))
+              }
               className="w-full px-4 py-2 rounded-md text-gray-600 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
           </div>
@@ -47,6 +84,10 @@ const Register = () => {
               type="password"
               required
               placeholder="••••••••"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, password: e.target.value }))
+              }
               className="w-full px-4 py-2 rounded-md text-gray-600 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
           </div>
@@ -54,6 +95,7 @@ const Register = () => {
           <Button type="submit" style="mt-4">
             Sign Up
           </Button>
+          {error && <p className="text-red-500 text-center">{error}</p>}
         </form>
         <div className="text-center text-gray-500 text-sm">or</div>
         <button
