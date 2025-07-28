@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Instagram } from "lucide-react";
 import whatsappIcon from "../assets/images/WhatsApp.webp";
 
