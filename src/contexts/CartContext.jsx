@@ -74,25 +74,28 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
     toast.success("Perfume added to cart");
-
-    try {
-      setCartItems((prevItems) => {
-        const alreadyInCartItems = prevItems.find(
-          (items) => items.id === product.id
-        );
-
-        if (alreadyInCartItems) {
-          return prevItems.map((item) =>
-            item.id === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
+    if (userId) {
+      try {
+        setCartItems((prevItems) => {
+          const alreadyInCartItems = prevItems.find(
+            (items) => items.id === product.id
           );
-        } else {
-          return [...prevItems, { ...product, quantity: 1 }];
-        }
-      });
-    } catch (err) {
-      console.error(err);
+
+          if (alreadyInCartItems) {
+            return prevItems.map((item) =>
+              item.id === product.id
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+            );
+          } else {
+            return [...prevItems, { ...product, quantity: 1 }];
+          }
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      toast.error("Log in to add perfumes to wishlist");
     }
   };
 
