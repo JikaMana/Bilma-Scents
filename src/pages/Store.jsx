@@ -6,7 +6,7 @@ import { useLocation } from "react-router";
 import ProductFilters from "../components/ProductFilters";
 
 import { usePerfumes } from "../contexts/PerfumeContext";
-import { TailSpin } from "react-loader-spinner";
+import { ClipLoader } from "react-spinners";
 
 const PER_PAGE = 10000;
 
@@ -69,11 +69,12 @@ const Store = () => {
             <div className="flex-1 max-h-[80vh] overflow-y-auto scrollbar-hide">
               {loading ? (
                 <div className="flex items-center justify-center h-full">
-                  <TailSpin
-                    height="75"
-                    width="75"
+                  <ClipLoader
                     color="#9c6a24"
-                    ariaLabel="loading"
+                    loading={loading}
+                    size={80}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
                   />
                 </div>
               ) : !searchPerfume ? (

@@ -7,7 +7,7 @@ const SocialButton = () => {
     <div className="fixed bottom-4 right-4 flex flex-col gap-3 z-50 bg-[#e3bc9a] p-2 rounded-full">
       {/* WhatsApp Button */}
       <a
-        href="https://wa.me/2349012345678"
+        href="https://wa.me/2348155085996"
         target="_blank"
         rel="noopener noreferrer"
         className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition"
@@ -17,7 +17,7 @@ const SocialButton = () => {
 
       {/* Instagram Button */}
       <a
-        href="https://instagram.com/yourusername"
+        href="https://instagram.com/bilmascents"
         target="_blank"
         rel="noopener noreferrer"
         className="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 hover:opacity-90 text-white p-3 rounded-full shadow-lg transition"
