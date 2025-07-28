@@ -20,7 +20,7 @@ import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import AdminDashboard from "./pages/AdminDashboard";
 import { PerfumeProvider } from "./contexts/PerfumeContext";
-import TawkWidget from "./components/TawkWidget";
+// import TawkWidget from "./components/TawkWidget";
 
 function App() {
   return (
@@ -30,7 +30,7 @@ function App() {
           <Toaster position="top-right" offset={100} />
           <BrowserRouter>
             <ScrollToTop />
-            <TawkWidget />
+            {/* <TawkWidget /> */}
             <Routes>
               <Route path="/" element={<RootLayout />}>
                 <Route index element={<Home />} />

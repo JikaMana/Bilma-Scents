@@ -1,8 +1,13 @@
 import React from "react";
 import CustomItem from "./CustomItem";
-import { featuredPerfumes } from "../constants";
+import { usePerfumes } from "../contexts/PerfumeContext";
+// import { featuredPerfumes } from "../constants";
 
 const CustomPerfumeDeal = ({ title }) => {
+  const { perfumes } = usePerfumes();
+
+  let featuredPerfumes = perfumes; //change this with filtering through for thoose with cateofries featured
+
   return (
     <section className="py-4 sm:py-8 md:py-12 px-6 mt-4">
       <div className="max-w-7xl mx-auto">

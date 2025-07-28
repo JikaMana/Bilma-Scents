@@ -1,18 +1,21 @@
 import React, { Fragment } from "react";
 import { useNavigate, useParams } from "react-router";
 import storeBanner from "../assets/images/background/storeBanner.webp";
-import { perfumes } from "../constants";
+// import { perfumes } from "../constants";
 import ProductNotFound from "../components/ProductNotFound";
 import { Heart, ShoppingBag } from "lucide-react";
 import Button from "../components/Button";
 import { useCart } from "../contexts/CartContext";
 import { useWish } from "../contexts/WishContext";
+import { usePerfumes } from "../contexts/PerfumeContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
 
   const { addToCart } = useCart();
   const { addToWishlist } = useWish();
+  const { perfumes } = usePerfumes();
+
   const item = perfumes.find((perfume) => perfume.id === id);
 
   if (!item) {
@@ -35,7 +38,7 @@ const ProductDetails = () => {
         <div className="max-w-5xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10 text-[#9c6a24]">
           <div className="w-full h-[400px]  p-4 overflow-hidden rounded-xl ">
             <img
-              src={item.image}
+              src={item.imageUrl}
               alt={item.name}
               className="w-full h-full object-contain"
             />

@@ -63,7 +63,7 @@ const Navbar = () => {
         </div>
 
         {/* Right Links */}
-        <div className="flex gap-3 sm:gap-6 items-center text-sm font-bold uppercase">
+        <div className="flex gap-2 sm:gap-6 items-center text-sm font-bold uppercase">
           <Link
             to="/contact"
             className="hidden sm:block hover:text-[#E3BC9A] transition"

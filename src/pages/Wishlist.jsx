@@ -24,7 +24,7 @@ const Wishlist = () => {
               >
                 <div className="flex items-center gap-4">
                   <img
-                    src={item.image}
+                    src={item.imageUrl}
                     alt={item.name}
                     className="w-24 h-24 object-contain bg-gray-100 rounded"
                   />

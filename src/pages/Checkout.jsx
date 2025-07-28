@@ -59,7 +59,7 @@ const Checkout = () => {
           />
           <Button
             type="submit"
-            style="w-full text-white py-3 rounded hover:bg-gray-800 transition"
+            style="w-full text-white py-3 rounded transition"
           >
             Place Order
           </Button>

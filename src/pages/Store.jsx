@@ -76,7 +76,7 @@ const Store = () => {
                     ariaLabel="loading"
                   />
                 </div>
-              ) : searchPerfume.length === 1 ? (
+              ) : !searchPerfume ? (
                 <div className="flex items-center justify-center h-full">
                   <p className="text-2xl md:text-3xl font-bold text-[#9c6a24]">
                     No perfumes found.

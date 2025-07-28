@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router";
 import { useCart } from "../contexts/CartContext";
 import { Heart } from "lucide-react";
@@ -22,20 +22,16 @@ const CustomItem = ({ item }) => {
       className="bg-white rounded-xl shadow-md overflow-hidden w-full sm:min-w-[13rem]"
     >
       <div className="h-36 sm:h-50 md:h-64 w-full p-2">
-        {item.image ? (
-          <img
-            src={item.image}
-            alt={item.name ?? "Perfume Image"}
-            className="w-full h-full object-contain bg-white"
-          />
-        ) : (
-          <p className="p-4 text-semibold">Image</p>
-        )}
+        <img
+          src={item.imageUrl}
+          alt={item.name ?? "Perfume Image"}
+          className="w-full h-full object-contain bg-white"
+        />
       </div>
       <div className="p-2 sm:p-4 border-t-2 border-[#9c6a24] bg-[#f5e4d3]">
         <div className="flex justify-between items-center">
           <div>
-            <h3 className="text-[14px] min-w-[360px]:text-base sm:text-lg font-semibold font-manrope">
+            <h3 className="text-[14px] md:text-xl min-w-[360px]:text-base sm:text-lg font-semibold font-manrope">
               {item.name}
             </h3>
             <p className="text-xs sm:text-sm text-gray-600 font-merriweather">
@@ -53,7 +49,7 @@ const CustomItem = ({ item }) => {
           </button>
         </div>
         <div className="mt-2 sm:mt-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-black font-bold text-[14px] min-w-[360px]:text-base">
+          <p className="text-black font-bold text-[14px] md:text-lg min-w-[360px]:text-base">
             ₦{item.price}
           </p>
           <button

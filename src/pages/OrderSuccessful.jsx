@@ -1,10 +1,11 @@
 import { MoveLeft } from "lucide-react";
 import successful from "../assets/images/successful.webp";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Button from "../components/Button";
 import { useCart } from "../contexts/CartContext";
 
 const OrderSuccessful = () => {
+  const navigate = useNavigate();
   const { cartItems, total, shippingFee, subtotal } = useCart();
   console.log(cartItems);
 
@@ -22,7 +23,6 @@ const OrderSuccessful = () => {
         We’ve received your order and will shipin 3-7 business days. <br /> Your
         order number is <span className="">#BCFG3</span>
       </p>
-
       <div className="space-y-8 p-4 md:p-8 mb-6 my-8 md:my-12 bg-white shadow rounded-3xl text-left">
         <h2 className="text-3xl lg:text-4xl font-manrope font-bold">
           Order Summary
@@ -60,15 +60,15 @@ const OrderSuccessful = () => {
           </div>
         </div>
       </div>
-      <Link
-        href="/"
-        className="w-50 text-[#e3bc9a] mt-6 flex gap-1 text-lg font-bold justify-center items-center mx-auto"
-      >
-        <Button style="w-full py-3 flex justify-center items-center gap-2">
+      <div className="w-50 text-[#e3bc9a] mt-6 flex gap-1 text-lg font-bold justify-center items-center mx-auto">
+        <Button
+          style="w-full py-3 flex justify-center items-center gap-2"
+          onClick={() => navigate("/")}
+        >
           <MoveLeft />
           <p>Back Home</p>
         </Button>
-      </Link>
+      </div>
     </div>
   );
 };

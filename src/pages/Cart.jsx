@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../components/Button";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { Link } from "react-router";
 import { useCart } from "../contexts/CartContext";
+import { addDoc } from "firebase/firestore";
+import { db } from "../lib/firebase";
 
 const CartPage = () => {
   const {
@@ -43,7 +45,7 @@ const CartPage = () => {
               >
                 <div className="flex items-center gap-4">
                   <img
-                    src={item.image}
+                    src={item.imageUrl}
                     alt={item.name}
                     className="w-24 h-24 object-contain bg-gray-100 rounded"
                   />

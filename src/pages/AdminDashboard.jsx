@@ -38,9 +38,9 @@ const AdminDashboard = () => {
     if (!product.category.trim()) return "Product category is required";
     if (!product.size.trim()) return "Product size is required";
     if (!product.imageUrl.trim()) return "Product image URL is required";
-    if (!product.notes.top.trim()) return "Top note is required";
-    if (!product.notes.heart.trim()) return "Heart note is required";
-    if (!product.notes.base.trim()) return "Base note is required";
+    if (!product.topNotes.trim()) return "Top note is required";
+    if (!product.heartNotes.trim()) return "Heart note is required";
+    if (!product.baseNotes.trim()) return "Base note is required";
     if (!product.price) return "Price is required";
     if (isNaN(product.price)) return "Price must be a number";
     return "";
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
     setError("");
 
     try {
-      await addDoc(collection(db, "Products"), {
+      await addDoc(collection(db, "perfumes"), {
         ...product,
         price: Number(product.price),
         createdAt: serverTimestamp(),

@@ -15,6 +15,8 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
+
   const [loading, setLoading] = useState(true);
 
   const signUp = async (email, password, displayName) => {
@@ -62,13 +64,19 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {
       setUser(currUser);
       setLoading(false);
+      if (currUser) {
+        setUserId(currUser.uid);
+      } else {
+        setUserId(null);
+      }
     });
-    return unsubscribe;
+    return () => unsubscribe;
   }, []);
 
+  // console.log( userId);
   return (
     <AuthContext.Provider
-      value={{ user, signUp, logIn, loginWithGoogle, logOut }}
+      value={{ user, userId, signUp, logIn, loginWithGoogle, logOut }}
     >
       {!loading && children}
     </AuthContext.Provider>

@@ -1,38 +1,99 @@
-import { createContext, useContext, useState } from "react";
-import { initialCartItems } from "../constants/cartItems";
+import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { db } from "../lib/firebase";
+import { useAuth } from "./AuthContext";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState(initialCartItems || []);
+  const { userId } = useAuth();
+  const [cartItems, setCartItems] = useState([]);
   const totalItems = cartItems.length;
   const shippingFee = cartItems.length === 0 ? 0 : 1000;
-
-  const total = ([cartItems][0] ?? []).reduce(
+  // const total = ([cartItems][0] ?? []).reduce(
+  //   (sum, item) => sum + item.price * item.quantity,
+  //   0
+  // );
+  const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
   const subtotal = total + shippingFee;
 
+  const saveCartToFirestore = async (currentUserId, cartToSave) => {
+    if (!currentUserId) {
+      console.warn("No user ID provided. Cart not saved to Firestore.");
+      return;
+    }
+
+    try {
+      const userCartRef = doc(db, "carts", currentUserId);
+
+      await setDoc(
+        userCartRef,
+        {
+          userId: currentUserId,
+          items: cartToSave,
+          updatedAt: serverTimestamp(),
+        },
+        { merge: true } // merge: true ensures only specified fields are updated, not overwriting the whole document
+      );
+    } catch (err) {
+      console.error("Failed to save:", err);
+      toast.error("Error saving cart");
+    }
+  };
+
+  const loadCartFromFirestore = async (currentUserId) => {
+    if (!currentUserId) {
+      console.warn("No user ID provided. Cannot load cart from  Firestore.");
+      return;
+    }
+
+    const cartRef = doc(db, "carts", currentUserId);
+
+    try {
+      const cartSnap = await getDoc(cartRef);
+
+      if (cartSnap.exists()) {
+        const cartData = cartSnap.data();
+        setCartItems(cartData.items || []);
+        return cartData.items || []; // Return items array, or empty array if 'items' field is missing
+      } else {
+        setCartItems([]);
+
+        console.log("No cart found for user:", currentUserId);
+        return []; // Return an empty array if no cart document exists
+      }
+    } catch (err) {
+      console.error("Error loading cart from Firestore:", err);
+      return null;
+    }
+  };
+
   const addToCart = (product) => {
     toast.success("Perfume added to cart");
 
-    setCartItems((prevItems) => {
-      const alreadyInCartItems = prevItems.find(
-        (items) => items.id === product.id
-      );
-
-      if (alreadyInCartItems) {
-        return prevItems.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
+    try {
+      setCartItems((prevItems) => {
+        const alreadyInCartItems = prevItems.find(
+          (items) => items.id === product.id
         );
-      } else {
-        return [...prevItems, { ...product, quantity: 1 }];
-      }
-    });
+
+        if (alreadyInCartItems) {
+          return prevItems.map((item) =>
+            item.id === product.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+        } else {
+          return [...prevItems, { ...product, quantity: 1 }];
+        }
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const removeFromCart = (id) => {
@@ -41,7 +102,7 @@ export const CartProvider = ({ children }) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
-  const addQuantity = (productId) => {
+  const addQuantity = async (productId) => {
     setCartItems((prevItems) => {
       return prevItems.map((item) =>
         item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
@@ -65,6 +126,25 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  useEffect(() => {
+    if (userId) {
+      loadCartFromFirestore(userId);
+    } else {
+      setCartItems([]);
+      console.log("User not logged in, cart not saved to cloud.");
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    if (userId && cartItems !== null) {
+      // Small debounce to prevent excessive writes if user rapidly clicks
+      const handler = setTimeout(() => {
+        if (cartItems.length !== 0) saveCartToFirestore(userId, cartItems);
+      }, 500); // Save after 500ms of no changes
+      return () => clearTimeout(handler); // Cleanup timeout if cartItems changes again
+    }
+  }, [cartItems, userId]);
+
   return (
     <CartContext.Provider
       value={{
@@ -78,6 +158,7 @@ export const CartProvider = ({ children }) => {
         shippingFee,
         total,
         subtotal,
+        saveCartToFirestore,
       }}
     >
       {children}
