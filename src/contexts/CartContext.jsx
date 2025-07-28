@@ -131,7 +131,6 @@ export const CartProvider = ({ children }) => {
       loadCartFromFirestore(userId);
     } else {
       setCartItems([]);
-      console.log("User not logged in, cart not saved to cloud.");
     }
   }, [userId]);
 

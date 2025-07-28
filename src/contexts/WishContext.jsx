@@ -95,7 +95,6 @@ export const WishProvider = ({ children }) => {
       loadWishFromFirestore(userId);
     } else {
       setWishlist([]);
-      console.log("User not logged in, cart not saved to cloud.");
     }
   }, [userId]);
 
