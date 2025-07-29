@@ -3,11 +3,12 @@ import { Link, useNavigate } from "react-router";
 import Button from "./Button";
 import { useAuth } from "../contexts/AuthContext";
 import { toast } from "sonner";
+import { ClipLoader } from "react-spinners";
 
 const Login = () => {
   const navigate = useNavigate();
   const { logIn, loginWithGoogle } = useAuth();
-
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
@@ -17,6 +18,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     if (!formData.email || !formData.password) {
       setError("Please enter both email and password");
@@ -34,6 +36,8 @@ const Login = () => {
       else if (err.code === "auth/invalid-credential")
         setError("Invalid credential");
       else setError("Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -86,7 +90,17 @@ const Login = () => {
           </div>
 
           <Button type="submit" style="mt-4">
-            Sign In
+            {loading ? (
+              <ClipLoader
+                color="#9c6a24"
+                loading={loading}
+                size={25}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            ) : (
+              "Sign In"
+            )}
           </Button>
           {error && <p className="text-red-500 text-center">{error}</p>}
         </form>
