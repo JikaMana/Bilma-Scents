@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import Button from "./Button";
 import { useAuth } from "../contexts/AuthContext";
 import { toast } from "sonner";
+import { ClipLoader } from "react-spinners";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -100,7 +101,17 @@ const Register = () => {
           </div>
 
           <Button type="submit" style="mt-4">
-            Sign Up
+            {loading ? (
+              <ClipLoader
+                color="#9c6a24"
+                loading={loading}
+                size={25}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            ) : (
+              "Sign Up"
+            )}
           </Button>
           {error && <p className="text-red-500 text-center">{error}</p>}
         </form>
