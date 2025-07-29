@@ -5,6 +5,7 @@ import {
   Facebook,
   Instagram,
   Twitter,
+  MessageCircle,
 } from "lucide-react";
 
 const Contact = () => {
@@ -52,65 +53,80 @@ const Contact = () => {
           </form>
 
           {/* Contact Info / Socials */}
-          <div className=" text-gray-800 flex flex-col sm:flex-row justify-around gap-y-8">
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <MapPin className="text-primary mt-1" />
-                <div>
-                  <h4 className="text-lg font-semibold">Our Office</h4>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    Housing Esate, Oyigbo
-                    <br />
-                    Rivers, Nigeria
-                  </p>
+          <div>
+            <div className=" text-gray-800 flex flex-col sm:flex-row justify-around gap-y-8">
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <MapPin className="text-primary mt-1" />
+                  <div>
+                    <h4 className="text-lg font-semibold">Our Office</h4>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      Housing Esate, Oyigbo
+                      <br />
+                      Rivers, Nigeria
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <Mail className="text-primary mt-1" />
+                  <div>
+                    <h4 className="text-lg font-semibold">Email</h4>
+                    <p className="text-sm text-[#E3BC9A">
+                      bilmascents@gmail.com
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <Phone className="text-primary mt-1" />
+                  <div>
+                    <h4 className="text-lg font-semibold">Phone</h4>
+                    <p className="text-sm text-gray-600">+234 8155055996</p>
+                    <p className="text-sm text-gray-600">+234 8144554703</p>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
-                <Mail className="text-primary mt-1" />
-                <div>
-                  <h4 className="text-lg font-semibold">Email</h4>
-                  <p className="text-sm text-[#E3BC9A">
-                    support@bilmascents.com
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Phone className="text-primary mt-1" />
-                <div>
-                  <h4 className="text-lg font-semibold">Phone</h4>
-                  <p className="text-sm text-gray-600">+234 8155055996</p>
+              {/* Socials */}
+              <div className="mx-auto">
+                <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
+                <div className="flex flex-col space-y-4">
+                  <a
+                    href="https://wa.me/2348155085996"
+                    className="hover:opacity-50 text-green-800 flex items-center space-x-1"
+                  >
+                    <MessageCircle size={32} />
+                    <span className="text-sm">Whatsapp</span>
+                  </a>
+                  {/* <a
+                    href="#"
+                    className="hover:opacity-50 text-blue-500 flex items-center space-x-1"
+                  >
+                    <Facebook size={32} />
+                    <span className="text-sm">Facebook</span>
+                  </a> */}
+                  <a
+                    href="https://instagram.com/bilmascents"
+                    className="hover:opacity-50 text-pink-500 flex items-center space-x-1"
+                  >
+                    <Instagram size={32} />
+                    <span className="text-sm">Instagram</span>
+                  </a>
                 </div>
               </div>
             </div>
-
-            {/* Socials */}
-            <div className="mx-auto">
-              <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
-              <div className="flex flex-col space-y-4">
-                <a
-                  href="#"
-                  className="hover:opacity-50 text-green-800 flex items-center space-x-1"
-                >
-                  <Twitter size={32} />
-                  <span className="text-sm">Whatsapp</span>
-                </a>
-                <a
-                  href="#"
-                  className="hover:opacity-50 text-blue-500 flex items-center space-x-1"
-                >
-                  <Facebook size={32} />
-                  <span className="text-sm">Facebook</span>
-                </a>
-                <a
-                  href="#"
-                  className="hover:opacity-50 text-pink-500 flex items-center space-x-1"
-                >
-                  <Instagram size={32} />
-                  <span className="text-sm">Instagram</span>
-                </a>
-              </div>
+            <div className="mt-8 flex justify-between gap-2">
+              <img
+                src="/bilmascents_insta_qr.png"
+                alt="INSTAGRAM QR-CODE"
+                className="w-60 h-64"
+              />
+              <img
+                src="/bilmascents_insta_qr.png"
+                alt="WHATSAPP QR-CODE"
+                className="w-60 h-64"
+              />
             </div>
           </div>
         </div>

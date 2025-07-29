@@ -3,10 +3,11 @@ import Button from "../components/Button";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { Link } from "react-router";
 import { useCart } from "../contexts/CartContext";
-import { addDoc } from "firebase/firestore";
-import { db } from "../lib/firebase";
+import { useAuth } from "../contexts/AuthContext";
 
 const CartPage = () => {
+  const { user, userId } = useAuth();
+
   const {
     cartItems,
     removeFromCart,
@@ -105,7 +106,10 @@ const CartPage = () => {
             <span>₦{subtotal.toLocaleString()}</span>
           </div>
           <Link to="/checkout">
-            <Button style="w-full text-white py-3 rounded transition">
+            <Button
+              style="w-full text-white py-3 rounded transition"
+              disabled={!user}
+            >
               Proceed to Checkout
             </Button>
           </Link>
