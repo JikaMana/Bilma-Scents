@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Heart, Menu, User, X } from "lucide-react";
+import { Menu, User, X } from "lucide-react";
 import bilmaLogo from "../assets/images/bilma-scents-logo.png";
 import { motion } from "framer-motion";
 import CartIcon from "./CartIcon";
+import WishlistIcon from "./WishlistIcon";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -72,9 +73,7 @@ const Navbar = () => {
           </Link>
 
           <div className="relative group">
-            <Link to="/wishlist" className="text-xl">
-              <Heart className="w-6 h-6 sm:w-8 sm:h-8" />
-            </Link>
+            <WishlistIcon />
             <span className="absolute -top-8 left-1/2 -translate-x-1/2 p-2 text-xs text-[#9c6a24] bg-[#E3BC9A] rounded opacity-0 group-hover:opacity-100 transition pointer-events-none">
               Wishlist
             </span>

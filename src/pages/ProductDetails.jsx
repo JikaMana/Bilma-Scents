@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import storeBanner from "../assets/images/background/storeBanner.webp";
 // import { perfumes } from "../constants";
 import ProductNotFound from "../components/ProductNotFound";
@@ -8,17 +8,32 @@ import Button from "../components/Button";
 import { useCart } from "../contexts/CartContext";
 import { useWish } from "../contexts/WishContext";
 import { usePerfumes } from "../contexts/PerfumeContext";
+import { ClipLoader } from "react-spinners";
 
 const ProductDetails = () => {
   const { id } = useParams();
 
   const { addToCart } = useCart();
   const { addToWishlist } = useWish();
-  const { perfumes } = usePerfumes();
+  const { perfumes, loading } = usePerfumes();
 
   const item = perfumes.find((perfume) => perfume.id === id);
 
-  if (!item) {
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[50vh]">
+        <ClipLoader
+          color="#9c6a24"
+          loading={loading}
+          size={75}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+    );
+  }
+
+  if (!item && !loading) {
     return <ProductNotFound />;
   }
 
@@ -36,7 +51,7 @@ const ProductDetails = () => {
       </div>
       <section>
         <div className="max-w-5xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10 text-[#9c6a24]">
-          <div className="w-full h-[400px]  p-4 overflow-hidden rounded-xl ">
+          <div className="w-full h-[400px]  p-4 overflow-hidden shadow">
             <img
               src={item.imageUrl}
               alt={item.name}

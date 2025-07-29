@@ -73,7 +73,12 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe;
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("UserId", userId);
+  }, [user, userId]);
+
   // console.log( userId);
+
   return (
     <AuthContext.Provider
       value={{ user, userId, signUp, logIn, loginWithGoogle, logOut }}

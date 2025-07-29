@@ -10,6 +10,7 @@ export const PerfumeProvider = ({ children }) => {
 
   useEffect(() => {
     try {
+      setLoading(true);
       const unsubscribe = onSnapshot(collection(db, "perfumes"), (snapshot) => {
         const fetchedPerfumes = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -21,9 +22,11 @@ export const PerfumeProvider = ({ children }) => {
       });
       return () => unsubscribe;
     } catch (error) {
-      toast.error("Failed to fetch data. You're probably offline.");
+      toast.error("Failed to fetch data");
+      setLoading(false);
     }
   }, []);
+
   return (
     <PerfumeContext.Provider value={{ perfumes, loading }}>
       {children}

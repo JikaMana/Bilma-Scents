@@ -102,7 +102,6 @@ const Login = () => {
               "Sign In"
             )}
           </Button>
-          {error && <p className="text-red-500 text-center">{error}</p>}
         </form>
         <div className="text-center text-gray-500 text-sm">or</div>
         <button

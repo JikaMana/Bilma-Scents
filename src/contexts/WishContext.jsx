@@ -64,15 +64,14 @@ export const WishProvider = ({ children }) => {
   };
 
   const addToWishlist = (wish) => {
-    toast("Perfume added to Wishlist");
-
     if (user) {
+      toast.success("Perfume added to Wishlist");
+
       setWishlist((prev) => {
         let alreadyInWishlist = prev.find((item) => item.id === wish.id);
 
         if (alreadyInWishlist) {
           toast.info("Item already in wishlist");
-
           return prev;
         } else {
           return [...prev, wish];
@@ -85,9 +84,12 @@ export const WishProvider = ({ children }) => {
   };
 
   const removeFromWishlist = (id) => {
-    toast.error("Perfume removed from wishlist");
-
-    setWishlist((prevItems) => prevItems.filter((item) => item.id !== id));
+    try {
+      setWishlist((prevItems) => prevItems.filter((item) => item.id !== id));
+      toast.error("Perfume removed from wishlist");
+    } catch (error) {
+      toast.error("Failed to remove perfume");
+    }
   };
 
   useEffect(() => {
@@ -101,7 +103,8 @@ export const WishProvider = ({ children }) => {
   useEffect(() => {
     if (wishlist && userId !== null) {
       const handler = setTimeout(() => {
-        if (wishlist.length !== 0) saveWishToFirestore(userId, wishlist);
+        //  if (wishlist.length !== 0)
+        saveWishToFirestore(userId, wishlist);
       }, 500);
       return () => clearTimeout(handler);
     }

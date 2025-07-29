@@ -113,14 +113,12 @@ const Register = () => {
               "Sign Up"
             )}
           </Button>
-          {error && <p className="text-red-500 text-center">{error}</p>}
         </form>
         <div className="text-center text-gray-500 text-sm">or</div>
         <button
           onClick={handleGoogleLogin}
           className="w-full flex items-center justify-center gap-3 px-4 py-2 border text-gray-600 border-gray-300 rounded-md hover:bg-gray-100 transition"
         >
-          {/* <FcGoogle className="text-xl" /> */}
           Continue with Google
         </button>
         <p className="text-center">

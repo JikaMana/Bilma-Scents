@@ -1,5 +1,5 @@
 import { ShoppingBag } from "lucide-react";
-import React, { Fragment } from "react";
+import React from "react";
 import { Link } from "react-router";
 import { useCart } from "../contexts/CartContext";
 
