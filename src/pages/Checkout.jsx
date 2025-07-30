@@ -11,7 +11,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const { userId } = useAuth();
 
-  const { shippingFee, cartItems, setCartItems, subtotal, total } = useCart();
+  const { shippingFee, subtotal, total } = useCart();
   const [formData, setFormData] = useState({
     name: "",
     number: "",
@@ -47,7 +47,6 @@ const Checkout = () => {
         submittedAt: serverTimestamp(),
       });
       toast.success("Contact Adress Sent");
-      setCartItems([]);
       navigate("/order-successful");
     } catch (error) {
       toast.error("Failed to save Contact Info");
@@ -57,9 +56,14 @@ const Checkout = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-16 text-[#9c6a24]">
-      <h2 className="text-3xl font-bold mb-8 my-8 md:my-12">Checkout</h2>
-      <div className="flex flex-col lg:flex-row gap-12">
+      <h2 className="text-3xl font-bold mb-4 mt-8 md:mb-4 md:mt-12">
+        Checkout
+      </h2>
+      <div className="flex flex-col-reverse lg:flex-row gap-12">
         <form onSubmit={handleSubmit} className="flex-1 space-y-4">
+          <h2 className="text-xl lg:text-2xl font-bold">
+            Fill in your Contact Adress for delivery
+          </h2>
           <input
             className="w-full border p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
             name="name"
@@ -82,7 +86,8 @@ const Checkout = () => {
             name="address"
             value={formData.address}
             onChange={handleChange}
-            placeholder="Shipping Address"
+            maxLength="200"
+            placeholder="Shipping Address(Provide adress as on Google map)"
             rows="2"
             required
           />
@@ -91,7 +96,7 @@ const Checkout = () => {
             name="note"
             value={formData.note}
             onChange={handleChange}
-            placeholder="Additional note (Optional*)"
+            placeholder="Additional note (Optional*)(e.g More explantion about adress)"
             rows="4"
           />
           <Button

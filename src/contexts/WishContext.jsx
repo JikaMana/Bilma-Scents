@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { initialWishlist } from "../constants/wishlist";
 import { toast } from "sonner";
 import { useAuth } from "./AuthContext";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
@@ -13,9 +12,7 @@ export const WishProvider = ({ children }) => {
 
   const saveWishToFirestore = async (currentUserId, wishToSave) => {
     if (!currentUserId) {
-      console.warn(
-        "No user ID provided. COuld not save Wishlist to Firestore."
-      );
+      console.warn("No user ID provided. Could not save Wishlist.");
       return;
     }
     try {
@@ -38,9 +35,7 @@ export const WishProvider = ({ children }) => {
 
   const loadWishFromFirestore = async (currentUserId) => {
     if (!currentUserId) {
-      console.warn(
-        "No user ID provided. Cannot load wishlist from  Firestore."
-      );
+      console.warn("No user ID provided. Cannot load wishlist.");
       return;
     }
 
@@ -57,8 +52,7 @@ export const WishProvider = ({ children }) => {
         return wishlistData || [];
       }
     } catch (err) {
-      console.error("Failed to load:", err);
-      toast.error("Error loading wishlist");
+      console.error("Failed to load wishlist:", err);
       return null;
     }
   };

@@ -123,9 +123,9 @@ const Contact = () => {
                 className="w-60 h-64"
               />
               <img
-                src="/bilmascents_insta_qr.png"
+                src="/bilmascents_whatsapp_qr.png"
                 alt="WHATSAPP QR-CODE"
-                className="w-60 h-64"
+                className="w-60 h-64 rounded-xl"
               />
             </div>
           </div>

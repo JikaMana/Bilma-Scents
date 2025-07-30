@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { Link } from "react-router";
 import { useCart } from "../contexts/CartContext";
 import { Heart } from "lucide-react";

@@ -23,7 +23,7 @@ export const CartProvider = ({ children }) => {
 
   const saveCartToFirestore = async (currentUserId, cartToSave) => {
     if (!currentUserId) {
-      console.warn("No user ID provided. Cart not saved to Firestore.");
+      console.warn("No user ID provided. Cart not saved.");
       return;
     }
 
@@ -47,7 +47,7 @@ export const CartProvider = ({ children }) => {
 
   const loadCartFromFirestore = async (currentUserId) => {
     if (!currentUserId) {
-      console.warn("No user ID provided. Cannot load cart from  Firestore.");
+      console.warn("No user ID provided. Cannot load cart.");
       return;
     }
 
@@ -67,7 +67,7 @@ export const CartProvider = ({ children }) => {
         return []; // Return an empty array if no cart document exists
       }
     } catch (err) {
-      console.error("Error loading cart from Firestore:", err);
+      console.error("Error loading cart:", err);
       return null;
     }
   };

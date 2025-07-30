@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import storeBanner from "../assets/images/background/storeBanner.webp";
-// import { perfumes } from "../constants";
 import CustomItem from "../components/CustomItem";
 import { useLocation } from "react-router";
 import ProductFilters from "../components/ProductFilters";
@@ -11,7 +10,8 @@ import { ClipLoader } from "react-spinners";
 const PER_PAGE = 10000;
 
 const Store = () => {
-  const { perfumes, loading } = usePerfumes();
+  const { perfumes, loading, TOTAL_PERFUME_PER_PAGE } = usePerfumes();
+
   const location = useLocation();
   const [searchInput, setSearchInput] = useState("");
   const [searchPerfume, setSearchPerfume] = useState(perfumes);

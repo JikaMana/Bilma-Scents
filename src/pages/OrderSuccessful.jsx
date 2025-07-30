@@ -1,27 +1,146 @@
 import { MoveLeft } from "lucide-react";
-import successful from "../assets/images/successful.webp";
+// import successful from "../assets/images/successful.webp";
 import { Link, useNavigate } from "react-router";
 import Button from "../components/Button";
 import { useCart } from "../contexts/CartContext";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { useAuth } from "../contexts/AuthContext";
+import { db } from "../lib/firebase";
+import { toast } from "sonner";
+import { useEffect, useRef } from "react";
 
 const OrderSuccessful = () => {
   const navigate = useNavigate();
+  const homeRef = useRef(null);
   const { cartItems, total, shippingFee, subtotal } = useCart();
+  const { userId } = useAuth();
+
   console.log(cartItems);
+
+  const generateOrderNumber = () => {
+    return (
+      Math.random().toString(36).substring(2, 10).toUpperCase() +
+      Math.floor(Math.random() * 1000).toString()
+    );
+  };
+
+  const orderNumber = useRef(generateOrderNumber()).current;
+  console.log("Order Number:", orderNumber);
+
+  const saveOrderToFireStore = async (cartItems, orderNumber, grandTotal) => {
+    if (!cartItems || cartItems.length === 0) {
+      console.warn("No items in cart to save.");
+      return;
+    }
+    const orderData = {
+      orderNumber,
+      items: cartItems,
+      total: grandTotal,
+      shippingFee,
+      createdAt: serverTimestamp(),
+    };
+    const orderRef = doc(db, "orders", userId);
+    try {
+      await setDoc(orderRef, orderData);
+      console.log("Order saved successfully:", orderData);
+      toast.success("Order saved successfully!");
+
+      homeRef.current?.scrollIntoView({ behavior: "smooth" });
+      homeRef.current.className = "animate-bounce ";
+      // Optionally, you can navigate to a different page or show a success message
+    } catch (error) {
+      console.error("Error saving order:", error);
+      toast.error("Failed to save order. Please try again later.");
+    }
+  };
+
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      saveOrderToFireStore(cartItems, orderNumber, subtotal);
+    } else {
+      console.warn("Cart is empty, no order to save.");
+    }
+  }, []);
 
   return (
     <div className="max-w-3xl text-center py-32 mx-auto text-[#9c6a24]">
-      <img
-        src={successful}
-        alt="Order Successful"
-        className="w-32 h-32 mx-auto"
-      />
+      <svg
+        width="180"
+        height="180"
+        viewBox="0 0 200 200"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="mx-auto border-4 border-[#9c6a24] border-dashed rounded-full"
+      >
+        <defs>
+          <linearGradient
+            id="circleGradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="var(--primary-0)"></stop>
+            <stop offset="50%" stopColor="var(--primary-5)"></stop>
+            <stop offset="100%" stopColor="var(--primary-7)"></stop>
+          </linearGradient>
+        </defs>
+        <circle cx="100" cy="100" r="80" fill="#00CC00" opacity="1">
+          <animate
+            attributeName="opacity"
+            values="1;0.8;1"
+            dur="1s"
+            begin="0s;5s;10s;15s;20s;25s"
+            fill="freeze"
+          ></animate>
+        </circle>
+        <path
+          d="M70 100L90 120L130 80"
+          stroke="white"
+          strokeWidth="10"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <animate
+            attributeName="stroke-dashoffset"
+            from="200"
+            to="0"
+            dur="1s"
+            begin="0s;5s;10s;15s;20s;25s"
+            fill="freeze"
+          ></animate>
+          <animate
+            attributeName="strokeDasharray"
+            from="0 200"
+            to="200 0"
+            dur="1s"
+            begin="0s;5s;10s;15s;20s;25s"
+            fill="freeze"
+          ></animate>
+        </path>
+        <circle
+          cx="100"
+          cy="100"
+          r="90"
+          stroke="var(--neutrals-5)"
+          strokeWidth="4"
+          strokeDasharray="10 5"
+        >
+          <animate
+            attributeName="r"
+            values="85;90;85"
+            dur="1s"
+            begin="0s;5s;10s;15s;20s;25s"
+            fill="freeze"
+          ></animate>
+        </circle>
+      </svg>
       <h1 className="text-4xl font-bold  font-manrope">
         Thank you for your purchase!
       </h1>
       <p className="text-lg font-bold mt-4 md:mt-8 text-[#e3bc9a] font-manrope">
         We’ve received your order and will shipin 3-7 business days. <br /> Your
-        order number is <span className="">#BCFG3</span>
+        order number is <span className="">#{orderNumber}</span>
       </p>
       <div className="space-y-8 p-4 md:p-8 mb-6 my-8 md:my-12 bg-white shadow rounded-3xl text-left">
         <h2 className="text-3xl lg:text-4xl font-manrope font-bold">
@@ -54,7 +173,7 @@ const OrderSuccessful = () => {
             </div>
             <hr />
             <div className="flex justify-between text-lg font-bold">
-              <span>Total</span>
+              <span>Grand Total</span>
               <span>₦{subtotal.toLocaleString()}</span>
             </div>
           </div>
@@ -64,6 +183,7 @@ const OrderSuccessful = () => {
         <Button
           style="w-full py-3 flex justify-center items-center gap-2"
           onClick={() => navigate("/")}
+          ref={homeRef}
         >
           <MoveLeft />
           <p>Back Home</p>
