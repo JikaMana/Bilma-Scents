@@ -20,6 +20,7 @@ import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import { PerfumeProvider } from "./contexts/PerfumeContext";
 import AdminDashboard from "./pages/AdminDashboard";
+import { OrderProvider } from "./contexts/OrderContext";
 // import TawkWidget from "./components/TawkWidget";
 
 function App() {
@@ -27,56 +28,58 @@ function App() {
     <PerfumeProvider>
       <CartProvider>
         <WishProvider>
-          <Toaster position="top-right" offset={100} />
-          <BrowserRouter>
-            <ScrollToTop />
-            {/* <TawkWidget /> */}
-            <Routes>
-              <Route path="/" element={<RootLayout />}>
-                <Route index element={<Home />} />
-                <Route path="store" element={<Store />} />
-                <Route path="store/:id" element={<ProductDetails />} />
-                <Route path="contact" element={<Contact />} />
-                <Route path="cart" element={<CartPage />} />
+          <OrderProvider>
+            <Toaster position="top-right" offset={100} />
+            <BrowserRouter>
+              <ScrollToTop />
+              {/* <TawkWidget /> */}
+              <Routes>
+                <Route path="/" element={<RootLayout />}>
+                  <Route index element={<Home />} />
+                  <Route path="store" element={<Store />} />
+                  <Route path="store/:id" element={<ProductDetails />} />
+                  <Route path="contact" element={<Contact />} />
+                  <Route path="cart" element={<CartPage />} />
+                  <Route
+                    path="checkout"
+                    element={
+                      <ProtectedRoute>
+                        <Checkout />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="wishlist"
+                    element={
+                      <ProtectedRoute>
+                        <Wishlist />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="order-successful"
+                    element={
+                      <ProtectedRoute>
+                        <OrderSuccessful />
+                      </ProtectedRoute>
+                    }
+                  />
+                </Route>
+                <Route path="/login" element={<AuthLayout />}>
+                  <Route index element={<Login />} />
+                </Route>
+                <Route path="/register" element={<AuthLayout />}>
+                  <Route index element={<Register />} />
+                </Route>
                 <Route
-                  path="checkout"
-                  element={
-                    <ProtectedRoute>
-                      <Checkout />
-                    </ProtectedRoute>
-                  }
+                  path="bilma-secret-admin-dashboard"
+                  element={<AdminDashboard />}
                 />
-                <Route
-                  path="wishlist"
-                  element={
-                    <ProtectedRoute>
-                      <Wishlist />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="order-successful"
-                  element={
-                    <ProtectedRoute>
-                      <OrderSuccessful />
-                    </ProtectedRoute>
-                  }
-                />
-              </Route>
-              <Route path="/login" element={<AuthLayout />}>
-                <Route index element={<Login />} />
-              </Route>
-              <Route path="/register" element={<AuthLayout />}>
-                <Route index element={<Register />} />
-              </Route>
-              <Route
-                path="bilma-secret-admin-dashboard"
-                element={<AdminDashboard />}
-              />
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </OrderProvider>
         </WishProvider>
       </CartProvider>
     </PerfumeProvider>

@@ -1,23 +1,15 @@
-import React, { useState } from "react";
 import Button from "../components/Button";
 import { useCart } from "../contexts/CartContext";
+import { useOrder } from "../contexts/OrderContext";
 import { useNavigate } from "react-router";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { db } from "../lib/firebase";
-import { toast } from "sonner";
 import { useAuth } from "../contexts/AuthContext";
 
 const Checkout = () => {
+  const { formData, setFormData, handleSubmitContactInfo } = useOrder();
   const navigate = useNavigate();
   const { userId } = useAuth();
 
   const { shippingFee, subtotal, total } = useCart();
-  const [formData, setFormData] = useState({
-    name: "",
-    number: "",
-    address: "",
-    note: "",
-  });
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -25,32 +17,11 @@ const Checkout = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  // console.log(formData);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (userId) {
-      saveContactInfo(userId, formData);
-    } else {
-      toast.info("Log in to continue");
-    }
-  };
-
-  const saveContactInfo = async (currentUserId, contactInfo) => {
-    const contactInfoRef = doc(db, "contactInfo", userId);
-
-    try {
-      await setDoc(contactInfoRef, {
-        userId: currentUserId,
-        userContactInfo: contactInfo,
-        submittedAt: serverTimestamp(),
-      });
-      toast.success("Contact Adress Sent");
+    handleSubmitContactInfo(e);
+    if (userId && formData.name && formData.number && formData.address) {
       navigate("/order-successful");
-    } catch (error) {
-      toast.error("Failed to save Contact Info");
-      console.log("Failed to save Contact Info: ", error);
     }
   };
 
@@ -101,6 +72,7 @@ const Checkout = () => {
           />
           <Button
             type="submit"
+            // onClick={() => placeOrderBtn}
             style="w-full text-white py-3 rounded transition"
           >
             Place Order

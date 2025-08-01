@@ -1,37 +1,57 @@
 import { AlertCircle, Package, ShoppingCart, TrendingUp } from "lucide-react";
 
-const Dahboard = ({ perfumes }) => {
+const Dahboard = ({ perfumes, recentOrders }) => {
   const numberOfPerfumes = perfumes.length;
   const stats = [
     {
       title: "Total Products",
-      value: numberOfPerfumes || "-",
-      change: "+12%",
+      value: 0,
+      // change: "+12%",
       icon: Package,
       color: "bg-blue-500",
     },
     {
       title: "Orders Today",
-      value: "47",
-      change: "+8%",
+      value: 0,
+      // change: "+8%",
       icon: ShoppingCart,
       color: "bg-green-500",
     },
     {
-      title: "Revenue",
-      value: "₦12,847",
-      change: "+23%",
+      title: "Revenue Today",
+      value: "₦0",
+      // change: "+23%",
       icon: TrendingUp,
       color: "bg-purple-500",
     },
-    {
-      title: "Low Stock",
-      value: "12",
-      change: "-5%",
-      icon: AlertCircle,
-      color: "bg-orange-500",
-    },
+    // {
+    //   title: "Low Stock",
+    //   value: "12",
+    //   change: "-5%",
+    //   icon: AlertCircle,
+    //   color: "bg-orange-500",
+    // },
   ];
+
+  const ordersPlacedToday = recentOrders.filter((order) => {
+    const orderDate = new Date(order.createdAt.seconds * 1000);
+    const today = new Date();
+    return (
+      orderDate.getDate() === today.getDate() &&
+      orderDate.getMonth() === today.getMonth() &&
+      orderDate.getFullYear() === today.getFullYear()
+    );
+  });
+
+  const ordersCountToday = ordersPlacedToday.length;
+  const ordersPriceToday = ordersPlacedToday.reduce(
+    (total, order) => total + order.total,
+    0
+  );
+
+  stats[0].value = numberOfPerfumes > 0 ? numberOfPerfumes : "-";
+  stats[1].value = ordersCountToday > 0 ? ordersCountToday : "-";
+  stats[2].value = ordersPriceToday > 0 ? `₦${ordersPriceToday}` : "-";
 
   return (
     <div className="space-y-6">
@@ -42,7 +62,7 @@ const Dahboard = ({ perfumes }) => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  justify-between gap-6">
         {stats.map((stat, index) => (
           <div
             key={index}
@@ -68,19 +88,17 @@ const Dahboard = ({ perfumes }) => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold mb-4">Recent Orders</h3>
           <div className="space-y-3">
-            {[1, 2, 3, 4].map((order) => (
+            {recentOrders.slice(0, 5).map((order) => (
               <div
                 key={order}
                 className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0"
               >
                 <div>
-                  <p className="font-medium">Order #00{order}23</p>
-                  <p className="text-sm text-gray-600">Customer Name</p>
+                  <p className="font-medium">Order #{order.orderNumber}</p>
+                  <p className="text-sm text-gray-600">{order.userId}</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-medium">
-                    ₦{(Math.random() * 200 + 50).toFixed(2)}
-                  </p>
+                  <p className="font-medium">₦{order.total}</p>
                   <span className="inline-block px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
                     Completed
                   </span>
@@ -93,7 +111,7 @@ const Dahboard = ({ perfumes }) => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold mb-4">Top Selling Products</h3>
           <div className="space-y-3">
-            {perfumes.slice(0, 4).map((product) => (
+            {perfumes.slice(0, 5).map((product) => (
               <div
                 key={product.id}
                 className="flex items-center space-x-3 py-2"

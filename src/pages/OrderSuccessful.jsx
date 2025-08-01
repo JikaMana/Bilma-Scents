@@ -1,66 +1,21 @@
 import { MoveLeft } from "lucide-react";
 // import successful from "../assets/images/successful.webp";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import Button from "../components/Button";
-import { useCart } from "../contexts/CartContext";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { useAuth } from "../contexts/AuthContext";
-import { db } from "../lib/firebase";
-import { toast } from "sonner";
-import { useEffect, useRef } from "react";
+
+import { useRef } from "react";
+import { useOrder } from "../contexts/OrderContext";
 
 const OrderSuccessful = () => {
   const navigate = useNavigate();
   const homeRef = useRef(null);
-  const { cartItems, total, shippingFee, subtotal } = useCart();
-  const { userId } = useAuth();
-
-  console.log(cartItems);
-
-  const generateOrderNumber = () => {
-    return (
-      Math.random().toString(36).substring(2, 10).toUpperCase() +
-      Math.floor(Math.random() * 1000).toString()
-    );
-  };
-
-  const orderNumber = useRef(generateOrderNumber()).current;
-  console.log("Order Number:", orderNumber);
-
-  const saveOrderToFireStore = async (cartItems, orderNumber, grandTotal) => {
-    if (!cartItems || cartItems.length === 0) {
-      console.warn("No items in cart to save.");
-      return;
-    }
-    const orderData = {
-      orderNumber,
-      items: cartItems,
-      total: grandTotal,
-      shippingFee,
-      createdAt: serverTimestamp(),
-    };
-    const orderRef = doc(db, "orders", userId);
-    try {
-      await setDoc(orderRef, orderData);
-      console.log("Order saved successfully:", orderData);
-      toast.success("Order saved successfully!");
-
-      homeRef.current?.scrollIntoView({ behavior: "smooth" });
-      homeRef.current.className = "animate-bounce ";
-      // Optionally, you can navigate to a different page or show a success message
-    } catch (error) {
-      console.error("Error saving order:", error);
-      toast.error("Failed to save order. Please try again later.");
-    }
-  };
+  const { orderNumber, cartItems, shippingFee, subtotal, total } = useOrder();
 
   useEffect(() => {
-    if (cartItems.length > 0) {
-      saveOrderToFireStore(cartItems, orderNumber, subtotal);
-    } else {
-      console.warn("Cart is empty, no order to save.");
+    if (!orderNumber) {
+      navigate("/"); //if no order number take me home
     }
-  }, []);
+  }, [orderNumber]);
 
   return (
     <div className="max-w-3xl text-center py-32 mx-auto text-[#9c6a24]">

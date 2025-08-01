@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { usePerfumes } from "../contexts/PerfumeContext";
 import SideBar from "../components/admin/SideBar";
 import Dashboard from "../components/admin/Dahboard";
 import RenderProducts from "../components/admin/RenderProducts";
 import AddProduct from "../components/admin/AddProduct";
+import Orders from "../components/admin/Orders";
+import { collection, getDocs } from "firebase/firestore";
+import { toast } from "sonner";
+import { db } from "../lib/firebase";
+import Customers from "../components/admin/Customers";
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const { perfumes } = usePerfumes();
+  const [recentOrders, setRecentOrder] = useState([]);
 
   const renderPlaceholderPage = (title) => (
     <div className="flex items-center justify-center h-96">
@@ -19,10 +25,30 @@ const AdminDashboard = () => {
     </div>
   );
 
+  const fetchOrders = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "orders"));
+      const orders = [];
+      querySnapshot.forEach((doc) => {
+        orders.push(doc.data());
+      });
+
+      setRecentOrder(orders);
+    } catch (error) {
+      console.log("Error fetching orders:", error);
+      toast.error("Failed to fetch orders. Please try again later.");
+      setRecentOrder([]);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
   const renderContent = () => {
     switch (activeTab) {
       case "dashboard":
-        return <Dashboard perfumes={perfumes} />;
+        return <Dashboard perfumes={perfumes} recentOrders={recentOrders} />;
       case "products":
         return (
           <RenderProducts perfumes={perfumes} setActiveTab={setActiveTab} />
@@ -30,9 +56,9 @@ const AdminDashboard = () => {
       case "add-product":
         return <AddProduct setActiveTab={setActiveTab} />;
       case "orders":
-        return renderPlaceholderPage("Orders");
+        return <Orders recentOrders={recentOrders} />;
       case "customers":
-        return renderPlaceholderPage("Customers");
+        return <Customers />;
       case "analytics":
         return renderPlaceholderPage("Analytics");
       case "settings":

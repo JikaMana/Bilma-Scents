@@ -1,4 +1,4 @@
-import { Plus, Search } from "lucide-react";
+import { Edit, Eye, Plus, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { usePerfumes } from "../../contexts/PerfumeContext";
 
