@@ -7,7 +7,8 @@ import { ClipLoader } from "react-spinners";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { signUp, logIn } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const { signUp, logIn, loginWithGoogle } = useAuth();
 
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
@@ -19,6 +20,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     if (!formData.email || !formData.password) {
       setError("Please fill in all credential");
@@ -35,6 +37,8 @@ const Register = () => {
       else if (err.code === "auth/wrong-password") setError("Wrong password");
       else if (err.code === "auth/invalid-email") setError("Invalid email");
       else setError("Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 

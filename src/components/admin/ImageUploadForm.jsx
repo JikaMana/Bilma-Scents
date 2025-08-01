@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Plus } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { ClipLoader } from "react-spinners";
 import { toast } from "sonner";
 
 const ImageUploadForm = ({ image, setNewProduct }) => {

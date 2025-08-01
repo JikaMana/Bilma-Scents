@@ -1,6 +1,7 @@
 import { Edit, Eye, Plus, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { usePerfumes } from "../../contexts/PerfumeContext";
+import { toast } from "sonner";
 
 const RenderProducts = ({ perfumes, setActiveTab }) => {
   const { handleDeleteProduct } = usePerfumes();
@@ -119,9 +120,19 @@ const RenderProducts = ({ perfumes, setActiveTab }) => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div className="flex space-x-2">
                       <button className="text-[#9c6a24] hover:text-indigo-900">
-                        <Eye className="w-4 h-4" />
+                        <Eye
+                          className="w-4 h-4"
+                          onClick={() => {
+                            toast.info("Na you know watin you wan see o 😂");
+                          }}
+                        />
                       </button>
-                      <button className="text-gray-600 hover:text-gray-900">
+                      <button
+                        className="text-gray-600 hover:text-gray-900"
+                        onClick={() => {
+                          toast.info("For now delete and re-add");
+                        }}
+                      >
                         <Edit className="w-4 h-4" />
                       </button>
                       <button

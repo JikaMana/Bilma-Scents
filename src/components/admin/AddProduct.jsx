@@ -4,6 +4,7 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { toast } from "sonner";
 import ImageUploadForm from "./ImageUploadForm";
 import { db } from "../../lib/firebase";
+import { ClipLoader } from "react-spinners";
 
 const AddProduct = ({ setActiveTab }) => {
   const [error, setError] = useState("");
@@ -51,8 +52,6 @@ const AddProduct = ({ setActiveTab }) => {
     setLoading(true);
     setError("");
 
-    console.log("I'm here");
-
     try {
       await addDoc(collection(db, "perfumes"), {
         ...newProduct,
@@ -60,7 +59,6 @@ const AddProduct = ({ setActiveTab }) => {
         createdAt: serverTimestamp(),
       });
 
-      console.log("New product added:", newProduct);
       setNewProduct({
         image: "",
         name: "",

@@ -3,7 +3,7 @@ import { MoveLeft } from "lucide-react";
 import { useNavigate } from "react-router";
 import Button from "../components/Button";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useOrder } from "../contexts/OrderContext";
 
 const OrderSuccessful = () => {
