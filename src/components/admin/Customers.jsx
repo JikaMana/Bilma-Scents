@@ -1,7 +1,3 @@
-import React from "react";
-
-// This is a placeholder for the customer data structure.
-// In a real application, this would come from your state or a prop.
 const customerData = [
   {
     customerId: "cust_001",
@@ -39,7 +35,7 @@ const Customers = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900">Customers</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mt-4">Customers</h1>
       <div className="overflow-x-auto rounded-lg shadow">
         <table className="w-full whitespace-nowrap">
           <thead className="bg-gray-50">
@@ -86,7 +82,7 @@ const Customers = () => {
                 </td>
                 {/* Action button */}
                 <td className="px-6 py-4 text-right text-sm font-medium">
-                  <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                  <a href="#" className="text-[#9c6a24] hover:text-[#c09d6c]">
                     View
                   </a>
                 </td>

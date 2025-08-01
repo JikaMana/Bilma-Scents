@@ -56,13 +56,13 @@ const Dahboard = ({ perfumes, recentOrders }) => {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center gap-y-2 sm:justify-between">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mt-4">Dashboard</h1>
         <button className="bg-[#9c6a24] w-max text-white px-4 py-2 rounded-lg hover:bg-[#c09d6c] cursor-pointer transition-colors">
           Export Report
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  justify-between gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  justify-between gap-x-6 gap-y-2">
         {stats.map((stat, index) => (
           <div
             key={index}
@@ -91,7 +91,7 @@ const Dahboard = ({ perfumes, recentOrders }) => {
             {recentOrders.slice(0, 5).map((order) => (
               <div
                 key={order}
-                className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0"
+                className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0 overflow-x-scroll"
               >
                 <div>
                   <p className="font-medium">Order #{order.orderNumber}</p>
@@ -114,7 +114,7 @@ const Dahboard = ({ perfumes, recentOrders }) => {
             {perfumes.slice(0, 5).map((product) => (
               <div
                 key={product.id}
-                className="flex items-center space-x-3 py-2"
+                className="flex items-center space-x-3 py-2  overflow-x-scroll"
               >
                 <img
                   src={product.imageUrl}

@@ -75,7 +75,7 @@ const AdminDashboard = () => {
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
-        <div className="p-8">{renderContent()}</div>
+        <div className="px-4 md:p-8">{renderContent()}</div>
       </div>
     </div>
   );

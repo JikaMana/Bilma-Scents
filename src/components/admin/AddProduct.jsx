@@ -91,7 +91,7 @@ const AddProduct = ({ setActiveTab }) => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900">Add New Product</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mt-4">Add New Product</h1>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div className="space-y-6">
@@ -273,7 +273,7 @@ const AddProduct = ({ setActiveTab }) => {
             <button
               type="button"
               onClick={() => setActiveTab("products")}
-              className="px-6 py-2 border border-gray-300 outline-none text-gray-700 cursor-pointer rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-4 sm:px-6 py-2 text-xs sm:text-base border border-gray-300 outline-none text-gray-700 cursor-pointer rounded-lg hover:bg-gray-50 transition-colors"
             >
               Cancel
             </button>
@@ -291,7 +291,7 @@ const AddProduct = ({ setActiveTab }) => {
               <button
                 type="submit"
                 onClick={handleAddProduct}
-                className="px-6 py-2 bg-[#9c6a24] text-white rounded-lg cursor-pointer hover:opacity-70 transition-colors"
+                className="px-4 sm:px-6 py-2 text-xs sm:text-base bg-[#9c6a24] text-white rounded-lg cursor-pointer hover:opacity-70 transition-colors"
               >
                 Add Product
               </button>

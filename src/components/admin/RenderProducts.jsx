@@ -21,7 +21,7 @@ const RenderProducts = ({ perfumes, setActiveTab }) => {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center gap-y-2 sm:justify-between">
-        <h1 className="text-3xl font-bold text-gray-900">Products</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mt-4">Products</h1>
         <button
           onClick={() => setActiveTab("add-product")}
           className="bg-[#9c6a24] w-max text-white px-4 py-2 rounded-lg hover:bg-[#be8e4c] transition-colors flex items-center space-x-2"

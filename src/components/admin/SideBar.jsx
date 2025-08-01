@@ -49,7 +49,7 @@ const SideBar = ({ activeTab, setActiveTab }) => {
         )}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="p-2 rounded-lg hover:bg-gray-100 transition-colors hidden sm:block"
+          className="p-2 rounded-lg hover:bg-gray-100 transition-colors hidden sm:block cursor-pointer"
         >
           {sidebarOpen ? (
             <X className="w-5 h-5" />

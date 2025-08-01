@@ -1,4 +1,11 @@
-import { collection, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
 import { db } from "../lib/firebase";
 import { toast } from "sonner";
@@ -26,11 +33,26 @@ export const PerfumeProvider = ({ children }) => {
     } catch (error) {
       toast.error("Failed to fetch data");
       setLoading(false);
+      return error;
     }
   }, []);
 
-  const handleDeleteProduct = (id) => {
-    setPerfumes(perfumes.filter((p) => p.id !== id));
+  // const handleDeleteProduct = (id) => {
+  //   setPerfumes(perfumes.filter((p) => p.id !== id));
+  // };
+
+  const handleDeleteProduct = async (id) => {
+    try {
+      // 1. Create a reference to the document in Firestore
+      const perfumeDocRef = doc(db, "perfumes", id);
+      // 2. Delete the document from Firestore
+      await deleteDoc(perfumeDocRef);
+      // 3. If the database deletion is successful, update the local state
+      setPerfumes(perfumes.filter((p) => p.id !== id));
+      toast.error("Perfume successfully removed");
+    } catch (error) {
+      toast.error("Error removing perfume");
+    }
   };
 
   return (
