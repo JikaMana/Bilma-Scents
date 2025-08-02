@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
 import Button from "../components/Button";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useCart } from "../contexts/CartContext";
 import { useAuth } from "../contexts/AuthContext";
 
 const CartPage = () => {
-  const { user, userId } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -32,11 +31,7 @@ const CartPage = () => {
       className="max-w-6xl mx-auto px-4 py-16 text-[#9c6a24]"
       data-aos="fade-up"
     >
-      <h2 className="text-3xl font-bold mb-6 my-8 md:my-12 text-center">
-        Shopping Cart
-      </h2>
-
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-8 my-8 md:my-12">
         {/* Cart Items */}
 
         {cartItems.length !== 0 ? (
@@ -86,7 +81,7 @@ const CartPage = () => {
           </div>
         ) : (
           <div className="lg:flex-1 grid place-items-center">
-            <h2 className=" text-2xl font-bold">
+            <h2 className=" text-2xl font-bold text-center">
               Cart is empty, <br /> Go shop some perfumes
             </h2>
           </div>

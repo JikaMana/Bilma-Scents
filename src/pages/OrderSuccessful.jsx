@@ -3,19 +3,14 @@ import { MoveLeft } from "lucide-react";
 import { useNavigate } from "react-router";
 import Button from "../components/Button";
 
-import { useEffect, useRef } from "react";
+import { Fragment, useRef } from "react";
 import { useOrder } from "../contexts/OrderContext";
+import { ClipLoader } from "react-spinners";
 
 const OrderSuccessful = () => {
   const navigate = useNavigate();
   const homeRef = useRef(null);
-  const { orderNumber, cartItems, shippingFee, subtotal, total } = useOrder();
-
-  useEffect(() => {
-    if (!orderNumber) {
-      navigate("/"); //if no order number take me home
-    }
-  }, [orderNumber]);
+  const { orderNumber, orderSummary } = useOrder();
 
   return (
     <div className="max-w-3xl text-center py-32 mx-auto text-[#9c6a24]">
@@ -103,35 +98,53 @@ const OrderSuccessful = () => {
         </h2>
 
         <div>
-          {cartItems.map((cart) => (
-            <div
-              key={cart.id}
-              className="flex gap-4 justify-between border-b-1 border-[#9c6a24] py-4 items-center"
-            >
-              <div className="w-16 h-16">
-                <img src={cart.image} alt="Image" className="w-full h-full" />
+          {orderSummary ? (
+            <Fragment>
+              {orderSummary.items.map((summary) => (
+                <div
+                  key={summary.id}
+                  className="flex gap-4 justify-between border-b-1 border-[#9c6a24] py-4 items-center px-2"
+                >
+                  <div className="w-16 h-16">
+                    <img
+                      src={summary.imageUrl}
+                      alt="Image"
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-lg">{summary.name}</p>
+                  </div>
+                  <p className="text-xl font-medium"> ₦{summary.price}</p>
+                </div>
+              ))}
+              <div className="pt-4 space-y-1">
+                <div className="flex justify-between ">
+                  <span>Subtotal</span>
+                  <span>₦{(orderSummary.total - 1000).toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between ">
+                  <span>Shipping</span>
+                  <span>₦{orderSummary.shippingFee.toLocaleString()}</span>
+                </div>
+                <hr />
+                <div className="flex justify-between text-lg font-bold">
+                  <span>Grand Total</span>
+                  <span>₦{orderSummary.total.toLocaleString()}</span>
+                </div>
               </div>
-              <div>
-                <p className="text-lg">{cart.name}</p>
-              </div>
-              <p className="text-xl font-medium"> ₦{cart.price}</p>
+            </Fragment>
+          ) : (
+            <div className="flex justify-center items-center h-12">
+              <ClipLoader
+                color="#9c6a24"
+                loading={true}
+                size={75}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
             </div>
-          ))}
-          <div className="pt-4 space-y-1">
-            <div className="flex justify-between ">
-              <span>Subtotal</span>
-              <span>₦{total.toLocaleString()}</span>
-            </div>
-            <div className="flex justify-between ">
-              <span>Shipping</span>
-              <span>₦{shippingFee.toLocaleString()}</span>
-            </div>
-            <hr />
-            <div className="flex justify-between text-lg font-bold">
-              <span>Grand Total</span>
-              <span>₦{subtotal.toLocaleString()}</span>
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <div className="w-50 text-[#e3bc9a] mt-6 flex gap-1 text-lg font-bold justify-center items-center mx-auto">

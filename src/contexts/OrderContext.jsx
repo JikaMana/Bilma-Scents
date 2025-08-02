@@ -1,7 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { toast } from "sonner";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import {
+  deleteDoc,
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useCart } from "./CartContext";
 
@@ -12,6 +18,7 @@ export const OrderProvider = ({ children }) => {
   const { cartItems, setCartItems, shippingFee, subtotal, total } = useCart();
   const [contactInfo, setContactInfo] = useState({});
   const [orderNumber, setOrderNumber] = useState(null);
+  const [orderSummary, setOrderSummary] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     number: "",
@@ -19,6 +26,7 @@ export const OrderProvider = ({ children }) => {
     note: "",
   });
   const [error, setError] = useState(null);
+
   const handleSubmitContactInfo = (e) => {
     e.preventDefault();
 
@@ -36,13 +44,15 @@ export const OrderProvider = ({ children }) => {
     );
   };
 
-  const saveOrderToFireStore = async (cartItems, orderNumber, grandTotal) => {
+  const saveOrderToFireStore = async (cartItems, grandTotal) => {
     if (!cartItems || cartItems.length === 0) {
       console.warn("No items in cart to save.");
       return;
     }
+    const newOrderNumber = generateOrderNumber();
+
     const orderData = {
-      orderNumber,
+      orderNumber: newOrderNumber,
       userId,
       items: cartItems,
       total: grandTotal,
@@ -50,17 +60,62 @@ export const OrderProvider = ({ children }) => {
       contactInfo,
       createdAt: serverTimestamp(),
     };
-    const orderRef = doc(db, "orders", orderNumber);
+    const orderRef = doc(db, "orders", newOrderNumber);
     try {
       await setDoc(orderRef, orderData);
-      setCartItems([]); // add loagic to clear this users cart from firestore
+      setCartItems([]);
+      setOrderNumber(newOrderNumber);
+      localStorage.setItem("orderNumber", newOrderNumber);
+      // add loagic to clear this users cart from firestore
     } catch (error) {
       setError(error);
       toast.error("Failed to save order. Please try again later.");
     } finally {
       setContactInfo([]);
+      await clearCartFromFirestore(userId);
     }
   };
+
+  const clearCartFromFirestore = async (userId) => {
+    const cartRef = doc(db, "carts", userId); // or whatever your path is
+    await deleteDoc(cartRef);
+  };
+
+  const fetchOrderDetails = async (orderNumber) => {
+    if (!orderNumber) {
+      console.warn("No order number provided.");
+      return null;
+    }
+    const orderRef = doc(db, "orders", orderNumber);
+    try {
+      const orderSnapshot = await getDoc(orderRef);
+      if (orderSnapshot.exists()) {
+        return orderSnapshot.data();
+      } else {
+        console.warn("Order not found.");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching order details:", error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const storedOrderNumber = localStorage.getItem("orderNumber");
+    storedOrderNumber && setOrderNumber(storedOrderNumber);
+  }, []);
+
+  useEffect(() => {
+    const checkOrder = async () => {
+      const result = await fetchOrderDetails(orderNumber);
+      setOrderSummary(result);
+    };
+
+    if (orderNumber) {
+      checkOrder();
+    }
+  }, [orderNumber]);
 
   useEffect(() => {
     if (
@@ -70,8 +125,7 @@ export const OrderProvider = ({ children }) => {
       contactInfo.number &&
       contactInfo.address
     ) {
-      setOrderNumber(generateOrderNumber());
-      saveOrderToFireStore(cartItems, orderNumber, subtotal);
+      saveOrderToFireStore(cartItems, subtotal);
     }
   }, [contactInfo]);
 
@@ -89,6 +143,7 @@ export const OrderProvider = ({ children }) => {
         shippingFee,
         subtotal,
         total,
+        orderSummary,
       }}
     >
       {children}

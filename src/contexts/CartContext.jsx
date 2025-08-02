@@ -62,8 +62,6 @@ export const CartProvider = ({ children }) => {
         return cartData.items || []; // Return items array, or empty array if 'items' field is missing
       } else {
         setCartItems([]);
-
-        console.log("No cart found for user:", currentUserId);
         return []; // Return an empty array if no cart document exists
       }
     } catch (err) {
