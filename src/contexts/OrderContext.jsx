@@ -5,6 +5,7 @@ import {
   deleteDoc,
   doc,
   getDoc,
+  getDocs,
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
@@ -61,12 +62,23 @@ export const OrderProvider = ({ children }) => {
       createdAt: serverTimestamp(),
     };
     const orderRef = doc(db, "orders", newOrderNumber);
+    const userRef = doc(db, "customers", userId);
+    const userSnap = await getDoc(userRef);
     try {
       await setDoc(orderRef, orderData);
       setCartItems([]);
       setOrderNumber(newOrderNumber);
       localStorage.setItem("orderNumber", newOrderNumber);
-      // add loagic to clear this users cart from firestore
+
+      await setDoc(
+        userRef,
+        {
+          ...userSnap.data(),
+          numberOfOrders: (userSnap.data().numberOfOrders || 0) + 1,
+          lastActive: serverTimestamp(), // Update last active time
+        },
+        { merge: true }
+      );
     } catch (error) {
       setError(error);
       toast.error("Failed to save order. Please try again later.");

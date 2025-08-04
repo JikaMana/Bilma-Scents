@@ -88,23 +88,26 @@ const Dahboard = ({ perfumes, recentOrders }) => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold mb-4">Recent Orders</h3>
           <div className="space-y-3">
-            {recentOrders.slice(0, 5).map((order) => (
-              <div
-                key={order}
-                className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0 overflow-x-scroll"
-              >
-                <div>
-                  <p className="font-medium">Order #{order.orderNumber}</p>
-                  <p className="text-sm text-gray-600">{order.userId}</p>
+            {recentOrders
+              .slice(0, 5)
+              .reverse()
+              .map((order) => (
+                <div
+                  key={order}
+                  className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0 overflow-x-scroll"
+                >
+                  <div>
+                    <p className="font-medium">Order #{order.orderNumber}</p>
+                    <p className="text-sm text-gray-600">{order.userId}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium">₦{order.total}</p>
+                    <span className="inline-block px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
+                      Completed
+                    </span>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <p className="font-medium">₦{order.total}</p>
-                  <span className="inline-block px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
-                    Completed
-                  </span>
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
 

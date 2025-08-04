@@ -32,8 +32,6 @@ const AdminDashboard = () => {
       querySnapshot.forEach((doc) => {
         orders.push(doc.data());
       });
-
-      setRecentOrder(orders);
     } catch (error) {
       console.log("Error fetching orders:", error);
       toast.error("Failed to fetch orders. Please try again later.");

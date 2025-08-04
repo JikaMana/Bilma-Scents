@@ -27,7 +27,7 @@ const CustomItem = ({ item }) => {
           className="w-full h-full object-contain bg-white"
         />
       </div>
-      <div className="p-2 sm:p-4 border-t-2 border-[#9c6a24] bg-[#f5e4d3]">
+      <div className="p-2 sm:p-4 border-t-2 border-[#9c6a24] bg-[#f5e4d3] h-full">
         <div className="flex justify-between items-center">
           <div>
             <h3 className="text-[14px] md:text-xl min-w-[360px]:text-base sm:text-lg font-semibold font-manrope">

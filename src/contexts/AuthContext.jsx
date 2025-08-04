@@ -8,42 +8,69 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../lib/firebase";
+import { auth, db } from "../lib/firebase";
 import { toast } from "sonner";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(null);
-
   const [loading, setLoading] = useState(true);
 
-  const signUp = async (email, password, displayName) => {
-    try {
-      const userCred = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      await updateProfile(userCred.user, { displayName });
-      toast.success("Account Created successfully");
-      setUser(userCred.user);
-      return userCred;
-    } catch (error) {
-      throw error;
+  const getInitials = (name) => {
+    const names = name.trim().split(" ");
+    if (names.length === 1) return names[0][0];
+    return `${names[0][0]}${names[1][0]}`.toUpperCase();
+  };
+
+  const createUserInDB = async (currentUser) => {
+    const userRef = doc(db, "customers", currentUser.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      await setDoc(userRef, {
+        name: currentUser.displayName,
+        email: currentUser.email,
+        customerId: currentUser.uid,
+        role: "user",
+        photoURL:
+          currentUser.photoURL ||
+          `https://ui-avatars.com/api/?name=${getInitials(
+            currentUser.displayName || "A"
+          )}`,
+        numberOfOrders: 0,
+        lastActive: serverTimestamp(),
+      });
     }
   };
 
+  const updateLastActive = async (currentUser) => {
+    const userRef = doc(db, "customers", currentUser.uid);
+    await setDoc(userRef, { lastActive: serverTimestamp() }, { merge: true });
+  };
+
+  const signUp = async (email, password, displayName) => {
+    const userCred = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    await updateProfile(userCred.user, { displayName });
+    toast.success("Account Created successfully");
+    setUser(userCred.user);
+
+    createUserInDB(userCred.user);
+
+    return userCred;
+  };
+
   const logIn = async (email, password) => {
-    try {
-      const userCred = await signInWithEmailAndPassword(auth, email, password);
-      setUser(userCred.user);
-      toast.success("Access granted");
-      return userCred;
-    } catch (error) {
-      throw error;
-    }
+    const userCred = await signInWithEmailAndPassword(auth, email, password);
+    setUser(userCred.user);
+    toast.success("Access granted");
+    return userCred;
   };
 
   const loginWithGoogle = () => {
@@ -61,11 +88,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currUser) => {
       setUser(currUser);
       setLoading(false);
       if (currUser) {
         setUserId(currUser.uid);
+
+        updateLastActive(currUser);
       } else {
         setUserId(null);
       }
