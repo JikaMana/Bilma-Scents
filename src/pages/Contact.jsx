@@ -99,13 +99,6 @@ const Contact = () => {
                     <MessageCircle size={32} />
                     <span className="text-sm">Whatsapp</span>
                   </a>
-                  {/* <a
-                    href="#"
-                    className="hover:opacity-50 text-blue-500 flex items-center space-x-1"
-                  >
-                    <Facebook size={32} />
-                    <span className="text-sm">Facebook</span>
-                  </a> */}
                   <a
                     href="https://instagram.com/bilmascents"
                     className="hover:opacity-50 text-pink-500 flex items-center space-x-1"
@@ -120,12 +113,12 @@ const Contact = () => {
               <img
                 src="/bilmascents_insta_qr.png"
                 alt="INSTAGRAM QR-CODE"
-                className="w-60 h-64"
+                className="max-w-60 max-h-64 w-full h-full"
               />
               <img
                 src="/bilmascents_whatsapp_qr.png"
                 alt="WHATSAPP QR-CODE"
-                className="w-60 h-64 rounded-xl"
+                className="max-w-60 max-h-64 w-full h-full rounded-xl"
               />
             </div>
           </div>

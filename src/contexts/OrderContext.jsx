@@ -20,8 +20,10 @@ export const OrderProvider = ({ children }) => {
   const [contactInfo, setContactInfo] = useState({});
   const [orderNumber, setOrderNumber] = useState(null);
   const [orderSummary, setOrderSummary] = useState(null);
+  const [contactFilled, setContactFilled] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
+    email: "",
     number: "",
     address: "",
     note: "",
@@ -66,7 +68,9 @@ export const OrderProvider = ({ children }) => {
     const userSnap = await getDoc(userRef);
     try {
       await setDoc(orderRef, orderData);
-      setCartItems([]);
+      setTimeout(() => {
+        setCartItems([]);
+      }, 2000);
       setOrderNumber(newOrderNumber);
       localStorage.setItem("orderNumber", newOrderNumber);
 
@@ -134,10 +138,12 @@ export const OrderProvider = ({ children }) => {
       cartItems.length > 0 &&
       contactInfo &&
       contactInfo.name &&
+      contactInfo.email &&
       contactInfo.number &&
       contactInfo.address
     ) {
-      saveOrderToFireStore(cartItems, subtotal);
+      // saveOrderToFireStore(cartItems, subtotal);
+      setContactFilled(true);
     }
   }, [contactInfo]);
 
@@ -156,6 +162,7 @@ export const OrderProvider = ({ children }) => {
         subtotal,
         total,
         orderSummary,
+        contactFilled,
       }}
     >
       {children}

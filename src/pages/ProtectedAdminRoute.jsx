@@ -7,7 +7,14 @@ import { useEffect } from "react";
 const ProtectedAdminRoute = ({ children }) => {
   const { user, userRole, loading } = useAuth();
 
-  if (loading)
+  useEffect(() => {
+    console.log("User role:", userRole);
+    if (userRole && userRole !== "admin") {
+      toast.error("Access denied. Admins only.");
+    }
+  }, [userRole]);
+
+  if (loading || userRole === null) {
     return (
       <div className="flex justify-center items-center h-screen">
         <ClipLoader
@@ -19,16 +26,12 @@ const ProtectedAdminRoute = ({ children }) => {
         />
       </div>
     );
-
-  useEffect(() => {
-    if (userRole !== "admin") {
-      toast.error("Access denied. Admins only.");
-    }
-  }, [user]);
+  }
 
   if (!user || userRole !== "admin") {
     return <Navigate to="/" replace />;
   }
+
   return children;
 };
 

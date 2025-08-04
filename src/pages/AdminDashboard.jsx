@@ -29,9 +29,12 @@ const AdminDashboard = () => {
     try {
       const querySnapshot = await getDocs(collection(db, "orders"));
       const orders = [];
+
       querySnapshot.forEach((doc) => {
         orders.push(doc.data());
+        orders.sort((a, b) => b.createdAt?.seconds - a.createdAt?.seconds);
       });
+      setRecentOrder(orders);
     } catch (error) {
       console.log("Error fetching orders:", error);
       toast.error("Failed to fetch orders. Please try again later.");
@@ -39,6 +42,7 @@ const AdminDashboard = () => {
     }
   };
 
+  console.log(recentOrders);
   useEffect(() => {
     fetchOrders();
   }, []);
@@ -62,7 +66,7 @@ const AdminDashboard = () => {
       case "settings":
         return renderPlaceholderPage("Settings");
       default:
-        return <Dashboard />;
+        return <Dashboard perfumes={perfumes} recentOrders={recentOrders} />;
     }
   };
 

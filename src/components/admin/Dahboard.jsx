@@ -24,13 +24,6 @@ const Dahboard = ({ perfumes, recentOrders }) => {
       icon: TrendingUp,
       color: "bg-purple-500",
     },
-    // {
-    //   title: "Low Stock",
-    //   value: "12",
-    //   change: "-5%",
-    //   icon: AlertCircle,
-    //   color: "bg-orange-500",
-    // },
   ];
 
   const ordersPlacedToday = recentOrders.filter((order) => {
@@ -65,7 +58,7 @@ const Dahboard = ({ perfumes, recentOrders }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  justify-between gap-x-6 gap-y-2">
         {stats.map((stat, index) => (
           <div
-            key={index}
+            key={stat.title + index}
             className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
           >
             <p className="text-sm text-gray-600 mb-1">{stat.title}</p>
@@ -93,7 +86,7 @@ const Dahboard = ({ perfumes, recentOrders }) => {
               .reverse()
               .map((order) => (
                 <div
-                  key={order}
+                  key={order.orderNumber}
                   className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0 overflow-x-scroll"
                 >
                   <div>

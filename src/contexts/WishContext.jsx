@@ -46,7 +46,6 @@ export const WishProvider = ({ children }) => {
 
       if (wishlistSnap.exists()) {
         const wishlistData = wishlistSnap.data();
-        console.log("Fetched wishlist:", wishlistData);
         setWishlist(wishlistData.items || []);
         setWishlistLoaded(true);
       } else {
@@ -90,7 +89,6 @@ export const WishProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("userId for wishlist load:", userId);
     if (userId) {
       loadWishFromFirestore(userId);
     } else {
@@ -100,14 +98,11 @@ export const WishProvider = ({ children }) => {
 
   useEffect(() => {
     if (wishlistLoaded && userId !== null) {
-      console.log("Saving wishlist to Firestore:", wishlist);
-
       const handler = setTimeout(() => {
         saveWishToFirestore(userId, wishlist);
       }, 500);
       return () => clearTimeout(handler);
     }
-    console.log(wishlist);
   }, [wishlist, userId, wishlistLoaded]);
 
   return (

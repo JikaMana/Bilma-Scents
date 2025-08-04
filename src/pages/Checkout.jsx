@@ -1,15 +1,24 @@
-import Button from "../components/Button";
 import { useCart } from "../contexts/CartContext";
 import { useOrder } from "../contexts/OrderContext";
 import { useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
+import PayButton from "../components/PayButton";
+import { useState } from "react";
 
 const Checkout = () => {
-  const { formData, setFormData, handleSubmitContactInfo } = useOrder();
-  const navigate = useNavigate();
+  const {
+    formData,
+    setFormData,
+    handleSubmitContactInfo,
+    contactInfo,
+    setContactInfo,
+    saveOrderToFireStore,
+  } = useOrder();
+  const { shippingFee, total, cartItems } = useCart();
   const { userId } = useAuth();
+  const navigate = useNavigate();
 
-  const { shippingFee, subtotal, total } = useCart();
+  const [canPay, setCanPay] = useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -18,11 +27,19 @@ const Checkout = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    handleSubmitContactInfo(e);
-    if (userId && formData.name && formData.number && formData.address) {
-      navigate("/order-successful");
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.number || !formData.address) {
+      return alert("Please fill all required fields");
     }
+
+    setContactInfo(formData);
+    setCanPay(true);
+  };
+
+  const handlePaymentSuccess = async (reference) => {
+    await saveOrderToFireStore(cartItems, total + shippingFee); // Save order AFTER payment
+    navigate("/order-successful");
   };
 
   return (
@@ -31,10 +48,11 @@ const Checkout = () => {
         Checkout
       </h2>
       <div className="flex flex-col-reverse lg:flex-row gap-12">
-        <form onSubmit={handleSubmit} className="flex-1 space-y-4">
+        <form onSubmit={handleContactSubmit} className="flex-1 space-y-4">
           <h2 className="text-xl lg:text-2xl font-bold">
-            Fill in your Contact Adress for delivery
+            Fill in your Contact Address
           </h2>
+
           <input
             className="w-full border p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
             name="name"
@@ -45,8 +63,15 @@ const Checkout = () => {
           />
           <input
             className="w-full border p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email Address"
+            required
+          />
+          <input
+            className="w-full border p-3 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
             name="number"
-            type="text"
             value={formData.number}
             onChange={handleChange}
             placeholder="Phone Number"
@@ -57,9 +82,8 @@ const Checkout = () => {
             name="address"
             value={formData.address}
             onChange={handleChange}
-            maxLength="200"
-            placeholder="Shipping Address(Provide adress as on Google map)"
-            rows="2"
+            placeholder="Full Delivery Address"
+            rows="3"
             required
           />
           <textarea
@@ -67,16 +91,16 @@ const Checkout = () => {
             name="note"
             value={formData.note}
             onChange={handleChange}
-            placeholder="Additional note (Optional*)(e.g More explantion about adress)"
-            rows="4"
+            placeholder="Optional note (e.g. landmark, timing)"
+            rows="2"
           />
-          <Button
+
+          <button
             type="submit"
-            // onClick={() => placeOrderBtn}
-            style="w-full text-white py-3 rounded transition"
+            className="px-4 py-3 rounded-full bg-[#9c6a24] text-white hover:opacity-80 font-semibold w-full cursor-pointer transition whitespace-nowrap"
           >
-            Place Order
-          </Button>
+            Proceed to Payment
+          </button>
         </form>
 
         {/* Summary */}
@@ -93,8 +117,19 @@ const Checkout = () => {
           <hr />
           <div className="flex justify-between font-bold text-lg">
             <span>Total</span>
-            <span>₦{subtotal.toLocaleString()}</span>
+            <span>₦{(total + shippingFee).toLocaleString()}</span>
           </div>
+          <PayButton
+            amount={total + shippingFee}
+            email={formData.email}
+            metadata={{
+              fullName: formData.name,
+              phone: formData.number,
+            }}
+            onSuccess={handlePaymentSuccess}
+            onClose={() => console.log("Payment closed")}
+            disabled={!canPay}
+          />
         </div>
       </div>
     </div>

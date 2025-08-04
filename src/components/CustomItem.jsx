@@ -18,7 +18,7 @@ const CustomItem = ({ item }) => {
     <Link
       to={`/store/${item.id}`}
       key={item.id}
-      className="bg-white rounded-xl shadow-md overflow-hidden w-full sm:min-w-[13rem]"
+      className="bg-white rounded-xl shadow-lg overflow-hidden w-full sm:min-w-[13rem]"
     >
       <div className="h-36 sm:h-50 md:h-64 w-full p-2">
         <img
