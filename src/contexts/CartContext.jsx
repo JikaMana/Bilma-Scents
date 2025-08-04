@@ -11,10 +11,6 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const totalItems = cartItems.length;
   const shippingFee = cartItems.length === 0 ? 0 : 1000;
-  // const total = ([cartItems][0] ?? []).reduce(
-  //   (sum, item) => sum + item.price * item.quantity,
-  //   0
-  // );
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0

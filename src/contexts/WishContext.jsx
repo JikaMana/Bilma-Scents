@@ -9,6 +9,7 @@ const WishContext = createContext();
 export const WishProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const { user, userId } = useAuth();
+  const [wishlistLoaded, setWishlistLoaded] = useState(false);
 
   const saveWishToFirestore = async (currentUserId, wishToSave) => {
     if (!currentUserId) {
@@ -25,11 +26,10 @@ export const WishProvider = ({ children }) => {
           items: wishToSave,
           updatedAt: serverTimestamp(),
         },
-        { merge: true } // merge: true ensures only specified fields are updated, not overwriting the whole document
+        { merge: true }
       );
     } catch (err) {
       console.error("Failed to save:", err);
-      toast.error("Error saving wishlist");
     }
   };
 
@@ -46,10 +46,11 @@ export const WishProvider = ({ children }) => {
 
       if (wishlistSnap.exists()) {
         const wishlistData = wishlistSnap.data();
-
+        console.log("Fetched wishlist:", wishlistData);
         setWishlist(wishlistData.items || []);
-
-        return wishlistData || [];
+        setWishlistLoaded(true);
+      } else {
+        console.warn("No wishlist found for this user");
       }
     } catch (err) {
       console.error("Failed to load wishlist:", err);
@@ -58,28 +59,30 @@ export const WishProvider = ({ children }) => {
   };
 
   const addToWishlist = (wish) => {
-    if (user) {
-      toast.success("Perfume added to Wishlist");
+    setWishlist((prev) => {
+      let alreadyInWishlist = prev.find((item) => item.id === wish.id);
 
-      setWishlist((prev) => {
-        let alreadyInWishlist = prev.find((item) => item.id === wish.id);
-
-        if (alreadyInWishlist) {
-          toast.info("Item already in wishlist");
-          return prev;
-        } else {
-          return [...prev, wish];
-        }
-        // if (!alreadyInWishlist) return [...prev, wish];
-      });
-    } else {
-      toast.error("Log in to add perfumes to wishlist");
-    }
+      if (alreadyInWishlist) {
+        toast.info("Item already in wishlist");
+        return prev;
+      } else {
+        const updatedWishlist = [...prev, wish];
+        saveWishToFirestore(userId, updatedWishlist);
+        toast.success("Perfume added to Wishlist");
+        return updatedWishlist;
+      }
+      // if (!alreadyInWishlist) return [...prev, wish];
+    });
   };
 
   const removeFromWishlist = (id) => {
     try {
-      setWishlist((prevItems) => prevItems.filter((item) => item.id !== id));
+      const updatedWishlist = wishlist.filter((item) => item.id !== id);
+
+      saveWishToFirestore(userId, updatedWishlist);
+
+      setWishlist(updatedWishlist);
+
       toast.error("Perfume removed from wishlist");
     } catch (error) {
       toast.error("Failed to remove perfume");
@@ -87,6 +90,7 @@ export const WishProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log("userId for wishlist load:", userId);
     if (userId) {
       loadWishFromFirestore(userId);
     } else {
@@ -95,15 +99,16 @@ export const WishProvider = ({ children }) => {
   }, [userId]);
 
   useEffect(() => {
-    if (wishlist && userId !== null) {
+    if (wishlistLoaded && userId !== null) {
+      console.log("Saving wishlist to Firestore:", wishlist);
+
       const handler = setTimeout(() => {
-        //  if (wishlist.length !== 0)
         saveWishToFirestore(userId, wishlist);
       }, 500);
       return () => clearTimeout(handler);
     }
     console.log(wishlist);
-  }, [wishlist, userId]);
+  }, [wishlist, userId, wishlistLoaded]);
 
   return (
     <WishContext.Provider

@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userRole, setUserRole] = useState(null);
 
   const getInitials = (name) => {
     const names = name.trim().split(" ");
@@ -48,7 +49,14 @@ export const AuthProvider = ({ children }) => {
 
   const updateLastActive = async (currentUser) => {
     const userRef = doc(db, "customers", currentUser.uid);
-    await setDoc(userRef, { lastActive: serverTimestamp() }, { merge: true });
+    const userSnap = await getDoc(userRef);
+    if (!userSnap.exists()) {
+      await setDoc(
+        userRef,
+        { ...userSnap.data(), lastActive: serverTimestamp() },
+        { merge: true }
+      );
+    }
   };
 
   const signUp = async (email, password, displayName) => {
@@ -93,8 +101,16 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
       if (currUser) {
         setUserId(currUser.uid);
-
         updateLastActive(currUser);
+
+        const userRef = doc(db, "customers", currUser.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          setUserRole(userData.role);
+          await updateLastActive(currUser);
+        }
       } else {
         setUserId(null);
       }
@@ -110,7 +126,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, userId, signUp, logIn, loginWithGoogle, logOut }}
+      value={{ user, userId, signUp, logIn, loginWithGoogle, logOut, userRole }}
     >
       {!loading && children}
     </AuthContext.Provider>

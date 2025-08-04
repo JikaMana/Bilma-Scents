@@ -21,6 +21,7 @@ import ProtectedRoute from "./components/ProtectedRoutes";
 import { PerfumeProvider } from "./contexts/PerfumeContext";
 import AdminDashboard from "./pages/AdminDashboard";
 import { OrderProvider } from "./contexts/OrderContext";
+import ProtectedAdminRoute from "./pages/ProtectedAdminRoute";
 // import TawkWidget from "./components/TawkWidget";
 
 function App() {
@@ -73,7 +74,11 @@ function App() {
                 </Route>
                 <Route
                   path="bilma-secret-admin-dashboard"
-                  element={<AdminDashboard />}
+                  element={
+                    <ProtectedAdminRoute>
+                      <AdminDashboard />
+                    </ProtectedAdminRoute>
+                  }
                 />
 
                 <Route path="*" element={<NotFound />} />
