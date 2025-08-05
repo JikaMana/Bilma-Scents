@@ -39,17 +39,21 @@ const CartPage = () => {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col sm:flex-row items-center justify-between border rounded-lg p-4 shadow-sm"
+                className="flex flex-col min400:flex-row items-center justify-between border rounded-lg p-4 shadow-sm"
               >
                 <div className="flex items-center gap-4">
                   <img
                     src={item.imageUrl}
                     alt={item.name}
-                    className="w-24 h-24 object-contain bg-gray-100 rounded"
+                    className="w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24 object-contain bg-gray-100 rounded"
                   />
                   <div>
-                    <h4 className="font-semibold text-lg">{item.name}</h4>
-                    <p className="text-sm text-[#9c6a24]">₦{item.price}</p>
+                    <h4 className="font-semibold text-base sm:text-lg">
+                      {item.name}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-[#9c6a24]">
+                      ₦{item.price}
+                    </p>
                   </div>
                 </div>
 
