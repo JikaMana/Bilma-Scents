@@ -7,7 +7,7 @@ import { ClipLoader } from "react-spinners";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { logIn, loginWithGoogle } = useAuth();
+  const { logIn, loginWithGoogle, logOut, user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
@@ -48,6 +48,15 @@ const Login = () => {
       toast.success("Access granted");
     } catch (err) {
       setError(err.code);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -116,6 +125,17 @@ const Login = () => {
             Register
           </Link>
         </p>
+
+        <div className="md:hidden mt-4 flex justify-center items-center">
+          <Button
+            type="submit"
+            style="mt-4 max-w-32 "
+            disabled={!user}
+            onClick={handleLogout}
+          >
+            Log Out
+          </Button>
+        </div>
       </div>
     </div>
   );

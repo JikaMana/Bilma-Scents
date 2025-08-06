@@ -14,7 +14,7 @@ const ProtectedAdminRoute = ({ children }) => {
     }
   }, [userRole]);
 
-  if (loading || userRole === null) {
+  if (loading && userRole === null) {
     return (
       <div className="flex justify-center items-center h-screen">
         <ClipLoader
@@ -28,7 +28,7 @@ const ProtectedAdminRoute = ({ children }) => {
     );
   }
 
-  if (!user || userRole !== "admin") {
+  if (!user || userRole !== "admin" || userRole === null) {
     return <Navigate to="/" replace />;
   }
 
