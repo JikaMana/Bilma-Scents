@@ -108,6 +108,8 @@ export const AuthProvider = ({ children }) => {
 
         if (userSnap.exists()) {
           const userData = userSnap.data();
+
+          console.log(userData.role);
           setUserRole(userData.role);
           await updateLastActive(currUser);
         }
@@ -121,8 +123,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("UserId", userId);
   }, [user, userId]);
-
-  // console.log( userId);
 
   return (
     <AuthContext.Provider

@@ -5,30 +5,25 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 
 const ProtectedAdminRoute = ({ children }) => {
-  const { user, userRole, loading } = useAuth();
+  const { user, userRole, loading } = useAuth(); // get loading from context
 
   useEffect(() => {
-    console.log("User role:", userRole);
-    if (userRole && userRole !== "admin") {
-      toast.error("Access denied. Admins only.");
-    }
-  }, [userRole]);
+    console.log("User:", user);
+    console.log("Role:", userRole);
+  }, [user, userRole]);
 
-  if (loading && userRole === null) {
+  // Wait for auth to fully initialize
+  if (loading || userRole === null) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <ClipLoader
-          color="#9c6a24"
-          loading={loading}
-          size={100}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
+        <ClipLoader color="#9c6a24" loading={true} size={100} />
       </div>
     );
   }
 
-  if (!user || userRole !== "admin" || userRole === null) {
+  // Handle non-admin users
+  if (!user || userRole !== "admin") {
+    toast.error("Access denied. Admins only.");
     return <Navigate to="/" replace />;
   }
 
