@@ -42,7 +42,6 @@ const AdminDashboard = () => {
     }
   };
 
-  console.log(recentOrders);
   useEffect(() => {
     fetchOrders();
   }, []);

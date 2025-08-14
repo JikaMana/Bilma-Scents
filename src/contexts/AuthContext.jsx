@@ -109,7 +109,7 @@ export const AuthProvider = ({ children }) => {
         if (userSnap.exists()) {
           const userData = userSnap.data();
 
-          console.log(userData.role);
+          // console.log(userData.role);
           setUserRole(userData.role);
           await updateLastActive(currUser);
         }
@@ -126,7 +126,16 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, userId, signUp, logIn, loginWithGoogle, logOut, userRole }}
+      value={{
+        user,
+        userId,
+        signUp,
+        logIn,
+        loginWithGoogle,
+        logOut,
+        userRole,
+        loading,
+      }}
     >
       {!loading && children}
     </AuthContext.Provider>

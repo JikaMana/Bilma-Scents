@@ -8,8 +8,8 @@ const ProtectedAdminRoute = ({ children }) => {
   const { user, userRole, loading } = useAuth(); // get loading from context
 
   useEffect(() => {
-    console.log("User:", user);
-    console.log("Role:", userRole);
+    // console.log("User:", user);
+    // console.log("Role:", userRole);
   }, [user, userRole]);
 
   // Wait for auth to fully initialize
