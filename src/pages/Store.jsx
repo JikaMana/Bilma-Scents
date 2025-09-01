@@ -1,20 +1,45 @@
-import React, { Fragment, useEffect, useState } from "react";
-import storeBanner from "../assets/images/background/storeBanner.webp";
-import CustomItem from "../components/CustomItem";
-import { useLocation } from "react-router";
-import ProductFilters from "../components/ProductFilters";
+import React, { Fragment, useEffect, useState } from 'react';
+import storeBanner from '../assets/images/background/storeBanner.webp';
+import CustomItem from '../components/CustomItem';
+import { useLocation } from 'react-router';
+import ProductFilters from '../components/ProductFilters';
 
-import { usePerfumes } from "../contexts/PerfumeContext";
-import { ClipLoader } from "react-spinners";
-
-const PER_PAGE = 10000;
+import { usePerfumes } from '../contexts/PerfumeContext';
+import { ClipLoader } from 'react-spinners';
 
 const Store = () => {
   const { perfumes, loading, TOTAL_PERFUME_PER_PAGE } = usePerfumes();
-
   const location = useLocation();
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState('');
   const [searchPerfume, setSearchPerfume] = useState(perfumes);
+  const categories = ['Floral', 'Woody', 'Fresh', 'Oriental'];
+
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedBrand, setSelectedBrand] = useState('');
+  const [selectedAvailability, setSelectedAvailability] = useState('');
+  const [selectedPriceRange, setSelectedPriceRange] = useState(null);
+  const [boxed, setBoxed] = useState(false);
+
+  const getFilteredPerfumes = () => {
+    return searchPerfume.filter((perfume) => {
+      let match = true;
+      if (selectedCategory)
+        match = match && perfume.category === selectedCategory;
+      if (selectedBrand) match = match && perfume.brand === selectedBrand;
+      if (selectedAvailability) {
+        match =
+          match &&
+          ((selectedAvailability === 'in' && perfume.inStock) ||
+            (selectedAvailability === 'out' && !perfume.inStock));
+      }
+      if (boxed) match = match && perfume.boxed === true;
+      if (selectedPriceRange) {
+        const [min, max] = selectedPriceRange;
+        match = match && perfume.price >= min && perfume.price <= max;
+      }
+      return match;
+    });
+  };
 
   useEffect(() => {
     if (!perfumes.length) return;
@@ -36,10 +61,9 @@ const Store = () => {
         className="min-h-[30vh] md:min-h-[35vh] flex flex-col justify-center items-center text-5xl font-display italic text-center text-[#f1e7dd]"
         style={{
           backgroundImage: `url(${storeBanner})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
         {location.pathname}
       </div>
 
@@ -64,8 +88,19 @@ const Store = () => {
           </div>
 
           <main className="flex">
-            <ProductFilters perfumes={searchPerfume} />
-
+            <ProductFilters
+              perfumes={searchPerfume}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              selectedBrand={selectedBrand}
+              setSelectedBrand={setSelectedBrand}
+              selectedAvailability={selectedAvailability}
+              setSelectedAvailability={setSelectedAvailability}
+              boxed={boxed}
+              setBoxed={setBoxed}
+              selectedPriceRange={selectedPriceRange}
+              setSelectedPriceRange={setSelectedPriceRange}
+            />
             <div className="flex-1 max-h-[80vh] overflow-y-auto scrollbar-hide">
               {loading ? (
                 <div className="flex items-center justify-center h-full">
@@ -85,9 +120,14 @@ const Store = () => {
                 </div>
               ) : (
                 <div className="grid grid-cols-2 lg:grid-cols-3 justify-between gap-x-2 gap-y-4 sm:gap-4 md:gap-8 relative">
-                  {searchPerfume.slice(0, PER_PAGE).map((item) => (
-                    <CustomItem item={item} key={item.id} />
-                  ))}
+                  {getFilteredPerfumes()
+                    .slice(0, TOTAL_PERFUME_PER_PAGE)
+                    .map((item) => (
+                      <CustomItem
+                        item={item}
+                        key={item.id}
+                      />
+                    ))}
                 </div>
               )}
             </div>

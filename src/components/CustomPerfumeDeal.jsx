@@ -1,12 +1,11 @@
-import React from "react";
-import CustomItem from "./CustomItem";
-import { usePerfumes } from "../contexts/PerfumeContext";
+import React from 'react';
+import CustomItem from './CustomItem';
+// import { usePerfumes } from '../contexts/PerfumeContext';
 // import { featuredPerfumes } from "../constants";
 
-const CustomPerfumeDeal = ({ title }) => {
-  const { perfumes } = usePerfumes();
-
-  let featuredPerfumes = perfumes; //change this with filtering through for thoose with cateofries featured
+const CustomPerfumeDeal = ({ title, perfumes }) => {
+  // const { perfumes } = usePerfumes();
+  // let featuredPerfumes = perfumes; //change this with filtering through for thoose with cateofries featured
 
   return (
     <section className="py-4 sm:py-8 md:py-12 px-6 mt-4">
@@ -16,8 +15,11 @@ const CustomPerfumeDeal = ({ title }) => {
         </h2>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-4 sm:gap-4 md:gap-8">
-          {featuredPerfumes.map((item) => (
-            <CustomItem item={item} key={item.id} />
+          {perfumes.map((item) => (
+            <CustomItem
+              item={item}
+              key={item.id}
+            />
           ))}
         </div>
       </div>

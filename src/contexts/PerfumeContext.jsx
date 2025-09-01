@@ -5,10 +5,10 @@ import {
   onSnapshot,
   serverTimestamp,
   setDoc,
-} from "firebase/firestore";
-import { createContext, useContext, useEffect, useState } from "react";
-import { db } from "../lib/firebase";
-import { toast } from "sonner";
+} from 'firebase/firestore';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { db } from '../lib/firebase';
+import { toast } from 'sonner';
 
 const PerfumeContext = createContext();
 
@@ -20,7 +20,7 @@ export const PerfumeProvider = ({ children }) => {
   useEffect(() => {
     try {
       setLoading(true);
-      const unsubscribe = onSnapshot(collection(db, "perfumes"), (snapshot) => {
+      const unsubscribe = onSnapshot(collection(db, 'perfumes'), (snapshot) => {
         const fetchedPerfumes = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -31,7 +31,7 @@ export const PerfumeProvider = ({ children }) => {
       });
       return () => unsubscribe;
     } catch (error) {
-      toast.error("Failed to fetch data");
+      toast.error('Failed to fetch data');
       setLoading(false);
       return error;
     }
@@ -44,14 +44,14 @@ export const PerfumeProvider = ({ children }) => {
   const handleDeleteProduct = async (id) => {
     try {
       // 1. Create a reference to the document in Firestore
-      const perfumeDocRef = doc(db, "perfumes", id);
+      const perfumeDocRef = doc(db, 'perfumes', id);
       // 2. Delete the document from Firestore
       await deleteDoc(perfumeDocRef);
       // 3. If the database deletion is successful, update the local state
       setPerfumes(perfumes.filter((p) => p.id !== id));
-      toast.error("Perfume successfully removed");
+      toast.error('Perfume successfully removed');
     } catch (error) {
-      toast.error("Error removing perfume");
+      toast.error('Error removing perfume');
     }
   };
 
@@ -63,8 +63,7 @@ export const PerfumeProvider = ({ children }) => {
         handleDeleteProduct,
         loading,
         TOTAL_PERFUME_PER_PAGE,
-      }}
-    >
+      }}>
       {children}
     </PerfumeContext.Provider>
   );

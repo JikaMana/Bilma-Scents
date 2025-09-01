@@ -1,42 +1,43 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { toast } from "sonner";
-import ImageUploadForm from "./ImageUploadForm";
-import { db } from "../../lib/firebase";
-import { ClipLoader } from "react-spinners";
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { toast } from 'sonner';
+import ImageUploadForm from './ImageUploadForm';
+import { db } from '../../lib/firebase';
+import { ClipLoader } from 'react-spinners';
 
 const AddProduct = ({ setActiveTab }) => {
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [newProduct, setNewProduct] = useState({
-    name: "",
-    category: "",
-    price: "",
-    size: "",
-    flavour: "",
-    description: "",
-    imageUrl: "",
-    topNotes: "",
-    heartNotes: "",
-    baseNotes: "",
+    name: '',
+    category: '',
+    price: '',
+    size: '',
+    flavour: '',
+    description: '',
+    imageUrl: '',
+    topNotes: '',
+    heartNotes: '',
+    baseNotes: '',
     inStock: true,
+    sections: [],
   });
 
   const validateForm = () => {
-    if (!newProduct.name.trim()) return "Product name is required";
+    if (!newProduct.name.trim()) return 'Product name is required';
     if (!newProduct.description.trim())
-      return "Product description is required";
-    if (!newProduct.flavour.trim()) return "Product flavour is required";
-    if (!newProduct.category.trim()) return "Product category is required";
-    if (!newProduct.size.trim()) return "Product size is required";
-    if (!newProduct.imageUrl.trim()) return "Product image URL is required";
-    if (!newProduct.topNotes.trim()) return "Top note is required";
-    if (!newProduct.heartNotes.trim()) return "Heart note is required";
-    if (!newProduct.baseNotes.trim()) return "Base note is required";
-    if (!newProduct.price) return "Price is required";
-    if (isNaN(newProduct.price)) return "Price must be a number";
-    return "";
+      return 'Product description is required';
+    if (!newProduct.flavour.trim()) return 'Product flavour is required';
+    if (!newProduct.category.trim()) return 'Product category is required';
+    if (!newProduct.size.trim()) return 'Product size is required';
+    if (!newProduct.imageUrl.trim()) return 'Product image URL is required';
+    if (!newProduct.topNotes.trim()) return 'Top note is required';
+    if (!newProduct.heartNotes.trim()) return 'Heart note is required';
+    if (!newProduct.baseNotes.trim()) return 'Base note is required';
+    if (!newProduct.price) return 'Price is required';
+    if (isNaN(newProduct.price)) return 'Price must be a number';
+    return '';
   };
 
   const handleAddProduct = async (e) => {
@@ -50,42 +51,52 @@ const AddProduct = ({ setActiveTab }) => {
     }
 
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
-      await addDoc(collection(db, "perfumes"), {
+      await addDoc(collection(db, 'perfumes'), {
         ...newProduct,
         price: Number(newProduct.price),
         createdAt: serverTimestamp(),
       });
 
       setNewProduct({
-        image: "",
-        name: "",
-        flavour: "",
-        price: "",
-        description: "",
+        image: '',
+        name: '',
+        flavour: '',
+        price: '',
+        description: '',
         inStock: true,
-        category: "",
-        size: "",
-        topNotes: "",
-        heartNotes: "",
-        baseNotes: "",
-        imageUrl: "",
+        category: '',
+        size: '',
+        topNotes: '',
+        heartNotes: '',
+        baseNotes: '',
+        imageUrl: '',
+        sections: [],
       });
 
-      toast.success("Perfume added successfully");
+      toast.success('Perfume added successfully');
     } catch (err) {
-      toast.error("Failed to add perfume");
-      setError("Failed to add perfume. Please try again.");
+      toast.error('Failed to add perfume');
+      setError('Failed to add perfume. Please try again.');
       console.log(err);
       throw Error;
     } finally {
       setLoading(false);
     }
 
-    setActiveTab("products");
+    setActiveTab('products');
   };
+
+  const sectionOptions = [
+    'New Arrivals',
+    'Best Sellers',
+    'For Him',
+    'For Her',
+    'Luxury Collection',
+    'Customer Favorites',
+  ];
 
   return (
     <div className="space-y-6">
@@ -136,8 +147,7 @@ const AddProduct = ({ setActiveTab }) => {
                   setNewProduct({ ...newProduct, category: e.target.value })
                 }
                 className="w-full px-3 py-2 border border-gray-300 outline-none rounded-lg focus:ring-2 focus:ring-[#9c6a24] focus:border-[#9c6a24]"
-                required
-              >
+                required>
                 <option value="">Select category</option>
                 <option value="Floral">Floral</option>
                 <option value="Fresh">Fresh</option>
@@ -261,18 +271,43 @@ const AddProduct = ({ setActiveTab }) => {
             />
             <label
               htmlFor="inStock"
-              className="ml-2 block text-sm text-gray-900"
-            >
+              className="ml-2 block text-sm text-gray-900">
               In Stock
             </label>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Sections
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {sectionOptions.map((section) => (
+                <label
+                  key={section}
+                  className="flex items-center gap-1">
+                  <input
+                    type="checkbox"
+                    checked={newProduct.sections.includes(section)}
+                    onChange={(e) => {
+                      setNewProduct((prev) => ({
+                        ...prev,
+                        sections: e.target.checked
+                          ? [...prev.sections, section]
+                          : prev.sections.filter((s) => s !== section),
+                      }));
+                    }}
+                  />
+                  <span>{section}</span>
+                </label>
+              ))}
+            </div>
           </div>
 
           <div className="flex justify-end space-x-4">
             <button
               type="button"
-              onClick={() => setActiveTab("products")}
-              className="px-4 sm:px-6 py-2 text-xs sm:text-base border border-gray-300 outline-none text-gray-700 cursor-pointer rounded-lg hover:bg-gray-50 transition-colors"
-            >
+              onClick={() => setActiveTab('products')}
+              className="px-4 sm:px-6 py-2 text-xs sm:text-base border border-gray-300 outline-none text-gray-700 cursor-pointer rounded-lg hover:bg-gray-50 transition-colors">
               Cancel
             </button>
             {loading ? (
@@ -289,8 +324,7 @@ const AddProduct = ({ setActiveTab }) => {
               <button
                 type="submit"
                 onClick={handleAddProduct}
-                className="px-4 sm:px-6 py-2 text-xs sm:text-base bg-[#9c6a24] text-white rounded-lg cursor-pointer hover:opacity-70 transition-colors"
-              >
+                className="px-4 sm:px-6 py-2 text-xs sm:text-base bg-[#9c6a24] text-white rounded-lg cursor-pointer hover:opacity-70 transition-colors">
                 Add Product
               </button>
             )}
